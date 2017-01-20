@@ -55,8 +55,8 @@ function stopInterval(){
     /*
         Set timeRemaining as a warning and close the countdown.
     */
-    document.getElementById('timeRemaining').innerHTML =  "Time has ran out, a message to your connect" +
-        " person is beeing sent."
+    document.getElementById('timeRemaining').innerHTML =  "Time has ran out, a message to your contact" +
+        " person is being sent."
     clearInterval(interval);
 
 }
