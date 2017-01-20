@@ -31,7 +31,31 @@ document.getElementById('start-button').onclick = function() {
         minutes = defaultMinutes;
     }
 
-    // Save minutes and redirect to status page
-    localStorage.setItem('minutes', minutes);
-    location.href = "status.html";
+
+    // Send HTTP POST to server
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/ok')
+    xhr.send(null);
+
+    // Handle response from backend
+    xhr.onreadystatechange = function() {
+        var DONE = 4;
+        var OK = 200;
+        if (xhr.readyState === DONE) {
+            if (xhr.status === OK){
+                console.log(xhr.responseText);
+
+                // Save minutes and redirect to status page
+                localStorage.setItem('minutes', minutes);
+                location.href = "status.html";
+            }else {
+                console.log('Error: ' + xhr.status);
+            }
+        }
+    }
+
+
+
+
+
 };
