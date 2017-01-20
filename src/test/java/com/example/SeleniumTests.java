@@ -21,25 +21,25 @@ public class SeleniumTests {
 	public static final String URL = "http://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:80/wd/hub";
 
 
-	@Before
-	public void defineWebDriverPath(){
-		String currentDir = System.getProperty("user.dir");
-		String chromeDriverLocation = currentDir + "/tools/chromedriver/chromedriver";
-		System.setProperty("webdriver.chrome.driver", chromeDriverLocation);
-	}
+//	@Before
+//	public void defineWebDriverPath(){
+//		String currentDir = System.getProperty("user.dir");
+//		String chromeDriverLocation = currentDir + "/tools/chromedriver/chromedriver";
+//		System.setProperty("webdriver.chrome.driver", chromeDriverLocation);
+//	}
 
-	@Test
-	public void startLocalWebDriver(){
-		WebDriver driver = new ChromeDriver();
-
-		driver.navigate().to("http://seleniumsimplified.com");
-
-		Assert.assertTrue("title should start differently",
-				driver.getTitle().startsWith("Selenium Simplified"));
-
-		driver.close();
-		driver.quit();
-	}
+//	@Test
+//	public void startLocalWebDriver(){
+//		WebDriver driver = new ChromeDriver();
+//
+//		driver.navigate().to("http://seleniumsimplified.com");
+//
+//		Assert.assertTrue("title should start differently",
+//				driver.getTitle().startsWith("Selenium Simplified"));
+//
+//		driver.close();
+//		driver.quit();
+//	}
 
 	@Test
 	public void startRemoteWebDriver() throws Exception {
