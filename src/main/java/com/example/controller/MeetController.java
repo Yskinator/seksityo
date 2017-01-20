@@ -8,6 +8,7 @@ package com.example.controller;
 
 import org.springframework.http.HttpStatus;
 import static org.springframework.http.RequestEntity.method;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,8 +25,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class MeetController {
 
     @RequestMapping(value = "/ok", method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void sendAnOK() {
+    public ResponseEntity<String> sendAnOK() {
+        return ResponseEntity.ok("");
     }
     
 }

@@ -1,6 +1,10 @@
 language: java
 jdk:
  - oraclejdk8
+addons:
+ sauce_connect:
+   username: "Merloni"
+   access_key: "30fb4b59-59c4-4a77-a157-0f6bc47fb001"
 deploy:
  provider: heroku
  api-key: 
