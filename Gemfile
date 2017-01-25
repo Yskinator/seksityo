@@ -50,6 +50,10 @@ group :development do
   gem 'sqlite3'
 end
 
+group :test do
+  gem 'simplecov', require: false
+end
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'
