@@ -1,0 +1,19 @@
+language: ruby
+script:
+  - bundle exec rake db:migrate --trace
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rspec -fd spec/
+rvm:
+  - 2.3.1
+cache: bundler
+addons:
+ sauce_connect:
+   username: "Merloni"
+   access_key: "30fb4b59-59c4-4a77-a157-0f6bc47fb001"
+deploy:
+ provider: heroku
+ api-key: 
+  secure: $HEROKU_API_KEY
+ app: seksity
+ run: "rake db:migrate"
