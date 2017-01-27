@@ -58,3 +58,8 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+
+#Configure Capybara javascript driver to use capybara webkit.
+#Replace :webkit with :selenium or comment this line to go back to using selenium.
+Capybara.javascript_driver = :webkit
