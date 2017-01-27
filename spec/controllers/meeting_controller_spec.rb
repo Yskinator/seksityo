@@ -39,6 +39,22 @@ RSpec.describe MeetingsController, type: :controller do
         meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
         expect { post :create, :meeting => meeting_params }.to change(Meeting, :count).by(1)
     end
+    it "should not create new meeting with negative duration" do
+      meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => -1}
+      expect { post :create, :meeting => meeting_params }.to change(Meeting, :count).by(0)
+    end
+    it "should not create new meeting with duration over 24h" do
+      meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 1440}
+      expect { post :create, :meeting => meeting_params }.to change(Meeting, :count).by(0)
+    end
+    it "should not create new meeting with string input duration" do
+      meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => "sdfd"}
+      expect { post :create, :meeting => meeting_params }.to change(Meeting, :count).by(0)
+    end
+    it "should not create new meeting with invalid phone number" do
+      meeting_params = {:nickname => "Pekka", :phone_number => "123", :duration => 30}
+      expect { post :create, :meeting => meeting_params }.to change(Meeting, :count).by(0)
+    end
   end
   describe "PUT update" do
     it "should update Meeting" do
@@ -50,5 +66,4 @@ RSpec.describe MeetingsController, type: :controller do
       expect(response).to redirect_to(@meeting)
     end
   end
-
 end
