@@ -5,7 +5,7 @@ feature 'Start new meeting' do
     visit '/'
     fill_in 'Phone number', with: '0401234123'
     fill_in 'Duration', with: '30'
-    click_button 'Create Meeting'
+    click_button 'Start Timer'
 
     expect(page).to have_content('Meeting was successfully created.')
   end
