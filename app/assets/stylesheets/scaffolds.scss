@@ -20,7 +20,7 @@ pre {
 
 a {
   color: #000;
-
+  text-align: center;
   &:visited {
     color: #666;
   }
@@ -36,7 +36,6 @@ div {
     margin-bottom: 10px;
   }
 }
-
 #notice {
   color: green;
 }

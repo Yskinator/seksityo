@@ -1,7 +1,26 @@
 // Place all the styles related to the meetings controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-h1, .field, .actions, .link-to-button{
+
+
+
+h1{
+
+  font: 300% Helvetica;
   text-align: center;
 
+}
+.link_to_holder{
+
+  text-align: center;
+
+}
+.field, .actions, .button{
+  font: 200% Helvetica;
+  text-align: center;
+}
+input.field_textfield{
+  font-size: 150%;
+  width: 100%;
+  height: 30px;
 }

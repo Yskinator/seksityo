@@ -13,11 +13,11 @@
 
   <div class="field">
     <%= f.label :nickname %><br>
-    <%= f.text_field :nickname %>
+    <%= f.text_field :nickname, :class => "field_textfield" %>
   </div>
   <div class="field">
     <%= f.label :phone_number %><br>
-    <%= f.text_field :phone_number %>
+    <%= f.text_field :phone_number, :class => "field_textfield"%>
   </div>
   <div class="field">
     <%= f.label :duration %><br>
@@ -25,9 +25,9 @@
   </div>
   <div class="field">
     <%= f.label :confirmed %><br>
-    <%= f.check_box :confirmed %>
+    <%= f.check_box :confirmed%>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit%>
   </div>
 <% end %>
