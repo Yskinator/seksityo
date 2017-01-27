@@ -13,21 +13,21 @@
 
   <div class="field">
     <%= f.label :nickname %><br>
-    <%= f.text_field :nickname, :class => "field_textfield" %>
+    <%= f.text_field :nickname, :class => "textfield" %>
   </div>
   <div class="field">
     <%= f.label :phone_number %><br>
-    <%= f.text_field :phone_number, :class => "field_textfield"%>
+    <%= f.text_field :phone_number, :class => "textfield"%>
   </div>
   <div class="field">
     <%= f.label :duration %><br>
-    <%= f.number_field :duration %>
+    <%= f.number_field :duration, :class => "numfield" %>
   </div>
   <div class="field">
     <%= f.label :confirmed %><br>
-    <%= f.check_box :confirmed%>
+    <%= f.check_box :confirmed %>
   </div>
   <div class="actions">
-    <%= f.submit%>
+    <%= f.submit 'Start timer', :class => "submitbutton"%>
   </div>
 <% end %>
