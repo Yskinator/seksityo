@@ -9,14 +9,14 @@ RSpec.describe MeetingsController, type: :controller do
   end
   describe "GET show" do
     it "renders the show template" do
-      Meeting.create
+      Meeting.create(nickname: "Matti", phone_number: 0401231234, duration: 20)
       get :show, id: 1
       expect(response).to render_template("show")
     end
   end
   describe "DELETE delete" do
     it "deletes the specified meeting" do
-      Meeting.create
+      Meeting.create(nickname: "Matti", phone_number: 0401231234, duration: 20)
       get :destroy, id: 1
       expect(Meeting.count).to eq(0)
     end
@@ -29,21 +29,21 @@ RSpec.describe MeetingsController, type: :controller do
   end
   describe "GET edit" do
     it "renders the edit template" do
-      Meeting.create
+      Meeting.create(nickname: "Matti", phone_number: 0401231234, duration: 20)
       get :edit, id: 1
       expect(response).to render_template("edit")
     end
   end
   describe "POST create" do
     it "should create new meeting with correct params" do
-        meeting_params = {:nickname => "Pekka", :phone_number => "123123", :duration => 30}
+        meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
         expect { post :create, :meeting => meeting_params }.to change(Meeting, :count).by(1)
     end
   end
   describe "PUT update" do
     it "should update Meeting" do
       attr = { :nickname => "Pekka"}
-      @meeting = Meeting.create(nickname: "Matti", phone_number: 1234, duration: 20)
+      @meeting = Meeting.create(nickname: "Matti", phone_number: 0401231234, duration: 20)
       put :update, id: 1, :meeting => attr
       @meeting.reload
       expect(@meeting.nickname).to eq("Pekka")
