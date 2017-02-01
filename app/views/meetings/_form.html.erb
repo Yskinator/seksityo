@@ -24,7 +24,7 @@
       <a href="" class="duration-select selected">2h</a>
     </div>
 
-    <%= f.number_field :duration, :class => "numfield", :name => "duration" %>
+    <%= f.number_field :duration, :class => "numfield"%>
     <% if @meeting.errors.messages[:duration].any? %>
         <br><div class="error-explanation">
     <p class="error-message">Duration is invalid. <br><br> Valid range is 0 to 1440</p>
