@@ -1,24 +1,18 @@
-<p id="notice"><%= notice %></p>
+<%= form_for(@meeting) do |f| %>
+    <h1>Brändinimi</h1>
 
-<p>
-  <strong>Nickname:</strong>
-  <%= @meeting.nickname %>
-</p>
+    <h1>Sending message at:</h1>
+    <div class="textfield">
+      <strong>Meeting created at <%= @meeting.created_at %>, sending alert after</strong>
+    </div>
+    <div class="info-timer">
+      <%= @meeting.duration %> minutes
+    </div>
 
-<p>
-  <strong>Phone number:</strong>
-  <%= @meeting.phone_number %>
-</p>
-
-<p>
-  <strong>Duration:</strong>
-  <%= @meeting.duration %>
-</p>
-
-<p>
-  <strong>Confirmed:</strong>
-  <%= @meeting.confirmed %>
-</p>
-
-<%= link_to 'Edit', edit_meeting_path(@meeting) %> |
-<%= link_to 'Back', meetings_path %>
+    <div class="actions">
+      <%= f.submit 'I\'m OK', :class => "submitbutton" %>
+    </div>
+    <div class="actions">
+      <%= f.submit 'Send alert', :class => "alertbutton" %>
+    </div>
+<% end %>

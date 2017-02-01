@@ -61,6 +61,16 @@ h1{
   box-shadow: none;
   margin-top: 20px;
 }
+.alertbutton{
+  width: 100%;
+  font-size: 150%;
+  height: 50px;
+  color: white;
+  background-color: red;
+  border-radius: 10px;
+  box-shadow: none;
+  margin-top: 20px;
+}
 .info-header {
   color: green;
   background-color: white;
@@ -70,4 +80,10 @@ h1{
 }
 .info-content {
   text-align: center;
+}
+.info-timer {
+  text-align: center;
+  color: red;
+  font: 300% Helvetica;
+  margin: 10px auto;
 }
