@@ -11,7 +11,7 @@
 </head>
 <body onload="initialiseMap();initialise()">
 <h1>javascript-mobile-desktop-geolocation With No Simulation with Google Maps</h1>
-<div id="current">Initializing...</div>
+<div id="current">Your browser does not seem to support javascript</div>
 <div id="map_canvas" style="width:320px; height:350px"></div>
 
 <script src="js/geoPosition.js" type="text/javascript" charset="utf-8"></script>
@@ -32,6 +32,7 @@
     }
     function initialise()
     {
+        document.getElementById('current').innerHTML="Javascript confirmed";
         if(geoPosition.init())
         {
             document.getElementById('current').innerHTML="Receiving...";
