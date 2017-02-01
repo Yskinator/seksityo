@@ -1,23 +1,19 @@
 <%= form_for(@meeting) do |f| %>
-  <% if @meeting.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
-
-      <ul>
-      <% @meeting.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="field">
     <%= f.text_field :nickname, :class => "textfield", placeholder: "Nickname" %>
+
   </div>
   <div class="field">
     <%= f.text_field :phone_number, :class => "textfield", placeholder: "Phone Number"%>
+    <% if @meeting.errors.messages[:phone_number].any? %>
+        <div class="error-explanation">
+          <p class="error-message">Phone number is invalid</p>
+        </div>
+    <% end %>
   </div>
   <div class="field">
+
     <div class="duration-container">
       <a href="" class="duration-select">30m</a>
     </div>
@@ -28,7 +24,14 @@
       <a href="" class="duration-select selected">2h</a>
     </div>
 
-    <%= f.number_field :duration, :class => "numfield" %>
+    <%= f.number_field :duration, :class => "numfield", :name => "duration" %>
+    <% if @meeting.errors.messages[:duration].any? %>
+        <br><div class="error-explanation">
+    <p class="error-message">Duration is invalid. <br><br> Valid range is 0 to 1440</p>
+  </div>
+    <% end %>
+
+
   </div>
 
   <div class="actions">
