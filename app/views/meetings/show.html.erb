@@ -1,18 +1,14 @@
-<%= form_for(@meeting) do |f| %>
-    <h1>Brändinimi</h1>
+<h1>Brändinimi</h1>
 
-    <h1>Sending message at:</h1>
-    <div class="textfield">
-      <strong>Meeting created at <%= @meeting.created_at %>, sending alert after</strong>
-    </div>
-    <div class="info-timer">
-      <%= @meeting.duration %> minutes
-    </div>
+<h1>Sending message at:</h1>
+<div class="textfield">
+  <strong>Meeting created at <%= @meeting.created_at %>, sending alert after</strong>
+</div>
+<div class="info-timer">
+  <%= @meeting.duration %> minutes
+</div>
 
-    <div class="actions">
-      <%= f.submit 'I\'m OK', :class => "submitbutton" %>
-    </div>
-    <div class="actions">
-      <%= f.submit 'Send alert', :class => "alertbutton" %>
-    </div>
-<% end %>
+<div class="actions">
+  <button class="submitbutton">I'm OK</button>
+  <button class="alertbutton">Send alert</button>
+</div>
