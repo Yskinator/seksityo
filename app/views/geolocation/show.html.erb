@@ -36,7 +36,7 @@
         if(geoPosition.init())
         {
             document.getElementById('current').innerHTML="Receiving...";
-            geoPosition.getCurrentPosition(showPosition,function(){document.getElementById('current').innerHTML="Couldn't get location"},{enableHighAccuracy:true});
+            geoPosition.getCurrentPosition(showPosition,function(error){document.getElementById('current').innerHTML=error.message},{enableHighAccuracy:true});
         }
         else
         {
