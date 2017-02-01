@@ -241,14 +241,15 @@ var geoPosition=function() {
                         }
                 } else  {                            
                         pub.getCurrentPosition = function(success, error, opts) {
-                                pub.jsonp.fetch(ipGeolocationSrv, 
+                                /*pub.jsonp.fetch(ipGeolocationSrv,
                                         function( p ){ success( { timestamp: p.timestamp, 
                                                                    coords: { 
                                                                         latitude:   p.latitude, 
                                                                         longitude:  p.longitude,
                                                                         heading:    p.heading
                                                                     }
-                                                                });});
+                                                                });});*/
+                                error({message:"Geolocation not supported."})
                         }
                         provider = true;
                 }
