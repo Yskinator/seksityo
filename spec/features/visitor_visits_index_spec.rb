@@ -4,6 +4,6 @@ feature 'Root redirection' do
   scenario 'user visits root' do
     visit '/'
 
-    expect(page).to have_content('New Meeting')
+    expect(page).to have_content('Brändinimi')
   end
 end
