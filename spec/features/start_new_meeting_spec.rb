@@ -7,6 +7,6 @@ feature 'Start new meeting' do
     fill_in 'duration', with: '30'
     click_button 'Start timer'
 
-    expect(page).to have_content('Meeting was successfully created.')
+    expect(page).to have_content('Sending message at:')
   end
 end
