@@ -4,4 +4,11 @@ class Meeting < ActiveRecord::Base
                                        less_than: 1440 }, allow_blank: true
 
   validates :phone_number, phone: true
+
+  def time_to_live
+    time = Time.new
+    return (self.created_at + (self.duration * 60)) - time
+  end
+
+
 end
