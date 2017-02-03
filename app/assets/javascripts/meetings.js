@@ -24,8 +24,8 @@ window.onload = function() {
         }
 
         /* Creates hidden field for the duration based on manual user input */
-        document.getElementById('duration-value').onkeyup = function() {
-            var input = document.getElementById('duration-value');
+        document.getElementById('duration-input').onkeyup = function() {
+            var input = document.getElementById('duration-input');
             if ( input.value ){
                 removeSelected('');
                 replaceHiddenInput(createNewInput(input.value));
@@ -53,7 +53,7 @@ createNewInput = function(value) {
 
 /* Replaces the (possibly) existing hidden input with a new one */
 replaceHiddenInput = function(newInput) {
-    var durationdiv = document.getElementById('duration-input');
+    var durationdiv = document.getElementById('duration-value');
     while (durationdiv.hasChildNodes()) {
         durationdiv.removeChild(durationdiv.lastChild);
     }
@@ -62,7 +62,7 @@ replaceHiddenInput = function(newInput) {
 
 /* Clears the manual duration input, called when a new duration is selected */
 clearManualInput = function(){
-    document.getElementById('duration-value').value = '';
+    document.getElementById('duration-input').value = '';
 }
 
 /* Removes 'selected' class from every selection, except the one specified */
