@@ -9,5 +9,14 @@ RSpec.describe Meeting, type: :model do
     expect(meeting.duration).to eq(30)
     expect(meeting.confirmed).to eq(true)
   end
+  it "has proper time_to_live" do
+    meeting = Meeting.new created_at:Time.new, nickname:"Pekka", phone_number:"0401231234", duration:30, confirmed: true
+    expect(meeting.time_to_live).to eq(30)
+
+    meeting.created_at = Time.new-120
+
+    expect(meeting.time_to_live).to eq(28)
+
+  end
 
 end
