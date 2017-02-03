@@ -16,6 +16,10 @@ class Meeting < ActiveRecord::Base
     return minutes
   end
 
+  def create_hashkey
+    self.hashkey = Digest::SHA2.new(512).digest(self.nickname + self.phone_number)
+  end
+
 
 
 end
