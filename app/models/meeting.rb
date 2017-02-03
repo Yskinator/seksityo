@@ -7,7 +7,9 @@ class Meeting < ActiveRecord::Base
 
   def time_to_live
     time = Time.new
-    return (self.created_at + (self.duration * 60)) - time
+    minutes = (((self.created_at + (self.duration * 60)) - time)/60).round
+
+    return minutes
   end
 
 
