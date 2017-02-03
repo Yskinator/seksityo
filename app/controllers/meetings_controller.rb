@@ -10,10 +10,15 @@ class MeetingsController < ApplicationController
   # GET /meetings/1
   # GET /meetings/1.json
   def show
+   @meeting = Meeting.find_by_phone_number(cookies[:current_meeting])
   end
 
   # GET /meetings/new
   def new
+    @meeting = Meeting.find_by_phone_number(cookies[:current_meeting])
+    if @meeting
+      redirect_to @meeting
+    end
     @meeting = Meeting.new
   end
 
@@ -25,6 +30,7 @@ class MeetingsController < ApplicationController
   # POST /meetings.json
   def create
     @meeting = Meeting.new(meeting_params)
+    cookies[:current_meeting] = @meeting.phone_number
 
     respond_to do |format|
       if @meeting.save
@@ -70,5 +76,9 @@ class MeetingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
       params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed)
+    end
+
+    def get_meeting_hash
+
     end
 end
