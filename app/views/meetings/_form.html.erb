@@ -15,21 +15,19 @@
   <div class="field">
 
     <div class="duration-container">
-      <a href="" class="duration-select">30m</a>
+      <a id="select30m" class="duration-select" data-turbolinks="false">30m</a>
     </div>
     <div class="duration-container">
-      <a href="" class="duration-select">1h</a>
+      <a id="select1h" class="duration-select" data-turbolinks="false">1h</a>
     </div>
     <div class="duration-container">
-      <a href="" class="duration-select selected">2h</a>
+      <a id="select2h" class="duration-select" data-turbolinks="false">2h</a>
+    </div>
+    <div id="duration-value">
     </div>
 
-    <%= f.number_field :duration, :class => "numfield"%>
-    <% if @meeting.errors.messages[:duration].any? %>
-        <br><div class="error-explanation">
-    <p class="error-message">Duration is invalid. <br><br> Valid range is 0 to 1440</p>
-  </div>
-    <% end %>
+    <input class="duration-input" type="number" id="duration-input" min="0" max="1440">
+
 
 
   </div>
