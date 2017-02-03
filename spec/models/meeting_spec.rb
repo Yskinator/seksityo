@@ -19,4 +19,15 @@ RSpec.describe Meeting, type: :model do
 
   end
 
+  it "can create hashkey" do
+    meeting = Meeting.new nickname:"Pekka", phone_number:"0401231234", duration:30, confirmed: true
+
+    expect(meeting.hashkey).to eq(nil)
+
+    meeting.create_hashkey
+
+    expect(meeting.hashkey).not_to eq(nil)
+
+  end
+
 end
