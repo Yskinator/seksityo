@@ -20,6 +20,4 @@ class Meeting < ActiveRecord::Base
     self.hashkey = Digest::SHA2.new(512).digest(self.nickname + self.phone_number)
   end
 
-
-
 end
