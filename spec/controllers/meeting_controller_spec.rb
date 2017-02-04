@@ -26,11 +26,11 @@ RSpec.describe MeetingsController, type: :controller do
       get :new
       expect(response).to render_template("new")
     end
-=begin Needs to be fixed
+=begin BROKEN - somehow the spec can't access the cookies?
     it "renders status page if hash found in cookies and database" do
       @meeting = Meeting.create(nickname: "Matti", phone_number: 0401231234, duration: 20)
       @meeting.create_hashkey
-      cookies[:current_meeting] = @meeting.hashkey
+      @request.cookies['current_meeting'] = @meeting.hashkey
       get :new
       expect(response).to redirect_to(@meeting)
     end

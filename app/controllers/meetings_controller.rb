@@ -10,16 +10,16 @@ class MeetingsController < ApplicationController
   # GET /meetings/1
   # GET /meetings/1.json
   def show
-   @meeting = Meeting.find_by_hashkey(cookies[:current_meeting])
+   @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
   end
 
   # GET /meetings/new
   def new
     # If user already has an active meeting, find it based on cookies.
-    if cookies[:current_meeting]
-      @meeting = Meeting.find_by_hashkey(cookies[:current_meeting])
+    if cookies['current_meeting']
+      @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
       if @meeting
-        redirect_to @meeting
+        redirect_to(@meeting)
       end
     end
     @meeting = Meeting.new
@@ -34,7 +34,7 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(meeting_params)
     @meeting.create_hashkey
-    cookies[:current_meeting] = @meeting.hashkey
+    cookies['current_meeting'] = @meeting.hashkey
 
     respond_to do |format|
       if @meeting.save
