@@ -30,8 +30,7 @@ class MeetingsController < ApplicationController
   # POST /meetings.json
   def create
     @meeting = Meeting.new(meeting_params)
-    cookies[:current_meeting] = @meeting.hashkey
-    cookies[:hashi] = @meeting.hashkey
+    cookies[:current_meeting] = @meeting.create_hashkey
 
     respond_to do |format|
       if @meeting.save

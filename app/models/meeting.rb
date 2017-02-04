@@ -18,6 +18,8 @@ class Meeting < ActiveRecord::Base
 
   def create_hashkey
     self.hashkey = Digest::SHA2.new(512).digest(self.nickname + self.phone_number)
+    self.hashkey = self.hashkey.force_encoding("UTF-8")
+    return self.hashkey
   end
 
 end
