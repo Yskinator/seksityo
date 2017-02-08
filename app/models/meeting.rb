@@ -16,7 +16,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def create_hashkey
-    self.hashkey = Digest::SHA2.new(512).hexdigest(self.nickname + self.phone_number)
+    self.hashkey = Digest::SHA2.new(512).hexdigest(self.nickname + self.phone_number + Time.now.to_s)
   end
 
 end
