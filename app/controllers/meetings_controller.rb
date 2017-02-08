@@ -34,10 +34,10 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(meeting_params)
     @meeting.create_hashkey
-    cookies['current_meeting'] = @meeting.hashkey
 
     respond_to do |format|
       if @meeting.save
+        cookies['current_meeting'] = @meeting.hashkey
         format.html { redirect_to @meeting, notice: 'Meeting was successfully created.' }
         format.json { render :show, status: :created, location: @meeting }
       else
