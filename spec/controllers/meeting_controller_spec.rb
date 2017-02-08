@@ -26,6 +26,14 @@ RSpec.describe MeetingsController, type: :controller do
       get :new
       expect(response).to render_template("new")
     end
+    it "renders status page if hash found in cookies and database" do
+      @meeting = Meeting.create(nickname: "Matti", phone_number: 0401231234, duration: 20)
+      @meeting.create_hashkey
+      @request.cookies['current_meeting'] = @meeting.hashkey
+      @meeting.save
+      get :new
+      expect(response).to redirect_to(@meeting)
+    end
   end
   describe "GET edit" do
     it "renders the edit template" do
