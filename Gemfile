@@ -63,10 +63,11 @@ group :test do
   gem 'simplecov', require: false
 
   gem 'database_cleaner'
+
+  gem "show_me_the_cookies"
 end
 
 group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
-

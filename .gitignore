@@ -20,3 +20,5 @@
 /test
 
 /coverage
+
+.byebug_history
