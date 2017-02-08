@@ -16,8 +16,8 @@ RSpec.describe MeetingsController, type: :controller do
   end
   describe "DELETE delete" do
     it "deletes the specified meeting" do
-      Meeting.create(nickname: "Matti", phone_number: 0401231234, duration: 20)
-      get :destroy, id: 1
+      @meeting = Meeting.create(nickname: "Matti", phone_number: 0401231234, duration: 20)
+      get :destroy, id: @meeting.id
       expect(Meeting.count).to eq(0)
     end
   end
@@ -37,8 +37,8 @@ RSpec.describe MeetingsController, type: :controller do
   end
   describe "GET edit" do
     it "renders the edit template" do
-      Meeting.create(nickname: "Matti", phone_number: 0401231234, duration: 20)
-      get :edit, id: 1
+      @meeting = Meeting.create(nickname: "Matti", phone_number: 0401231234, duration: 20)
+      get :edit, id: @meeting.id
       expect(response).to render_template("edit")
     end
   end
@@ -68,7 +68,7 @@ RSpec.describe MeetingsController, type: :controller do
     it "should update Meeting" do
       attr = { :nickname => "Pekka"}
       @meeting = Meeting.create(nickname: "Matti", phone_number: 0401231234, duration: 20)
-      put :update, id: 1, :meeting => attr
+      put :update, id: @meeting.id, :meeting => attr
       @meeting.reload
       expect(@meeting.nickname).to eq("Pekka")
       expect(response).to redirect_to(@meeting)
