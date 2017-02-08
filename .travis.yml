@@ -3,7 +3,7 @@ script:
   - bundle exec rake db:migrate --trace
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
-  - bundle exec rspec -fd spec/
+  - xvfb-run bundle exec rspec -fd spec/
 rvm:
   - 2.3.1
 cache: bundler
