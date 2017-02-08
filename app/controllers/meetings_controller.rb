@@ -11,6 +11,7 @@ class MeetingsController < ApplicationController
   # GET /meetings/1.json
   def show
    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+   
   end
 
   # GET /meetings/new
