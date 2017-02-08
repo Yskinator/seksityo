@@ -1,34 +1,97 @@
-// Place all the styles related to the info controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+$header-color: #2F4172;
+$container1-color: #522B72;
+$container2-color: #297C45;
 
-.logo{
-  width: 50%;
-  margin: 1px auto;
-  position: relative;
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+/* UNIVERSAL */
+
+html {
+  margin-top: -25px;
+}
+body {
+  font-family: 'Ubuntu', sans-serif;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+.main {
+  width: 100%;
+  max-width: 100vw;
+}
+@media screen and (min-width: 1079px) {
+  .content {
+    width: 1080px;
+  }
+}
+@media screen and (max-width: 1078px) {
+  .content {
+    width: 100%;
+  }
+}
+.content {
+  background-color: rgba(0,0,0,0.1);
+  color: white;
+  max-width: 90vw;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+  min-height: 500px;
+}
+.content > p {
+  margin: 20px;
+  padding: 50px 0px;
+}
+.container {
+  max-width: 100vw;
+}
+.sub-header {
+  margin-bottom: 20px;
 }
 
-.logo p{
-  font-size: 30px;
-  position: absolute;
-  top: 0%;
-  transform: translate(40px,-15px);
+/* HEADER */
+
+.header {
+  height: 500px;
+  background-color: $header_color;
+}
+.header-content {
+  text-align: center;
+  padding-top: 170px;
+  height: 500px;
 }
 
-.logo img{
-  float: left;
+/* CONTAINER 1 */
+
+.container1 {
+  background-color: $container1_color;
+}
+.container1-content {
+  padding-top: 50px;
+  min-height: 700px;
 }
 
-.info{
-  margin-top: 20px;
+/* CONTAINER 2 */
+
+.container2 {;
+  background-color: $container2_color;
 }
 
-.content{
-  margin: 20px 0 auto;
+.demo-img-text {
+  margin-top: 50px;
+  margin-bottom: 10px;
 }
 
-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto ;
+/* FOOTER */
+
+.footer {
+  width: 100%;
+  padding-top: 30px;
+  text-align: center;
+  height: 100px;
+  background-color: #1c2324;
+}
+.footer > a {
+  text-decoration: none;
+  color: white;
 }
