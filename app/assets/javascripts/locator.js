@@ -47,7 +47,7 @@ window.onload = function() {
         var longitude = document.createElement('input');
         longitude.setAttribute('type', 'hidden');
         longitude.setAttribute('name', 'meeting[longitude]');
-        longitude.setAttribute('value', p.coords.latitude);
+        longitude.setAttribute('value', p.coords.longitude);
         form.replaceChild(longitude, oldLongitude);
 
         /* Submit form */
