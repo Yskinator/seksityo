@@ -5,13 +5,13 @@ class MeetingsController < ApplicationController
   # GET /meetings.json
   def index
     @meetings = Meeting.all
+    ApplicationMailer.hello_email.deliver_later
   end
 
   # GET /meetings/1
   # GET /meetings/1.json
   def show
    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
-   
   end
 
   # GET /meetings/new
