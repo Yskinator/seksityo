@@ -1,9 +1,31 @@
+<script type="text/javascript">
+    var meeting_id = <%= @meeting.id %>;
+    var meeting_created = "<%= @meeting.created_at %>"
+    var meeting_updated = "<%= @meeting.updated_at %>";
+</script>
+<%= javascript_include_tag "locator" %>
 <h1>Sending message at:</h1>
 <div class="info-timer">
   <%= @meeting.time_to_live %> minutes
 </div>
 
+
 <div class="actions">
   <button class="submitbutton">I'm OK</button>
   <button class="alertbutton">Send alert</button>
+</div>
+
+
+
+<div id="location">
+  <% if not @meeting.longitude.nil? %>
+    <a href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>" target="_blank">Last updated location</a>
+  <% end %>
+</div>
+<div id="formdiv">
+  <form id="locationform" method="post" action="/meetings/<%= @meeting.id %>">
+    <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+    <input id="latitude" type="hidden">
+    <input id="longitude" type="hidden">
+  </form>
 </div>

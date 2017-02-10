@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   resources :meetings
+
+  # Used to update location to meeting, basic HTML-form does not support PUT
+  post "meetings/:id" => 'meetings#update'
+
+
   root 'meetings#new'
 
   get 'geolocation' => 'geolocation#show'
