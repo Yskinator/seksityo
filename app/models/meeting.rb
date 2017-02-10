@@ -19,4 +19,8 @@ class Meeting < ActiveRecord::Base
     self.hashkey = Digest::SHA2.new(512).hexdigest(self.nickname + self.phone_number + Time.now.to_s)
   end
 
+  def send_notification
+    self.destroy
+  end
+
 end
