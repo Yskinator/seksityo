@@ -5,7 +5,6 @@ class MeetingsController < ApplicationController
   # GET /meetings.json
   def index
     @meetings = Meeting.all
-    ApplicationMailer.notification_email.deliver_later
   end
 
   # GET /meetings/1
@@ -81,5 +80,9 @@ class MeetingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
       params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
+    end
+
+    def send_notification
+    #  ApplicationMailer.notification_email.deliver_later
     end
 end
