@@ -5,7 +5,7 @@ class MeetingsController < ApplicationController
   # GET /meetings.json
   def index
     @meetings = Meeting.all
-    ApplicationMailer.hello_email.deliver_later
+    ApplicationMailer.notification_email.deliver_later
   end
 
   # GET /meetings/1
