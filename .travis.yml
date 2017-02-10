@@ -18,5 +18,5 @@ deploy:
   secure: $HEROKU_API_KEY
  app: seksity
  run:
-  "rake db:migrate"
-  "bundle exec rake assets:precompile"
+  - "rake db:migrate"
+  - "bundle exec rake assets:precompile"
