@@ -15,7 +15,7 @@ window.onload = function() {
         if (geoPosition.init()) {
             geoPosition.getCurrentPosition(success_callback, error_callback, {enableHighAccuracy: true});
         } else {
-            document.getElementById('location').innerHTML = "ei toimi";
+            document.getElementById('location').innerHTML = "Device does not support location.";
         }
     }
 
