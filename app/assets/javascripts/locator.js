@@ -30,20 +30,6 @@ window.onload = function() {
     /* When position is successfully fetched, add link to page */
     function success_callback(p){
 
-        /* Clear any previous location links */
-        var locationDiv = document.getElementById('location');
-        while (locationDiv.firstChild) {
-            locationDiv.removeChild(locationDiv.lastChild);
-        }
-
-        /* Append new location link */
-        var mapsLink = document.createElement('a');
-        mapsLink.href = "http://maps.google.com/maps?z=12&t=m&q=loc:" + p.coords.latitude + "+"+ p.coords.longitude;
-        mapsLink.innerHTML = "Your current location";
-        mapsLink.target = "_blank";
-
-        locationDiv.appendChild(mapsLink);
-
         /* Get form from view */
         var form = document.getElementById('locationform');
 
@@ -66,7 +52,6 @@ window.onload = function() {
 
         /* Submit form */
         form.submit();
-
     }
 
     /* Display error message in case location does not work */
