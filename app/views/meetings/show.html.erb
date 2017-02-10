@@ -1,3 +1,7 @@
+<script type="text/javascript">
+    var meeting_id = <%= @meeting.id %>;
+    var meeting_updated = "<%= @meeting.updated_at %>";
+</script>
 <%= javascript_include_tag "locator" %>
 <h1>Sending message at:</h1>
 <div class="info-timer">
@@ -10,4 +14,13 @@
   <button class="alertbutton">Send alert</button>
 </div>
 
+
+
 <div id="location"></div>
+<div id="formdiv">
+  <form id="locationform" method="post" action="/meetings/<%= @meeting.id %>">
+    <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+    <input id="latitude" type="hidden">
+    <input id="longitude" type="hidden">
+  </form>
+</div>
