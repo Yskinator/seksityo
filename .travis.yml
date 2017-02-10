@@ -1,4 +1,9 @@
 language: ruby
+services:
+  - postgresql
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database travis_ci_test;' -U postgres
 script:
   - bundle exec rake db:migrate --trace
   - RAILS_ENV=test bundle exec rake db:migrate --trace
@@ -7,10 +12,6 @@ script:
 rvm:
   - 2.3.1
 cache: bundler
-addons:
- sauce_connect:
-   username: "Merloni"
-   access_key: "30fb4b59-59c4-4a77-a157-0f6bc47fb001"
 deploy:
  provider: heroku
  api-key: 

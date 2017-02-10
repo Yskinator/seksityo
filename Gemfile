@@ -46,8 +46,6 @@ group :development, :test do
   #Capybara javascript driver
   gem "capybara-webkit"
 
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
 end
 
 group :development do
@@ -67,7 +65,6 @@ group :test do
   gem "show_me_the_cookies"
 end
 
-group :production do
-  gem 'pg'
-  gem 'rails_12factor'
-end
+# Database gems
+gem 'pg'
+gem 'rails_12factor'
