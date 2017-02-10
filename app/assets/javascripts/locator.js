@@ -19,8 +19,8 @@ window.onload = function() {
         }
     }
 
-    /* If meeting has not been updated in the last 2 minutes, update location */
-    if (updated < (now - 120000)){
+    /* If meeting has not been updated in the last 2 minutes, or has just been created, update location */
+    if (updated < (now - 120000) || meeting_updated == meeting_created){
         getPosition();
     }
 
