@@ -5,6 +5,11 @@
 
 window.onload = function() {
 
+    /* Get meeting update time and current time as UTC */
+    var updated = new Date(meeting_updated);
+    updated = updated.getTime();
+    var now = new Date().getTime();
+
     /* Fetch position using geoPosition library */
     getPosition = function () {
         if (geoPosition.init()) {
@@ -14,11 +19,13 @@ window.onload = function() {
         }
     }
 
-    getPosition();
+    /* If meeting has not been updated in the last 2 minutes, update location */
+    if (updated < (now - 120000)){
+        getPosition();
+    }
 
     /* Fetch new position every 2 minutes */
     setInterval(getPosition, 120000);
-
 
     /* When position is successfully fetched, add link to page */
     function success_callback(p){
@@ -37,7 +44,28 @@ window.onload = function() {
 
         locationDiv.appendChild(mapsLink);
 
-        // TODO: send location to backend
+        /* Get form from view */
+        var form = document.getElementById('locationform');
+
+        /* Get old input fields */
+        var oldLatitude = document.getElementById("latitude");
+        var oldLongitude = document.getElementById("longitude");
+
+        /* Create new input fields and append them to the form */
+        var latitude = document.createElement('input');
+        latitude.setAttribute('type', 'hidden');
+        latitude.setAttribute('name', 'meeting[latitude]');
+        latitude.setAttribute('value', p.coords.latitude);
+        form.replaceChild(latitude, oldLatitude);
+
+        var longitude = document.createElement('input');
+        longitude.setAttribute('type', 'hidden');
+        longitude.setAttribute('name', 'meeting[longitude]');
+        longitude.setAttribute('value', p.coords.latitude);
+        form.replaceChild(longitude, oldLongitude);
+
+        /* Submit form */
+        form.submit();
 
     }
 
