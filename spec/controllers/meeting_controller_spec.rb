@@ -63,6 +63,16 @@ RSpec.describe MeetingsController, type: :controller do
       meeting_params = {:nickname => "Pekka", :phone_number => "123", :duration => 30}
       expect { post :create, :meeting => meeting_params }.to change(Meeting, :count).by(0)
     end
+    it "should create a delayed job" do
+      meeting_params = {:nickname => "DelayedForEver", :phone_number => 0401231234, :duration => "1"}
+      expect {post :create, :meeting => meeting_params}.to change {Delayed::Job.count}.by(1)
+    end
+    it "should run the delayed job" do
+      meeting_params = {:nickname => "BackgroundProcessed", :phone_number => 0401231234, :duration => "1"}
+      Delayed::Worker.delay_jobs = false
+      expect {post :create, :meeting => meeting_params}.to change {Delayed::Job.count}.by(0)
+      Delayed::Worker.delay_jobs = true
+    end
   end
   describe "PUT update" do
     it "should update Meeting" do
