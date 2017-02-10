@@ -5,7 +5,7 @@
 
   </div>
   <div class="field">
-    <%= f.text_field :phone_number, :class => "textfield", placeholder: "Phone Number"%>
+    <%= f.text_field :phone_number, :class => "textfield", placeholder: "Email address"%>
     <% if @meeting.errors.messages[:phone_number].any? %>
         <div class="error-explanation">
           <p class="error-message">Phone number is invalid</p>
