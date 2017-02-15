@@ -11,8 +11,8 @@
 
 
 <div class="actions">
-  <button class="submitbutton">I'm OK</button>
-  <button class="alertbutton">Send alert</button>
+  <%= button_to "I'm OK", {id: @meeting.id} %>
+  <%= button_to "Send Alert!", {action: send_alert_url} %>
 </div>
 
 
