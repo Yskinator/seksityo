@@ -17,13 +17,14 @@ class Meeting < ActiveRecord::Base
   end
 
   def create_hashkey
-    
+
     self.hashkey = Digest::SHA2.new(512).hexdigest(self.nickname + self.phone_number + Time.now.to_s)
 
   end
 
   def send_notification
-    ApplicationMailer.notification_email.deliver_later
+
+    ApplicationMailer.notification_email(self).deliver_later
   end
 
 end
