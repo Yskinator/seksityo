@@ -4,14 +4,15 @@
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
+  <h1>Notification regarding <%= @meeting.nickname %></h1>
   <p>
-    Assumed duration for friend's activity has passed.
+    The assumed duration for <b><%= @meeting.nickname %></b>'s activity has passed.
     Make sure that everything is fine.
     <br>
 
     <a href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>" target="_blank">Friends last updated location</a>
     <br>
-    <i>Note that the location might not be up-to-date or exact.</i>
+    <i>Note that the location might not be exact or up-to-date.</i>
   </p>
 </body>
 </html>
