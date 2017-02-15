@@ -23,8 +23,11 @@ class Meeting < ActiveRecord::Base
   end
 
   def send_notification
+    ApplicationMailer.notification_email(self).deliver_now
+  end
 
-    ApplicationMailer.notification_email(self).deliver_later
+  def send_alert
+    ApplicationMailer.alert_email(self).deliver_now
   end
 
 end
