@@ -8,6 +8,7 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
+require 'capybara/email/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -87,3 +88,6 @@ end
 #Configure Capybara javascript driver to use capybara webkit.
 #Replace :webkit with :selenium or comment this line to go back to using selenium.
 Capybara.javascript_driver = :webkit
+
+Capybara.server_port = 3001
+Capybara.app_host = 'http://localhost:3001'
