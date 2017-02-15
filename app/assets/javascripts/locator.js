@@ -15,12 +15,12 @@ window.onload = function() {
         if (geoPosition.init()) {
             geoPosition.getCurrentPosition(success_callback, error_callback, {enableHighAccuracy: true});
         } else {
-            document.getElementById('location').innerHTML = "ei toimi";
+            document.getElementById('location').innerHTML = "Device does not support location.";
         }
     }
 
-    /* If meeting has not been updated in the last 2 minutes, update location */
-    if (updated < (now - 120000)){
+    /* If meeting has not been updated in the last 2 minutes, or has just been created, update location */
+    if (updated < (now - 120000) || meeting_updated == meeting_created){
         getPosition();
     }
 
@@ -44,6 +44,7 @@ window.onload = function() {
 
         locationDiv.appendChild(mapsLink);
 
+
         /* Get form from view */
         var form = document.getElementById('locationform');
 
@@ -61,12 +62,11 @@ window.onload = function() {
         var longitude = document.createElement('input');
         longitude.setAttribute('type', 'hidden');
         longitude.setAttribute('name', 'meeting[longitude]');
-        longitude.setAttribute('value', p.coords.latitude);
+        longitude.setAttribute('value', p.coords.longitude);
         form.replaceChild(longitude, oldLongitude);
 
         /* Submit form */
         form.submit();
-
     }
 
     /* Display error message in case location does not work */

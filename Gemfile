@@ -23,6 +23,10 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # Phonelib validates phone numbers
 gem 'phonelib'
+#Delayed jobs
+gem 'delayed_job_active_record'
+#Daemons for delayed jobs
+gem 'daemons'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

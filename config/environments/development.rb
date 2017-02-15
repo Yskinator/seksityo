@@ -39,6 +39,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
+
   # Mailer config
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
@@ -49,4 +50,7 @@ Rails.application.configure do
       password:             'seksityo123',
       authentication:       'plain',
       enable_starttls_auto: true  }
+
+  config.force_ssl = false
+
 end

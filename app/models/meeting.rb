@@ -22,4 +22,8 @@ class Meeting < ActiveRecord::Base
 
   end
 
+  def send_notification
+    self.destroy
+  end
+
 end
