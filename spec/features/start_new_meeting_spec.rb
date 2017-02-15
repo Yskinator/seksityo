@@ -18,21 +18,21 @@ feature 'When starting a new meeting' do
     fill_in 'duration-input', with: '111'
     click_button 'Start timer'
 
-    expect(page).to have_content('Phone number is invalid')
+    expect(page).to have_content('Email is invalid')
 
     fill_in 'meeting_nickname', with: 'Pekka'
     fill_in 'meeting_phone_number', with: '@gmail.com'
     fill_in 'duration-input', with: '111'
     click_button 'Start timer'
 
-    expect(page).to have_content('Phone number is invalid')
+    expect(page).to have_content('Email is invalid')
 
     fill_in 'meeting_nickname', with: 'Pekka'
     fill_in 'meeting_phone_number', with: 'seksityo'
     fill_in 'duration-input', with: '111'
     click_button 'Start timer'
 
-    expect(page).to have_content('Phone number is invalid')
+    expect(page).to have_content('Email is invalid')
 
   end
   scenario 'user sees manually input duration on status page', js: true do
