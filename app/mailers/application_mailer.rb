@@ -3,7 +3,7 @@ class ApplicationMailer < ActionMailer::Base
 
   def notification_email(meeting)
     @meeting = meeting
-    mail(to: @meeting.phone_number, subject: 'Assumed duration of friends meeting has passed.')
+    mail(to: @meeting.phone_number, subject: 'Duration of meeting has passed.')
   end
 
   def alert_email(meeting)
