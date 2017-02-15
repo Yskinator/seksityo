@@ -12,7 +12,7 @@
 
 <div class="actions">
   <%= button_to "I'm OK", {id: @meeting.id} %>
-  <%= button_to "Send Alert!", {action: send_alert_url} %>
+  <%= button_to "Send Alert!", action: "send_alert", id: @meeting.id %>
 </div>
 
 

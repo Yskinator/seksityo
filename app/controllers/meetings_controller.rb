@@ -75,7 +75,11 @@ class MeetingsController < ApplicationController
 
   # POST /meetings/send_alert/1
   def send_alert
+    @meeting = Meeting.find(params[:id])
     @meeting.send_alert
+
+    
+    redirect_to @meeting
   end
 
   private
