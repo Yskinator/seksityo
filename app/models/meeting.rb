@@ -23,7 +23,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def send_notification
-    self.destroy
+    ApplicationMailer.notification_email.deliver_later
   end
 
 end
