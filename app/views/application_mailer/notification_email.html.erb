@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <p>
+    Assumed duration for friend's activity has passed.
+    Make sure that everything is fine.
+    <br>
+
+    <a href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>" target="_blank">Friends last updated location</a>
+    <br>
+    <i>Note that the location might not be up-to-date or exact.</i>
+  </p>
+</body>
+</html>
