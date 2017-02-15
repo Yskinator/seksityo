@@ -4,13 +4,14 @@
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-  <h1>Alert!</h1>
+  <h1>Alert regarding <%= @meeting.nickname %>!</h1>
   <p>
 
-    Friend is in trouble and needs help immediately!
+    <b><%= @meeting.nickname %></b> is in trouble and needs help immediately.
     <br>
     <a href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>" target="_blank">Friends last updated location</a>
-    Note that location might not be up-to-date or exact.
+    <br>
+    <i>Note that location might not be exact or up-to-date.</i>
   </p>
 </body>
 </html>

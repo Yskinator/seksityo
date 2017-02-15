@@ -18,7 +18,7 @@ describe 'Mailer' do
     click_button 'Start timer'
     sleep(0.1)
     open_email('seksityo@gmail.com')
-    expect(current_email).to have_content "Assumed duration for friend's activity has passed."
+    expect(current_email).to have_content "The assumed duration for Pekka's activity has passed."
   end
   it 'should send the email to the address specified by user', js: true do
     fill_in 'meeting_phone_number', with: 'tyoseksi@gmail.com'
