@@ -8,7 +8,7 @@
     <%= f.text_field :phone_number, :class => "textfield", placeholder: "Email address"%>
     <% if @meeting.errors.messages[:phone_number].any? %>
         <div class="error-explanation">
-          <p class="error-message">Phone number is invalid</p>
+          <p class="error-message">Email is invalid</p>
         </div>
     <% end %>
   </div>

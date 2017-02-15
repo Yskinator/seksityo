@@ -50,6 +50,9 @@ group :development, :test do
   #Capybara javascript driver
   gem "capybara-webkit"
 
+  #Capybara email testing
+  gem 'capybara-email'
+
 end
 
 group :development do

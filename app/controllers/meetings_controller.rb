@@ -11,7 +11,6 @@ class MeetingsController < ApplicationController
   # GET /meetings/1.json
   def show
    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
-   
   end
 
   # GET /meetings/new
@@ -39,7 +38,7 @@ class MeetingsController < ApplicationController
     respond_to do |format|
       if @meeting.save
         cookies['current_meeting'] = @meeting.hashkey
-        #Runs send_notification once the timer runs out
+        # Runs send_notification once the timer runs out
         @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification
         format.html { redirect_to @meeting, notice: 'Meeting was successfully created.' }
         format.json { render :show, status: :created, location: @meeting }
@@ -84,4 +83,5 @@ class MeetingsController < ApplicationController
     def meeting_params
       params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
     end
+
 end
