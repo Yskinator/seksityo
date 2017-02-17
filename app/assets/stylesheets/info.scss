@@ -82,6 +82,27 @@ body {
   margin-bottom: 10px;
 }
 
+// Container for the iframe
+.frame-holder {
+  width: 300px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+// Div that goes on top of the iframes to prevent user interaction
+.frame-overlay{
+  position:absolute;
+  background: rgba(0,0,0,0);
+  width: 320px;
+  height: 420px;
+}
+
+.frame {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 /* FOOTER */
 
 .footer {
