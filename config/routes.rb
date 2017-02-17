@@ -13,6 +13,9 @@ Rails.application.routes.draw do
 
   get 'about' => 'info#about'
 
+  # Used by the info page iframe to simulate status page, uses the same template as the real status page.
+  get 'statusdemo' => 'info#statusdemo'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
