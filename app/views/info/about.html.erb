@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <%= stylesheet_link_tag 'info' %>
-  <title>Seksityö Landing Page</title>
+  <title>Landing Page</title>
 </head>
 <body>
   <div class="main">
     <div class="container header">
       <div class="content header-content">
-        <%= image_tag("logodraft.png") %>
-        <h1 class="main-header">$Seksityö</h1>
+        <%= image_tag("logoplaceholder.png") %>
+        <h1 class="main-header">Nimi</h1>
       </div>
     </div>
     <div class="container container1">
@@ -39,7 +39,11 @@
             1. User does stuff
           </div>
           <div>
-            <%= image_tag("entry_screen_revised.png") %>
+            <div class="frame-holder">
+              <div class="frame-overlay"></div>
+              <iframe scrolling="no" align="middle" class="frame" src="/creationdemo"></iframe>
+
+            </div>
           </div>
         </div>
         <div class="img-container">
@@ -47,7 +51,10 @@
               2. Other stuff happens
           </div>
           <div>
-            <%= image_tag("status_screen_revised.png") %>
+            <div class="frame-holder">
+              <div class="frame-overlay"></div>
+              <iframe scrolling="no" align="middle" class="frame" src="/statusdemo"></iframe>
+            </div>
           </div>
         </div>
       </div>
@@ -55,7 +62,7 @@
 
   </div>
   <div class="footer">
-    <%= link_to '$Seksityö', root_path %>
+    <%= link_to 'Link to demo', root_path %>
   </div>
 </body>
 </html>
