@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   resources :meetings
 
+  #Used to send alerts
+  post 'meetings/send_alert' => 'meetings#send_alert', as: 'send_alert'
+
   # Used to update location to meeting, basic HTML-form does not support PUT
   post "meetings/:id" => 'meetings#update'
-
-  #Used to send alerts
-  post 'meetings/send_alert/:id' => 'meetings#send_alert', as: 'send_alert'
 
   root 'meetings#new'
 

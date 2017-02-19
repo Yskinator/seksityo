@@ -87,4 +87,18 @@ RSpec.describe MeetingsController, type: :controller do
       expect(response).to redirect_to(@meeting)
     end
   end
+  describe "POST send_alert" do
+    it "should remove incorret cookie" do
+      @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "testi@testi.test", duration: 99999)
+      @request.cookies["current_meeting"] = "dog treat"
+      post :send_alert
+      expect(@response.cookies["current_meeting"]).to equal(nil)
+    end
+    it "should redirect to meet creation when the user has an incorret cookie" do
+      @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "testi@testi.test", duration: 99999)
+      @request.cookies["current_meeting"] = "dog treat"
+      post :send_alert
+      expect(response).to redirect_to('/meetings/new')
+    end
+  end
 end
