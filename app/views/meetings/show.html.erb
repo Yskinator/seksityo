@@ -11,7 +11,7 @@
 
 
 <div class="actions">
-  <%= button_to "I'm OK", {action: "destroy", id: @meeting.id }, method: :delete, class: 'submitbutton' %>
+  <%= button_to "I'm OK", {action: "meeting_ok", controller:"meetings"}, class: 'submitbutton' %>
   <%= button_to "Send Alert!", {action: "send_alert", controller:"meetings"}, class: 'alertbutton' %>
 </div>
 
