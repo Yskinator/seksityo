@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 
   root 'meetings#new'
 
+  # Used to check if the given meeting exists
+  get "meetings/exists/:id" => 'meetings#exists'
+
   get 'geolocation' => 'geolocation#show'
 
   get 'about' => 'info#about'
