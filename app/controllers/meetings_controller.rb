@@ -82,8 +82,17 @@ class MeetingsController < ApplicationController
       cookies.delete 'current_meeting'
       redirect_to new_meeting_path
     end
+  end
 
-
+  # GET /meetings/id
+  def exists
+    if Meeting.find(params[:id])
+      msg = {:meeting_exists => true}
+      render :json => msg
+    else
+      msg = {:meeting_exists => false}
+      render :json => msg
+    end
   end
 
   private

@@ -29,6 +29,13 @@ window.onload = function() {
 
     /* When position is successfully fetched, add link to page */
     function success_callback(p){
+        //Do not break the page by trying to update it if the meeting does not exist!
+        $.getJSON('http://'+window.location.host + '/meetings/exists/'+meeting_id, function(data) {
+            console.log(data.meeting_exists)
+            if(data.meeting_exists == false) {
+                return
+            }
+        });
 
         /* Clear any previous location links */
         var locationDiv = document.getElementById('location');
