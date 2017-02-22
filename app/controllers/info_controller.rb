@@ -1,7 +1,8 @@
 class InfoController < ApplicationController
 
+
   # GET /about
-  def show
+  def about
     render :layout => false
   end
 
