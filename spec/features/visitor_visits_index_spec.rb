@@ -4,6 +4,6 @@ feature 'Root redirection' do
   scenario 'user visits root' do
     visit '/'
 
-    expect(page).to have_content('Brändinimi')
+    expect(page).to have_content('Nimi')
   end
 end

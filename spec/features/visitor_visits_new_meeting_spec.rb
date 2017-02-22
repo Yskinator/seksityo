@@ -4,7 +4,7 @@ feature 'New meeting' do
   scenario 'user visits new meeting' do
     visit '/meetings/new'
 
-    expect(page).to have_content('Brändinimi')
+    expect(page).to have_content('Nimi')
   end
   scenario 'user visits new meeting and gets redirected to status page if already has an active meeting', js: true do
     visit '/'
@@ -14,6 +14,6 @@ feature 'New meeting' do
     click_button 'Start timer'
     visit '/meetings/new'
 
-    expect(page).to have_content('Sending message at:')
+    expect(page).to have_content('Sending message in:')
   end
 end
