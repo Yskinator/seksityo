@@ -86,7 +86,7 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/id
   def exists
-    if Meeting.find(params[:id])
+    if Meeting.exists?(id: params[:id])
       msg = {:meeting_exists => true}
       render :json => msg
     else
