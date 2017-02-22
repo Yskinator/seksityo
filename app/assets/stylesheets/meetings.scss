@@ -32,6 +32,7 @@ h1{
 .duration-input {
   height: 25px;
   border-radius: 5px;
+  max-width: 20%;
 }
 .selected {
   background-color: black;
@@ -63,7 +64,7 @@ h1{
 
 .textfield{
   text-align: center;
-  width: 100%;
+  width: 95%;
   height: 30px;
 }
 .numfield{
