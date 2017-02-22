@@ -11,7 +11,7 @@
   <div class="main">
     <div class="container header">
       <div class="content header-content">
-        <%= image_tag("logoplaceholder.png") %>
+        <%= image_tag("logo_placeholder.png") %>
         <h1 class="main-header">Nimi</h1>
       </div>
     </div>
@@ -38,32 +38,29 @@
           <div class="demo-img-text">
             1. User does stuff
           </div>
-          <div>
             <div class="frame-holder">
               <div class="frame-overlay"></div>
               <iframe scrolling="no" align="middle" class="frame" src="/creationdemo"></iframe>
-
             </div>
-          </div>
         </div>
         <div class="img-container">
           <div class="demo-img-text">
               2. Other stuff happens
           </div>
-          <div>
             <div class="frame-holder">
               <div class="frame-overlay"></div>
               <iframe scrolling="no" align="middle" class="frame" src="/statusdemo"></iframe>
             </div>
-          </div>
         </div>
       </div>
     </div>
 
+    <div class="footer">
+      <%= link_to 'Link to demo', root_path %>
+    </div>
+
   </div>
-  <div class="footer">
-    <%= link_to 'Link to demo', root_path %>
-  </div>
+
 </body>
 </html>
 
