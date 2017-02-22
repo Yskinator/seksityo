@@ -20,12 +20,12 @@ window.onload = function() {
     }
 
     /* If meeting has not been updated in the last 2 minutes, or has just been created, update location */
-    if (updated < (now - 12000) || meeting_updated == meeting_created){
+    if (updated < (now - 120000) || meeting_updated == meeting_created){
         getPosition();
     }
 
     /* Fetch new position every 2 minutes */
-    setInterval(getPosition, 12000);
+    setInterval(getPosition, 120000);
 
     /* When position is successfully fetched, add link to page */
     function success_callback(p){
