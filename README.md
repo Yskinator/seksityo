@@ -5,6 +5,7 @@ Seksityöläisten turvasovellus.
 ## Application links
 * [Production](https://github.com/seksityo/project-info/blob/master) - _WIP!_
 * [Staging server](http://seksity.herokuapp.com/)
+* [User manual](https://docs.google.com/document/d/1x41Nk0v3rWSu3MWyFYANYSVgNSy7dZo-CpxwgL0aHr0/edit?usp=sharing)
 
 ## Project progress
 * [Product backlog](https://trello.com/b/D8Ie2cXg/seksityo)
