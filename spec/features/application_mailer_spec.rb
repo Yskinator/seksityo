@@ -16,7 +16,7 @@ describe 'Mailer' do
   it 'should send message when the timer goes off', js: true do
     fill_in 'meeting_phone_number', with: 'testi@testi.test'
     click_button 'Start timer'
-    sleep(0.1)
+    sleep(0.3)
     open_email('testi@testi.test')
     expect(current_email).to have_content "The assumed duration for Pekka's activity has passed."
   end
