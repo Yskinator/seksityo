@@ -23,17 +23,8 @@ describe 'Mailer' do
   it 'should send the email to the address specified by user', js: true do
     fill_in 'meeting_phone_number', with: 'testi2@testi.test'
     click_button 'Start timer'
-    sleep(0.1)
+    sleep(0.3)
     open_email('testi@testi.test')
     expect(current_email).to be(nil)
-  end
-  it 'should send message when the alert button is pressed', js: true do
-    fill_in 'meeting_phone_number', with: 'testi@testi.test'
-    click_button 'Start timer'
-    expect(page).to have_button("Send Alert!")
-    click_button 'Send Alert!'
-    sleep(0.1)
-    open_email('testi@testi.test')
-    expect(current_email).to have_content "is in trouble and needs help immediately."
   end
 end
