@@ -10,7 +10,7 @@ feature 'When on the status page' do
   end
   scenario 'user can press the ok button to get back to meeting creation page', js: true do
     click_button "I'm OK"
-    expect(page).to have_content('Nimi')
+    expect(page).to have_content("Artemis' Umbrella")
   end
   scenario 'user can press the alert button and send an alert message', js: true do
       expect(page).to have_button("Send Alert!")
