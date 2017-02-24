@@ -76,15 +76,18 @@ class MeetingsController < ApplicationController
   # POST /meetings/meeting_ok/
   def meeting_ok
       @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
-      @meeting.destroy
-      cookies.delete 'current_meeting'
-      redirect_to new_meeting_path
+      if @meeting
+        @meeting.destroy
+        cookies.delete 'current_meeting'
+        redirect_to new_meeting_path
+      end
   end
 
 
   # POST /meetings/send_alert/
   def send_alert
-    if @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+    if @meeting
       @meeting.send_alert
       redirect_to @meeting
     else
