@@ -68,10 +68,19 @@ class MeetingsController < ApplicationController
   def destroy
     @meeting.destroy
     respond_to do |format|
-      format.html { redirect_to meetings_url, notice: 'Meeting was successfully destroyed.' }
+      format.html { redirect_to new_meeting_path, notice: 'Meeting was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
+
+  # POST /meetings/meeting_ok/
+  def meeting_ok
+      @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+      @meeting.destroy
+      cookies.delete 'current_meeting'
+      redirect_to new_meeting_path
+  end
+
 
   # POST /meetings/send_alert/
   def send_alert
