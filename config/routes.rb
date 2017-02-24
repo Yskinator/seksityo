@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   #Used to send alerts
   post 'meetings/send_alert' => 'meetings#send_alert', as: 'send_alert'
 
+  post 'meetings/meeting_ok' => 'meetings#meeting_ok', as: 'meeting_ok'
+
   # Used to update location to meeting, basic HTML-form does not support PUT
   post "meetings/:id" => 'meetings#update'
 

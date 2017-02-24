@@ -101,4 +101,30 @@ RSpec.describe MeetingsController, type: :controller do
       expect(response).to redirect_to('/meetings/new')
     end
   end
+  describe "POST meeting_ok" do
+    it "should remove cookie" do
+      @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "testi@testi.test", duration: 20)
+      @meeting.create_hashkey
+      @request.cookies['current_meeting'] = @meeting.hashkey
+      @meeting.save
+      post :meeting_ok
+      expect(@response.cookies['current_meeting']).to equal(nil)
+    end
+    it "should delete the meeting from database" do
+      @meeting = Meeting.create(nickname: "Testuser", phone_number: "testi@testi.test", duration: 10)
+      @meeting.create_hashkey
+      @request.cookies['current_meeting'] = @meeting.hashkey
+      @meeting.save
+      post :meeting_ok
+      expect(Meeting.count).to eq(0)
+    end
+    it "should redirect to meet creation" do
+      @meeting = Meeting.create(nickname: "Test", phone_number: "testi@testi.test", duration: 10)
+      @meeting.create_hashkey
+      @request.cookies['current_meeting'] = @meeting.hashkey
+      @meeting.save
+      post :meeting_ok
+      expect(response).to redirect_to('/meetings/new')
+    end
+  end
 end

@@ -4,7 +4,7 @@ feature 'New meeting' do
   scenario 'user visits new meeting' do
     visit '/meetings/new'
 
-    expect(page).to have_content('Nimi')
+    expect(page).to have_content("Artemis' Umbrella")
   end
   scenario 'user visits new meeting and gets redirected to status page if already has an active meeting', js: true do
     visit '/'
