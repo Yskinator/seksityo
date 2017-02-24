@@ -2,6 +2,7 @@ language: ruby
 branches:
   only: 
     - master
+    - dev
 services:
   - postgresql
 before_script:
