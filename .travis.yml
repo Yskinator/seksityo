@@ -14,7 +14,7 @@ script:
   - bundle exec rake db:test:prepare
   - xvfb-run bundle exec rspec -fd spec/
 rvm:
-  - 2.3.1
+  - 2.2.0
 cache: bundler
 deploy:
  provider: heroku
