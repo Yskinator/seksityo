@@ -91,3 +91,8 @@ Capybara.javascript_driver = :webkit
 
 Capybara.server_port = 3001
 Capybara.app_host = 'http://localhost:3001'
+
+Capybara::Webkit.configure do |config|
+  config.allow_url("https://fonts.googleapis.com/css?family=Ubuntu")
+end
+
