@@ -8,10 +8,17 @@
   <p>
 
     <b><%= @meeting.nickname %></b> is in trouble and needs help immediately.
-    <br>
-    <a href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>" target="_blank">Friends last updated location</a>
-    <br>
-    <i>Note that location might not be exact or up-to-date.</i>
+    <% if (@meeting.latitude && @meeting.longitude) %>
+      <br>
+      <a href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>" target="_blank">Friends last updated location</a>
+      <br>
+      <i>Note that location might not be exact or up-to-date.</i>
+    <% else %>
+      <br>
+      Location unavailable.
+      <br>
+    <% end %>
+
   </p>
 </body>
 </html>
