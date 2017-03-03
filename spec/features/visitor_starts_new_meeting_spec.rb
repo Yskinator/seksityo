@@ -9,7 +9,7 @@ feature 'When starting a new meeting' do
     fill_in 'duration-input', with: '111'
     click_button 'Start timer'
 
-    expect(page).to have_content('Sending message in:')
+    expect(page).to have_content('Informing your Artemis in')
   end
   scenario 'user cannot create a meeting with an incorrect email', js:true do
     visit '/meetings/new'
