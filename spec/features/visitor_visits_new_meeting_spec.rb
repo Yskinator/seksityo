@@ -14,6 +14,6 @@ feature 'New meeting' do
     click_button 'Start timer'
     visit '/meetings/new'
 
-    expect(page).to have_content('Sending message in:')
+    expect(page).to have_content('Informing your Artemis in')
   end
 end

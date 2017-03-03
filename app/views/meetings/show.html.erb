@@ -4,22 +4,27 @@
     var meeting_updated = "<%= @meeting.updated_at %>";
 </script>
 <%= javascript_include_tag "locator" %>
-<h1>Sending message in:</h1>
+<h1>Informing your Artemis in</h1>
 <div class="info-timer">
-  <%= @meeting.time_to_live %> minutes
+  <% if @meeting.time_to_live == 1 %>
+      <%= @meeting.time_to_live %> minute
+  <% else %>
+      <%= @meeting.time_to_live %> minutes
+  <% end %>
 </div>
 
 
 <div class="actions">
-  <%= button_to "I'm OK", {action: "meeting_ok", controller:"meetings"}, class: 'submitbutton' %>
-  <%= button_to "Send Alert!", {action: "send_alert", controller:"meetings"}, class: 'alertbutton' %>
+  <%= button_to "I'm OK", {action: "meeting_ok", controller: "meetings"}, class: 'submitbutton' %>
+  <%= button_to "Send Alert!", {action: "send_alert", controller: "meetings"}, class: 'alertbutton' %>
 </div>
 
 
 
 <div id="location">
   <% if not @meeting.longitude.nil? %>
-    <a href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>" target="_blank">Last updated location</a>
+      <a href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>" target="_blank">Last
+        updated location</a>
   <% end %>
 </div>
 
