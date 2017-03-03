@@ -6,22 +6,25 @@ window.onload = function() {
             var selected = document.getElementById('select30m');
             $(selected).addClass('selected');
             removeSelected('select30m');
+            setDurationInfoText(30);
             clearManualInput();
-        }
+        };
         document.getElementById('select1h').onclick = function () {
             replaceHiddenInput(createNewInput(60));
             var selected = document.getElementById('select1h');
             $(selected).addClass('selected');
             removeSelected('select1h');
+            setDurationInfoText(60);
             clearManualInput();
-        }
+        };
         document.getElementById('select2h').onclick = function () {
             replaceHiddenInput(createNewInput(120));
             var selected = document.getElementById('select2h');
             $(selected).addClass('selected');
             removeSelected('select2h');
+            setDurationInfoText(120);
             clearManualInput();
-        }
+        };
 
         /* Creates hidden field for the duration based on manual user input */
         document.getElementById('duration-input').onkeyup = function() {
@@ -29,10 +32,11 @@ window.onload = function() {
             if ( input.value ){
                 removeSelected('');
                 replaceHiddenInput(createNewInput(input.value));
+                setDurationInfoText(input.value);
             }
-        }
+        };
         select1h();
-}
+};
 
 /* Selects the "1h" option, called on page load */
 select1h = function() {
@@ -40,7 +44,8 @@ select1h = function() {
     var selected = document.getElementById('select1h');
     $(selected).addClass('selected');
     removeSelected('select1h');
-}
+    setDurationInfoText(60);
+};
 
 /* Creates a new hidden duration field with the given value */
 createNewInput = function(value) {
@@ -49,7 +54,7 @@ createNewInput = function(value) {
     input.setAttribute('name', 'meeting[duration]');
     input.setAttribute('value', value);
     return input;
-}
+};
 
 /* Replaces the (possibly) existing hidden input with a new one */
 replaceHiddenInput = function(newInput) {
@@ -58,12 +63,17 @@ replaceHiddenInput = function(newInput) {
         durationdiv.removeChild(durationdiv.lastChild);
     }
     durationdiv.appendChild(newInput);
-}
+};
 
 /* Clears the manual duration input, called when a new duration is selected */
 clearManualInput = function(){
     document.getElementById('duration-input').value = '';
-}
+};
+
+/* Sets the selected duration value to the info text on top of start button */
+setDurationInfoText = function(value) {
+    document.getElementById('duration-info').innerHTML = value;
+};
 
 /* Removes 'selected' class from every selection, except the one specified */
 removeSelected = function(id) {
