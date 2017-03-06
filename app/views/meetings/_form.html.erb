@@ -15,10 +15,10 @@
           Enter his/her phone number here.</p>
       </div>
       <div class="field">
-        <%= f.text_field :phone_number, :class => "textfield", placeholder: "Email address" %>
+        <%= f.text_field :phone_number, :class => "textfield", placeholder: "Phone number" %>
         <% if @meeting.errors.messages[:phone_number].any? %>
             <div class="error-explanation">
-              <p class="error-message">Email is invalid</p>
+              <p class="error-message">Phone number is invalid</p>
             </div>
         <% end %>
       </div>
