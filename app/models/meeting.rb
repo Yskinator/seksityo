@@ -3,7 +3,7 @@ class Meeting < ActiveRecord::Base
                                        only_integer: true,
                                        less_than: 1440 }, allow_blank: false
 
-  validate :parse_phone_number
+  validate :validate_phone_number
 
   def time_to_live
     time = Time.new
@@ -27,11 +27,9 @@ class Meeting < ActiveRecord::Base
     ApplicationMailer.alert_email(self).deliver_now
   end
 
-  def parse_phone_number
+  def validate_phone_number
     phone = Phonelib.parse(self.phone_number)
-    if self.phone_number == '9991231234' or phone.valid?
-      self.phone_number = phone.sanitized
-    else
+    unless self.phone_number == '9991231234' or phone.valid?
       errors.add(:phone_number, "Phone number is invalid.")
     end
   end
