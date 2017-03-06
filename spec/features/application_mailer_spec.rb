@@ -14,17 +14,17 @@ describe 'Mailer' do
   end
 
   it 'should send message when the timer goes off', js: true do
-    fill_in 'meeting_phone_number', with: 'testi@testi.test'
+    fill_in 'meeting_phone_number', with: '0401231234'
     click_button 'Start timer'
     sleep(0.3)
-    open_email('testi@testi.test')
+    open_email('0401231234@textmagic.com')
     expect(current_email).to have_content "The assumed duration for Pekka's activity has passed."
   end
   it 'should send the email to the address specified by user', js: true do
-    fill_in 'meeting_phone_number', with: 'testi2@testi.test'
+    fill_in 'meeting_phone_number', with: '0401231234'
     click_button 'Start timer'
     sleep(0.3)
-    open_email('testi@testi.test')
+    open_email('0501231234@textmagic.com')
     expect(current_email).to be(nil)
   end
 end

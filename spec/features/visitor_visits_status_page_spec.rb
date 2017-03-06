@@ -4,7 +4,7 @@ feature 'When on the status page' do
   before :each do
     visit '/meetings/new'
     fill_in 'meeting_nickname', with: 'Pekka'
-    fill_in 'meeting_phone_number', with: 'test@gmail.com'
+    fill_in 'meeting_phone_number', with: '0401231234'
     fill_in 'duration-input', with: '111'
     click_button 'Start timer'
   end
@@ -16,7 +16,7 @@ feature 'When on the status page' do
       expect(page).to have_button("Send Alert!")
       click_button 'Send Alert!'
       sleep(0.1)
-      open_email('test@gmail.com')
+      open_email('0401231234@textmagic.com')
       expect(current_email).to have_content "is in trouble and needs help immediately."
     end
 end
