@@ -79,8 +79,8 @@ class MeetingsController < ApplicationController
       if @meeting
         @meeting.destroy
         cookies.delete 'current_meeting'
-        redirect_to new_meeting_path
       end
+      redirect_to root_path
   end
 
 
@@ -92,7 +92,7 @@ class MeetingsController < ApplicationController
       redirect_to @meeting
     else
       cookies.delete 'current_meeting'
-      redirect_to new_meeting_path
+      redirect_to root_path
     end
   end
 

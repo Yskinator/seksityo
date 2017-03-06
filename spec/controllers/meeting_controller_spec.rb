@@ -95,7 +95,7 @@ RSpec.describe MeetingsController, type: :controller do
       @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "0401231234", duration: 99999)
       @request.cookies["current_meeting"] = "dog treat"
       post :send_alert
-      expect(response).to redirect_to('/meetings/new')
+      expect(response).to redirect_to(:root)
     end
   end
   describe "POST meeting_ok" do
@@ -115,13 +115,15 @@ RSpec.describe MeetingsController, type: :controller do
       post :meeting_ok
       expect(Meeting.count).to eq(0)
     end
-    it "should redirect to meet creation" do
-      @meeting = Meeting.create(nickname: "Test", phone_number: "0401231234", duration: 10)
+
+    it "should redirect to root" do
+      @meeting = Meeting.create(nickname: "Test", phone_number: "testi@testi.test", duration: 10)
+
       @meeting.create_hashkey
       @request.cookies['current_meeting'] = @meeting.hashkey
       @meeting.save
       post :meeting_ok
-      expect(response).to redirect_to('/meetings/new')
+      expect(response).to redirect_to(:root)
     end
   end
 end
