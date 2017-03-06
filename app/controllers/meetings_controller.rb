@@ -89,7 +89,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
     if @meeting
       @meeting.send_alert
-      redirect_to @meeting
+      redirect_to :meetings_alert_confirm
     else
       cookies.delete 'current_meeting'
       redirect_to root_path
