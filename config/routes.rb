@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'meetings/alert_confirm' => 'meetings#alert_confirm'
   resources :meetings
 
   #Used to send alerts

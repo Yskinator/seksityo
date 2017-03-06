@@ -107,6 +107,11 @@ class MeetingsController < ApplicationController
     end
   end
 
+  # GET /meetings/alert_confirm
+  def alert_confirm
+    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_meeting
