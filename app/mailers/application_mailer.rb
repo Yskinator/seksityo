@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "seksityo@gmail.com"
+  default from: "artemisumbrella@gmail.com"
 
   def notification_email(meeting)
     @meeting = meeting
