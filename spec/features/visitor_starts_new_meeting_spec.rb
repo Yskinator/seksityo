@@ -33,7 +33,15 @@ feature 'When starting a new meeting' do
     click_button 'Start timer'
 
     expect(page).to have_content('Phone number is invalid')
+  end
+  scenario 'user can create a meeting with a kenyan phone number', js:true do
+    visit '/meetings/new'
+    fill_in 'meeting_nickname', with: 'Pekka'
+    fill_in 'meeting_phone_number', with: '+2541231234'
+    fill_in 'duration-input', with: '111'
+    click_button 'Start timer'
 
+    expect(page).to have_content('Informing your Artemis in')
   end
   scenario 'user sees manually input duration on status page', js: true do
     visit '/meetings/new'
