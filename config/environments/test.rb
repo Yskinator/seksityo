@@ -44,4 +44,5 @@ Rails.application.configure do
 
   config.log_level = :fatal
 
+  ENV["JAVASCRIPT_PROTOCOL"] = 'http://'
 end

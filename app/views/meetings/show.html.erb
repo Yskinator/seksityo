@@ -4,6 +4,7 @@
     var meeting_updated = "<%= @meeting.updated_at %>";
 </script>
 <%= javascript_include_tag "locator" %>
+<div id="javascript-protocol"><%= ENV["JAVASCRIPT_PROTOCOL"] %></div>
 <h1>Informing your Artemis in</h1>
 <div class="info-timer">
   <% if @meeting.time_to_live == 1 %>

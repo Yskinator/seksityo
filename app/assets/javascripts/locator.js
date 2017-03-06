@@ -30,7 +30,7 @@ window.onload = function() {
     /* When position is successfully fetched, add link to page */
     function success_callback(p){
         //Do not break the page by trying to update it if the meeting does not exist!
-        $.getJSON('https://'+window.location.host + '/meetings/exists/'+meeting_id, function(data) {
+        $.getJSON(document.getElementById('javascript-protocol').innerHTML+window.location.host + '/meetings/exists/'+meeting_id, function(data) {
             if (!data.meeting_exists){
                 return;
             }
