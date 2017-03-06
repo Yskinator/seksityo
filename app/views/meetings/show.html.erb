@@ -17,6 +17,7 @@
 <div class="actions">
   <%= button_to "I'm OK", {action: "meeting_ok", controller: "meetings"}, class: 'submitbutton' %>
   <%= button_to "Send Alert!", {action: "send_alert", controller: "meetings"}, class: 'alertbutton' %>
+  <%= button_to "Refresh Location", 'javascript:getPosition();', class: 'refreshbutton' %>
 </div>
 
 
