@@ -6,6 +6,16 @@ $section-color-1: #CBC378;
 $section-color-2: #8B822F;
 $section-color-3: #655E13;
 
+@mixin button_style($color) {
+  padding: 0;
+  width: 99%;
+  font-size: 150%;
+  height: 50px;
+  color: white;
+  text-align: center;
+  border: 1px solid black;
+  background-color: $color;
+}
 
 h1{
   font: 300% Helvetica;
@@ -50,6 +60,7 @@ h1{
   padding: 10px 0;
   width: 100%;
   overflow: hidden;
+  text-align: center;
 }
 .color-1 {
   background: $section-color-1;
@@ -97,28 +108,31 @@ h1{
   height: 30px;
   width: 50px;
 }
+
 .submitbutton{
-  padding: 0;
-  border: 1px solid black;
-  background: green;
-  width: 100%;
-  font-size: 150%;
-  height: 50px;
-  color: white;
-  box-shadow: none;
-  text-align: center;
+  @include button_style(green);
 }
+
+.submitbutton:hover{
+  background: #005800;
+}
+
 .alertbutton{
-  width: 100%;
-  font-size: 150%;
-  height: 50px;
-  color: white;
-  background-color: red;
-  padding: 0;
-  border: 1px solid black;
-  margin-top: 20px;
-  text-align: center;
+  @include button_style(red);
 }
+
+.alertbutton:hover{
+  background-color: #9b0000;
+}
+
+.refreshbutton{
+  @include button_style(#48a58b);
+}
+
+.refreshbutton:hover{
+  background-color: #39735c;
+}
+
 .info-header {
   color: green;
   background-color: white;
@@ -134,4 +148,8 @@ h1{
   color: red;
   font: 300% Helvetica;
   margin: 10px auto;
+}
+
+#javascript-protocol {
+  display: none;
 }

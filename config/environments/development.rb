@@ -53,4 +53,6 @@ Rails.application.configure do
 
   config.force_ssl = false
 
+  ENV["JAVASCRIPT_PROTOCOL"] = 'http://'
+
 end
