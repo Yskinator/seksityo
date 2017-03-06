@@ -4,8 +4,8 @@ class Meeting < ActiveRecord::Base
                                        less_than: 1440 }, allow_blank: true
 
   # Currently using email instead of phone numbers, validations off
-  # validates :phone_number, phone: true
-  validates_format_of :phone_number, :with => /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+  validates :phone_number, phone: true
+  # validates_format_of :phone_number, :with => /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
   def time_to_live
     time = Time.new
