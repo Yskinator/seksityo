@@ -13,10 +13,18 @@ feature 'When on the status page' do
     expect(page).to have_content("Artemis' Umbrella")
   end
   scenario 'user can press the alert button and send an alert message', js: true do
-      expect(page).to have_button("Send Alert!")
-      click_button 'Send Alert!'
-      sleep(0.1)
-      open_email('0401231234@textmagic.com')
-      expect(current_email).to have_content "is in trouble and needs help immediately."
-    end
+    expect(page).to have_button("Send Alert!")
+    click_button 'Send Alert!'
+    sleep(0.1)
+    open_email('0401231234@textmagic.com')
+    expect(current_email).to have_content "is in trouble and needs help immediately."
+  end
+  scenario 'refresh location data button exists', js: true do
+    expect(page).to have_button("Refresh Location")
+  end
+  scenario 'user can see the confirmation page after pressing the alert button', js:true do
+    expect(page).to have_button("Send Alert!")
+    click_button 'Send Alert!'
+    expect(page).to have_content("An alert has been sent to your Artemis")
+  end
 end
