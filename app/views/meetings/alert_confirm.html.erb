@@ -1,0 +1,21 @@
+<h1>Alert Sent!</h1>
+
+<div class="actions">
+  <div class="field-section color-1">
+    <div class="field-explanation">
+      <h2>An alert has been sent to your Artemis.</h2>
+      <p>Press the button to return to the status page.</p>
+    </div>
+    <%= link_to "Return", :root, class: 'submitbutton', id: "return" %>
+  </div>
+</div>
+
+
+
+<div id="location">
+  <% if not @meeting.longitude.nil? %>
+      <a href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>" target="_blank">Last
+        updated location</a>
+  <% end %>
+</div>
+
