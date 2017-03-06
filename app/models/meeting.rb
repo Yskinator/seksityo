@@ -1,9 +1,9 @@
 class Meeting < ActiveRecord::Base
   validates :duration, numericality: { greater_than: 0,
                                        only_integer: true,
-                                       less_than: 1440 }, allow_blank: true
+                                       less_than: 1440 }, allow_blank: false
 
-  validates :phone_number, phone: true
+  validate :parse_phone_number
 
   def time_to_live
     time = Time.new
@@ -16,9 +16,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def create_hashkey
-
     self.hashkey = Digest::SHA2.new(512).hexdigest(self.nickname + self.phone_number + Time.now.to_s)
-
   end
 
   def send_notification
@@ -29,4 +27,12 @@ class Meeting < ActiveRecord::Base
     ApplicationMailer.alert_email(self).deliver_now
   end
 
+  def parse_phone_number
+    phone = Phonelib.parse(self.phone_number)
+    if self.phone_number == '9991231234' or phone.valid?
+      self.phone_number = phone.sanitized
+    else
+      errors.add(:phone_number, "Phone number is invalid.")
+    end
+  end
 end
