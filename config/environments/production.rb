@@ -91,4 +91,6 @@ Rails.application.configure do
       enable_starttls_auto: true  }
 
   config.force_ssl = false
+
+  ENV["JAVASCRIPT_PROTOCOL"] = 'https://'
 end
