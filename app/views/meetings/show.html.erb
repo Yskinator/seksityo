@@ -4,6 +4,7 @@
     var meeting_updated = "<%= @meeting.updated_at %>";
 </script>
 <%= javascript_include_tag "locator" %>
+<div id="javascript-protocol"><%= ENV["JAVASCRIPT_PROTOCOL"] %></div>
 <h1>Informing your Artemis in</h1>
 <div class="info-timer">
   <% if @meeting.time_to_live == 1 %>
@@ -15,9 +16,22 @@
 
 
 <div class="actions">
-  <%= button_to "I'm OK", {action: "meeting_ok", controller: "meetings"}, class: 'submitbutton' %>
-  <%= button_to "Send Alert!", {action: "send_alert", controller: "meetings"}, class: 'alertbutton' %>
-  <%= button_to "Refresh Location", 'javascript:getPosition();', class: 'refreshbutton' %>
+  <div class="field-section color-1">
+    <div class="field-explanation">
+      <h2>Updates your latest known location</h2>
+    </div>
+    <%= button_to "Refresh Location", 'javascript:getPosition();', class: 'refreshbutton' %>
+  </div>
+  <div class="field-section color-2">
+    <div class="field-explanation">
+      <h2>Confirms you are safe and closes the meeting</h2>
+    </div>
+    <%= button_to "I'm OK", {action: "meeting_ok", controller: "meetings"}, class: 'submitbutton' %>
+    <div class="field-explanation">
+      <h2>Sends an alert message immediately!</h2>
+    </div>
+    <%= button_to "Send Alert!", {action: "send_alert", controller: "meetings"}, class: 'alertbutton' %>
+  </div>
 </div>
 
 
