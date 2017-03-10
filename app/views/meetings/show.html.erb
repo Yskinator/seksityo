@@ -1,3 +1,9 @@
+
+<% content_for :for_head do %>
+  <meta http-equiv="refresh" content="30">
+<% end %>
+
+
 <script type="text/javascript">
     var meeting_id = <%= @meeting.id %>;
     var meeting_created = "<%= @meeting.created_at %>"
