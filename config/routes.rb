@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'meetings/alert_confirm' => 'meetings#alert_confirm'
-  resources :meetings
+  resources :meetings, :except => [:index]
 
   #Used to send alerts
   post 'meetings/send_alert' => 'meetings#send_alert', as: 'send_alert'
@@ -14,15 +14,6 @@ Rails.application.routes.draw do
 
   # Used to check if the given meeting exists
   get "meetings/exists/:id" => 'meetings#exists'
-
-  get 'geolocation' => 'geolocation#show'
-
-  get 'about' => 'info#about'
-
-  # Used by the info page iframe to simulate status page, uses the same template as the real status page.
-  get 'statusdemo' => 'info#statusdemo'
-
-  get 'creationdemo' => 'info#creationdemo'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
