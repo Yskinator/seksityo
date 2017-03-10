@@ -16,11 +16,19 @@
 
  body {
      width: 100%;
-     background-color: #3F3F76;
+     background: #5A9DFF; /* For browsers that do not support gradients */
+     /*background: -webkit-linear-gradient(#FF7600, #5A9DFF); /* For Safari 5.1 to 6.0 */
+     /*background: -o-linear-gradient(#FF7600, #5A9DFF); /* For Opera 11.1 to 12.0 */
+     /*background: -moz-linear-gradient(#FF7600, #5A9DFF); /* For Firefox 3.6 to 15 */
+     /*background: linear-gradient(#FF7600, #5A9DFF); /* Standard syntax (must be last) */
  }
  .main {
      font-family: 'Ubuntu', sans-serif;
-     background-color: #3F3F76;
+     background: #5A9DFF; /* For browsers that do not support gradients */
+     /*background: -webkit-linear-gradient(#FF7600, #5A9DFF); /* For Safari 5.1 to 6.0 */
+     /*background: -o-linear-gradient(#FF7600, #5A9DFF); /* For Opera 11.1 to 12.0 */
+     /*background: -moz-linear-gradient(#FF7600, #5A9DFF); /* For Firefox 3.6 to 15 */
+     /*background: linear-gradient(#FF7600, #5A9DFF); /* Standard syntax (must be last) */
      color: #ffe;
      min-height: 90vh;
  }

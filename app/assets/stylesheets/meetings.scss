@@ -2,9 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$section-color-1: #CBC378;
-$section-color-2: #8B822F;
-$section-color-3: #655E13;
+
+//Can be used for defining different background colors for sections, not used atm.
+$section-color-1: #6031F7;
+$section-color-2: #5135AA;
+$section-color-3: #4A358E;
+//Currently only using this opacityvariable for the sections.
+$opacity: rgba(0,0,0,0.2);
 
 @mixin button_style($color) {
   padding: 0;
@@ -57,19 +61,20 @@ h1{
   padding: 5px;
 }
 .field-section{
+  margin: 5px 0;
   padding: 10px 0;
   width: 100%;
   overflow: hidden;
   text-align: center;
 }
 .color-1 {
-  background: $section-color-1;
+  background: $opacity;
 }
 .color-2 {
-  background: $section-color-2;
+  background: $opacity;
 }
 .color-3 {
-  background: $section-color-3;
+  background: $opacity;
 }
 
 .field {
@@ -110,7 +115,7 @@ h1{
 }
 
 .submitbutton{
-  @include button_style(green);
+  @include button_style(#1EB53F);
 }
 
 .submitbutton:hover{
@@ -118,7 +123,7 @@ h1{
 }
 
 .alertbutton{
-  @include button_style(red);
+  @include button_style(#CF1313);
 }
 
 .alertbutton:hover{
