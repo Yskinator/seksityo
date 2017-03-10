@@ -5,6 +5,7 @@
 $section-color-1: #6031F7;
 $section-color-2: #5135AA;
 $section-color-3: #4A358E;
+$opacity: rgba(0,0,0,0.2);
 
 @mixin button_style($color) {
   padding: 0;
@@ -57,19 +58,20 @@ h1{
   padding: 5px;
 }
 .field-section{
+  margin: 5px 0;
   padding: 10px 0;
   width: 100%;
   overflow: hidden;
   text-align: center;
 }
 .color-1 {
-  //background: $section-color-1;
+  background: $opacity;
 }
 .color-2 {
-  //background: $section-color-2;
+  background: $opacity;
 }
 .color-3 {
-  //background: $section-color-3;
+  background: $opacity;
 }
 
 .field {
@@ -118,7 +120,7 @@ h1{
 }
 
 .alertbutton{
-  @include button_style(#FF0000);
+  @include button_style(#CF1313);
 }
 
 .alertbutton:hover{
