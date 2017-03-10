@@ -33,6 +33,7 @@ class MeetingsController < ApplicationController
   # POST /meetings.json
   def create
     @meeting = Meeting.new(meeting_params)
+    @meeting.parse_phone_number
     @meeting.create_hashkey
 
     respond_to do |format|

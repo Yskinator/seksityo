@@ -33,4 +33,9 @@ class Meeting < ActiveRecord::Base
       errors.add(:phone_number, "Phone number is invalid.")
     end
   end
+
+  def parse_phone_number
+    phone = Phonelib.parse(self.phone_number)
+    self.phone_number = phone.sanitized
+  end
 end
