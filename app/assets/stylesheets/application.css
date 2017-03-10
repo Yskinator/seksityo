@@ -24,7 +24,7 @@
  }
  .main {
      font-family: 'Ubuntu', sans-serif;
-     background: #F9B86E; /* For browsers that do not support gradients */
+     background: #5A9DFF; /* For browsers that do not support gradients */
      background: -webkit-linear-gradient(#F9B86E, #5A9DFF); /* For Safari 5.1 to 6.0 */
      background: -o-linear-gradient(#F9B86E, #5A9DFF); /* For Opera 11.1 to 12.0 */
      background: -moz-linear-gradient(#F9B86E, #5A9DFF); /* For Firefox 3.6 to 15 */
