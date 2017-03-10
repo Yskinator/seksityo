@@ -29,5 +29,14 @@ RSpec.describe Meeting, type: :model do
     expect(meeting.hashkey).not_to eq(nil)
 
   end
-
+  it "can parse phone number with spaces" do
+    meeting = Meeting.new nickname:"Pekka", phone_number:"040 123 1234", duration:30, confirmed: true
+    meeting.parse_phone_number
+    expect(meeting.phone_number).to eq("0401231234")
+  end
+  it "can parse phone number with symbols" do
+    meeting = Meeting.new nickname:"Pekka", phone_number:"+358401231234", duration:30, confirmed: true
+    meeting.parse_phone_number
+    expect(meeting.phone_number).to eq("358401231234")
+  end
 end
