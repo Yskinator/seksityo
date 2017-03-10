@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   # Used to check if the given meeting exists
   get "meetings/exists/:id" => 'meetings#exists'
 
-  get 'geolocation' => 'geolocation#show'
 
   get 'about' => 'info#about'
 
