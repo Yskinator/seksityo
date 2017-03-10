@@ -19,9 +19,6 @@ feature 'When on the status page' do
     open_email('0401231234@textmagic.com')
     expect(current_email).to have_content "is in trouble and needs help immediately."
   end
-  scenario 'refresh location data button exists', js: true do
-    expect(page).to have_button("Refresh Location")
-  end
   scenario 'user can see the confirmation page after pressing the alert button', js:true do
     expect(page).to have_button("Send Alert!")
     click_button 'Send Alert!'
