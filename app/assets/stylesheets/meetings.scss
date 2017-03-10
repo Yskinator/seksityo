@@ -2,9 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+//Can be used for defining different background colors for sections, not used atm.
 $section-color-1: #6031F7;
 $section-color-2: #5135AA;
 $section-color-3: #4A358E;
+//Currently only using this opacityvariable for the sections.
 $opacity: rgba(0,0,0,0.2);
 
 @mixin button_style($color) {
