@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'meetings/alert_confirm' => 'meetings#alert_confirm'
-  resources :meetings
+  resources :meetings, :except => [:index]
 
   #Used to send alerts
   post 'meetings/send_alert' => 'meetings#send_alert', as: 'send_alert'
