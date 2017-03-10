@@ -2,9 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$section-color-1: #CBC378;
-$section-color-2: #8B822F;
-$section-color-3: #655E13;
+$section-color-1: #FF7A00;
+$section-color-2: #F58721;
+$section-color-3: #CD7D34;
 
 @mixin button_style($color) {
   padding: 0;
@@ -110,7 +110,7 @@ h1{
 }
 
 .submitbutton{
-  @include button_style(green);
+  @include button_style(#39BB32);
 }
 
 .submitbutton:hover{
@@ -118,7 +118,7 @@ h1{
 }
 
 .alertbutton{
-  @include button_style(red);
+  @include button_style(#C90707);
 }
 
 .alertbutton:hover{
