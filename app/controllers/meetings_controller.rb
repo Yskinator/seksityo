@@ -35,6 +35,8 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
     @meeting.parse_phone_number
     @meeting.create_hashkey
+    cookies['nickname'] = @meeting.nickname
+    cookies['phone_number'] = @meeting.phone_number
 
     respond_to do |format|
       if @meeting.save
