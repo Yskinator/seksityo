@@ -39,4 +39,9 @@ RSpec.describe Meeting, type: :model do
     meeting.parse_phone_number
     expect(meeting.phone_number).to eq("358401231234")
   end
+  it "can never return negative time-to-live value" do
+    meeting = Meeting.new nickname:"Pekka", phone_number:"+358401231234", duration:-1, confirmed: true
+    meeting.save(:validate => false)
+    expect(meeting.time_to_live).to eq(0)
+  end
 end

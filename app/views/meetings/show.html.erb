@@ -11,14 +11,24 @@
 </script>
 <%= javascript_include_tag "locator" %>
 <div id="javascript-protocol"><%= ENV["JAVASCRIPT_PROTOCOL"] %></div>
-<h1>Informing your Artemis in</h1>
-<div class="info-timer">
-  <% if @meeting.time_to_live == 1 %>
-      <%= @meeting.time_to_live %> minute
-  <% else %>
-      <%= @meeting.time_to_live %> minutes
-  <% end %>
-</div>
+
+<% if @meeting.time_to_live == 0 %>
+    <h1>The timer has run out</h1>
+    <div class="info-timer">
+      A message has been sent to your Artemis
+    </div>
+<% else %>
+    <h1>Informing your Artemis in</h1>
+    <div class="info-timer">
+      <% if @meeting.time_to_live == 1 %>
+          <%= @meeting.time_to_live %> minute
+      <% else %>
+          <%= @meeting.time_to_live %> minutes
+      <% end %>
+    </div>
+<% end %>
+
+
 
 
 <div class="actions">
