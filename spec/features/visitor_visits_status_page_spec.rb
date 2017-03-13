@@ -17,7 +17,7 @@ feature 'When on the status page' do
     click_button 'Send Alert!'
     sleep(0.1)
     open_email('0401231234@textmagic.com')
-    expect(current_email).to have_content "is in trouble and needs help immediately."
+    expect(current_email).to have_content "is in trouble and needs help immediately"
   end
   scenario 'user can see the confirmation page after pressing the alert button', js:true do
     expect(page).to have_button("Send Alert!")
