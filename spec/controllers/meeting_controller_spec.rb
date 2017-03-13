@@ -109,7 +109,15 @@ RSpec.describe MeetingsController, type: :controller do
       post :meeting_ok
       expect(Meeting.count).to eq(0)
     end
-
+    it "should delete the associated delayed_job" do
+      #To properly create a job the meeting has to be created via a post to create. Best not ask why.
+      meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
+      post :create, :meeting => meeting_params
+      @meeting = Meeting.find_by_nickname("Pekka")
+      expect(Delayed::Job.all.length).to eq(1)
+      post :meeting_ok
+      expect(Delayed::Job.all.length).to eq(0)
+    end
     it "should redirect to root" do
       @meeting = Meeting.create(nickname: "Test", phone_number: "testi@testi.test", duration: 10)
 
