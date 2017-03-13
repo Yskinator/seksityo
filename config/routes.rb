@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   # Used to check if the given meeting exists
   get "meetings/exists/:id" => 'meetings#exists'
 
+  get 'meetings' => 'meetings#new'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

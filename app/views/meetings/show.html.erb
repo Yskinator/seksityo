@@ -13,9 +13,8 @@
 <div id="javascript-protocol"><%= ENV["JAVASCRIPT_PROTOCOL"] %></div>
 
 <% if @meeting.time_to_live == 0 %>
-    <h1>The timer has run out</h1>
-    <div class="info-timer">
-      A message has been sent to your Artemis
+    <div class="notification-header">
+      A message has been sent to your Artemis!
     </div>
 <% else %>
     <h1>Informing your Artemis in</h1>
@@ -29,20 +28,20 @@
 <% end %>
 
 
-
-
 <div class="actions">
 
   <div class="field-section color-2">
     <div class="field-explanation">
-      <h2>Confirms you are safe and closes the meeting</h2>
+      <h2>Are you safe?</h2>
+      <p>Press the button to confirm you are safe and return to front page.</p>
     </div>
     <%= button_to "I'm OK", {action: "meeting_ok", controller: "meetings"}, class: 'submitbutton' %>
   </div>
 
   <div class="field-section color-3">
     <div class="field-explanation">
-      <h2>Sends an alert message immediately!</h2>
+      <h2>Are you in danger?</h2>
+      <p>Press the button to send an alert message to your Artemis immediately.</p>
     </div>
     <%= button_to "Send Alert!", {action: "send_alert", controller: "meetings"}, class: 'alertbutton' %>
   </div>

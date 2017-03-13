@@ -35,6 +35,8 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
     @meeting.parse_phone_number
     @meeting.create_hashkey
+    cookies['nickname'] = @meeting.nickname
+    cookies['phone_number'] = @meeting.phone_number
 
     respond_to do |format|
       if @meeting.save
@@ -78,6 +80,7 @@ class MeetingsController < ApplicationController
   def meeting_ok
       @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
       if @meeting
+        delete_job(@meeting.hashkey)
         @meeting.destroy
         cookies.delete 'current_meeting'
       end
@@ -126,6 +129,16 @@ class MeetingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
       params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
+    end
+
+    def delete_job(desired_key)
+      jobs = Delayed::Job.all
+      jobs.each do |job|
+        meeting = YAML::load(job.handler)
+        if meeting.hashkey.match(desired_key)
+          job.delete
+        end
+      end
     end
 
 end
