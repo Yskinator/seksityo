@@ -25,8 +25,7 @@ window.onload = function() {
         getPosition();
       }
     }
-    /* Fetch new position every 2 minutes */
-    setInterval(updatePosition, 120000);
+    updatePosition()
 
     /* When position is successfully fetched, add link to page */
     function success_callback(p){
