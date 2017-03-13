@@ -124,4 +124,14 @@ class MeetingsController < ApplicationController
       params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
     end
 
+    def delete_job(hashkey)
+      jobs = Delayed::Job.all
+      jobs.each do |job|
+        #If the meeting's hashkey is mentioned at some point
+        if job.handler.match(hashkey)
+          job.delete
+        end
+      end
+    end
+
 end
