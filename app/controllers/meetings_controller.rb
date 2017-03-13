@@ -125,11 +125,11 @@ class MeetingsController < ApplicationController
       params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
     end
 
-    def delete_job(hashkey)
+    def delete_job(desired_key)
       jobs = Delayed::Job.all
       jobs.each do |job|
-        #If the meeting's hashkey is mentioned at some point
-        if job.handler.match(hashkey)
+        meeting = YAML::load(job.handler)
+        if meeting.hashkey.match(desired_key)
           job.delete
         end
       end
