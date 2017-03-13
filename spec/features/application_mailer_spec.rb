@@ -18,7 +18,7 @@ describe 'Mailer' do
     click_button 'Start timer'
     sleep(0.3)
     open_email('0401231234@textmagic.com')
-    expect(current_email).to have_content "The assumed duration for Pekka's activity has passed."
+    expect(current_email).to have_content "This is a timed message from"
   end
   it 'should send the email to the address specified by user', js: true do
     fill_in 'meeting_phone_number', with: '0401231234'
