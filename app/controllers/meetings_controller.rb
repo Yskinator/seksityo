@@ -39,6 +39,8 @@ class MeetingsController < ApplicationController
     respond_to do |format|
       if @meeting.save
         cookies['current_meeting'] = @meeting.hashkey
+        cookies['nickname'] = @meeting.nickname
+        cookies['phone_number'] = @meeting.phone_number
         # Runs send_notification once the timer runs out
         @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification
         format.html { redirect_to @meeting, notice: 'Meeting was successfully created.' }
