@@ -4,21 +4,13 @@
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-  <h1>Notification regarding <%= @meeting.nickname %></h1>
   <p>
-    The assumed duration for <b><%= @meeting.nickname %></b>'s activity has passed.
-    Make sure that everything is fine.
-    <br>
+    This is a timed message from <%= @meeting.nickname %>. Contact <%= @meeting.nickname %> and make sure they are okay!
 
     <% if (@meeting.latitude && @meeting.longitude) %>
-        <br>
-        <a href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>" target="_blank">Friends last updated location</a>
-        <br>
-        <i>Note that location might not be exact or up-to-date.</i>
+        <%= @meeting.nickname %>'s last updated location: http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>
     <% else %>
-        <br>
         Location unavailable.
-        <br>
     <% end %>
   </p>
 </body>
