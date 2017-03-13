@@ -8,6 +8,22 @@ RSpec.describe MeetingsController, type: :controller do
       expect(response).to render_template("show")
     end
   end
+  describe "GET alert_confirm" do
+    it "renders the alert confirmation template" do
+      @meeting = Meeting.create(nickname: "Matti", phone_number: "9991231234", duration: 42)
+      @meeting.create_hashkey
+      @request.cookies['current_meeting'] = @meeting.hashkey
+      @meeting.save
+      get :alert_confirm
+      expect(response).to render_template("alert_confirm")
+    end
+    it "redirects to root if cookie is incorrect" do
+      Meeting.create(nickname: "Matti", phone_number: "9991231234", duration: 42)
+      @request.cookies['current_meeting'] = "Even incorrect cookies are tasty."
+      get :alert_confirm
+      expect(response).to redirect_to("/")
+    end
+  end
   describe "DELETE delete" do
     it "deletes the specified meeting" do
       @meeting = Meeting.create(nickname: "Matti", phone_number: "0401231234", duration: 20)

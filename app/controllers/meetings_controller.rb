@@ -111,6 +111,10 @@ class MeetingsController < ApplicationController
   # GET /meetings/alert_confirm
   def alert_confirm
     @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+    if !@meeting
+      cookies.delete 'current_meeting'
+      redirect_to root_path
+    end
   end
 
   private
