@@ -5,7 +5,7 @@
 </head>
 <body>
   <p>
-    This is a timed message from <b><%= @meeting.nickname %></b>. Contact them and make sure they are okay!
+    Timed message from <b><%= @meeting.nickname %></b>! Contact them and make sure they are okay.
 
     <% if (@meeting.latitude && @meeting.longitude) %>
         Last updated location: http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>
