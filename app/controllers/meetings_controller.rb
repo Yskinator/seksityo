@@ -20,7 +20,7 @@ class MeetingsController < ApplicationController
     if cookies['current_meeting']
       @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
       if @meeting
-        redirect_to(@meeting)
+        redirect_to('/meeting')
       end
     end
     @meeting = Meeting.new
@@ -44,7 +44,7 @@ class MeetingsController < ApplicationController
         cookies['current_meeting'] = @meeting.hashkey
         # Runs send_notification once the timer runs out
         @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification
-        format.html { redirect_to @meeting, notice: 'Meeting was successfully created.' }
+        format.html { redirect_to '/meeting', notice: 'Meeting was successfully created.' }
         format.json { render :show, status: :created, location: @meeting }
       else
         format.html { render :new }
@@ -58,7 +58,7 @@ class MeetingsController < ApplicationController
   def update
     respond_to do |format|
       if @meeting.update(meeting_params)
-        format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
+        format.html { redirect_to '/meeting', notice: 'Meeting was successfully updated.' }
         format.json { render :show, status: :ok, location: @meeting }
       else
         format.html { render :edit }
@@ -101,6 +101,7 @@ class MeetingsController < ApplicationController
     end
   end
 
+
   # GET /meetings/id
   def exists
     if Meeting.exists?(id: params[:id])
@@ -129,13 +130,14 @@ class MeetingsController < ApplicationController
 
   private
 
-  def extract_locale_from_accept_language_header
-    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
-  end
-
   # Use callbacks to share common setup or constraints between actions.
   def set_meeting
-    @meeting = Meeting.find(params[:id])
+    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+  end
+
+
+  def extract_locale_from_accept_language_header
+    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

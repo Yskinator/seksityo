@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'meetings/alert_confirm' => 'meetings#alert_confirm'
-  resources :meetings, :except => [:index]
+  resources :meetings, :except => [:index, :show]
 
   #Used to send alerts
   post 'meetings/send_alert' => 'meetings#send_alert', as: 'send_alert'
@@ -8,15 +8,16 @@ Rails.application.routes.draw do
   post 'meetings/meeting_ok' => 'meetings#meeting_ok', as: 'meeting_ok'
 
   # Used to update location to meeting, basic HTML-form does not support PUT
-  post "meetings/:id" => 'meetings#update'
+  post 'meetings/:id' => 'meetings#update'
 
   root 'meetings#new'
 
+  get 'meeting' => 'meetings#show'
+
   # Used to check if the given meeting exists
-  get "meetings/exists/:id" => 'meetings#exists'
+  get 'meetings/exists/:id' => 'meetings#exists'
 
   get 'meetings' => 'meetings#new'
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
