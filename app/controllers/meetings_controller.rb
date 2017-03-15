@@ -1,5 +1,6 @@
 class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
+  before_action :set_locale
 
   # GET /meetings
   # GET /meetings.json
@@ -120,25 +121,36 @@ class MeetingsController < ApplicationController
     end
   end
 
+  def set_locale
+    logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
+    I18n.locale = extract_locale_from_accept_language_header
+    logger.debug "* Locale set to '#{I18n.locale}'"
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_meeting
-      @meeting = Meeting.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def meeting_params
-      params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
-    end
+  def extract_locale_from_accept_language_header
+    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+  end
 
-    def delete_job(desired_key)
-      jobs = Delayed::Job.all
-      jobs.each do |job|
-        meeting = YAML::load(job.handler)
-        if meeting.hashkey.match(desired_key)
-          job.delete
-        end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_meeting
+    @meeting = Meeting.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def meeting_params
+    params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
+  end
+
+  def delete_job(desired_key)
+    jobs = Delayed::Job.all
+    jobs.each do |job|
+      meeting = YAML::load(job.handler)
+      if meeting.hashkey.match(desired_key)
+        job.delete
       end
     end
+  end
 
 end
