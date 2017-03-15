@@ -42,7 +42,7 @@ RSpec.describe MeetingsController, type: :controller do
       @request.cookies['current_meeting'] = @meeting.hashkey
       @meeting.save
       get :new
-      expect(response).to redirect_to(@meeting)
+      expect(response).to redirect_to('/meeting')
     end
   end
   describe "GET edit" do
@@ -91,7 +91,7 @@ RSpec.describe MeetingsController, type: :controller do
       put :update, id: @meeting.id, :meeting => attr
       @meeting.reload
       expect(@meeting.nickname).to eq("Pekka")
-      expect(response).to redirect_to(@meeting)
+      expect(response).to redirect_to('/meeting')
     end
   end
   describe "POST send_alert" do
