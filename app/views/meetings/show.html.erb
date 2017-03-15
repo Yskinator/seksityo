@@ -14,15 +14,15 @@
 
 <% if @meeting.time_to_live == 0 %>
     <div class="notification-header">
-      A message has been sent to your Artemis!
+      <%= t('notification_sent_text') %>
     </div>
 <% else %>
-    <h1>Informing your Artemis in</h1>
+    <h1><%= t('status_page_title') %></h1>
     <div class="info-timer">
       <% if @meeting.time_to_live == 1 %>
-          <%= @meeting.time_to_live %> minute
+          <%= @meeting.time_to_live %> <%= t('minutes_singular') %>
       <% else %>
-          <%= @meeting.time_to_live %> minutes
+          <%= @meeting.time_to_live %> <%= t('minutes_plural') %>
       <% end %>
     </div>
 <% end %>
@@ -32,18 +32,18 @@
 
   <div class="field-section color-2">
     <div class="field-explanation">
-      <h2>Are you safe?</h2>
-      <p>Press the button to confirm you are safe and return to front page.</p>
+      <h2><%= t('ok_confirmation_title') %></h2>
+      <p><%= t('ok_confirmation_text') %></p>
     </div>
-    <%= button_to "I'm OK", {action: "meeting_ok", controller: "meetings"}, class: 'submitbutton' %>
+    <%= button_to "#{t('ok_confirmation_button')}", {action: "meeting_ok", controller: "meetings"}, class: 'submitbutton' %>
   </div>
 
   <div class="field-section color-3">
     <div class="field-explanation">
-      <h2>Are you in danger?</h2>
-      <p>Press the button to send an alert message to your Artemis immediately.</p>
+      <h2><%= t('send_alert_title') %></h2>
+      <p><%= t('send_alert_text') %></p>
     </div>
-    <%= button_to "Send Alert!", {action: "send_alert", controller: "meetings"}, class: 'alertbutton' %>
+    <%= button_to "#{ t('send_alert_button')} ", {action: "send_alert", controller: "meetings"}, class: 'alertbutton' %>
   </div>
 </div>
 

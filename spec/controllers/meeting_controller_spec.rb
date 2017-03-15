@@ -36,6 +36,25 @@ RSpec.describe MeetingsController, type: :controller do
       get :new
       expect(response).to render_template("new")
     end
+    context "with render views" do
+      render_views
+
+      it "renders the default localization if none is set" do
+        get :new
+        expect(response.body).to have_content("Who are you?")
+      end
+      it "renders finnish localization if it is set" do
+        @request.env['HTTP_ACCEPT_LANGUAGE'] = "fi"
+        get :new
+        expect(response.body).to have_content("Artemiin Sateenvarjo")
+      end
+      it "renders default localization if headers contain unavailable localization" do
+        @request.env['HTTP_ACCEPT_LANGUAGE'] = "fr"
+        get :new
+        puts(response.body)
+        expect(response.body).to have_content("Who are you?")
+      end
+    end
     it "renders status page if hash found in cookies and database" do
       @meeting = Meeting.create(nickname: "Matti", phone_number: "0401231234", duration: 20)
       @meeting.create_hashkey

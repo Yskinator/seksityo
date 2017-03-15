@@ -6,7 +6,7 @@ feature 'When on the status page' do
     fill_in 'meeting_nickname', with: 'Pekka'
     fill_in 'meeting_phone_number', with: '0401231234'
     fill_in 'duration-input', with: '111'
-    click_button 'Start timer'
+    click_button 'startbutton'
   end
   scenario 'user can press the ok button to get back to meeting creation page', js: true do
     click_button "I'm OK"

@@ -1,21 +1,20 @@
 <%= form_for(@meeting) do |f| %>
     <div class="field-section color-1">
       <div class="field-explanation">
-        <h2>Who are you?</h2>
-        <p>We need to inform your Artemis someone is in trouble. But who?</p>
+        <h2><%= t('nickname_info_title') %></h2>
+        <p><%= t('nickname_info_text') %></p>
       </div>
       <div class="field">
-        <%= f.text_field :nickname, :class => "textfield", placeholder: "My name" , value: cookies['nickname'] %>
+        <%= f.text_field :nickname, :class => "textfield", placeholder: "#{t('nickname_placeholder')}" , value: cookies['nickname'] %>
       </div>
     </div>
     <div class="field-section color-2">
       <div class="field-explanation">
-        <h2>Who is your Artemis?</h2>
-        <p>We need to reach you safety contact in case we don't hear from you.<br/>
-          Enter his/her phone number here.</p>
+        <h2><%= t('phonenumber_info_title') %></h2>
+        <p><%= t('phonenumber_info_text') %></p>
       </div>
       <div class="field">
-        <%= f.text_field :phone_number, :class => "textfield", placeholder: "Phone number", value: cookies['phone_number'] %>
+        <%= f.text_field :phone_number, :class => "textfield", placeholder: "#{t('phonenumber_placeholder')}", value: cookies['phone_number'] %>
         <% if @meeting.errors.messages[:phone_number].any? %>
             <div class="error-explanation">
               <p class="error-message">Phone number is invalid</p>
@@ -25,8 +24,8 @@
     </div>
     <div class="field-section color-3">
       <div class="field-explanation">
-        <h2>How long should we wait?</h2>
-        <p>Your Artemis should be worried if you don't tell us you're safe by...</p>
+        <h2><%= t('duration_info_title') %></h2>
+        <p><%= t('duration_info_text') %></p>
       </div>
       <div class="field">
         <div class="duration-container">
@@ -41,17 +40,17 @@
         <div id="duration-value">
         </div>
         <div class="duration-container">
-          <input class="duration-input" type="number" id="duration-input" min="0" max="1440" placeholder="Minutes">
+          <input class="duration-input" type="number" id="duration-input" min="0" max="1440" placeholder="<%= t('minutes_plural') %>">
         </div>
       </div>
     </div>
     <div class="field-section color-4">
       <div class="field-explanation">
-        <h2>Ready to go?</h2>
-        <p>Once you press Start Timer, we start the clock and inform your Artemis if we don't hear from you in <span id="duration-info"></span> minutes</p>
+        <h2><%= t('start_meeting_title') %></h2>
+        <p><%= t('start_meeting_text') %> <span id="duration-info"></span> <%= t('minutes_plural') %></p>
       </div>
         <div class="actions">
-          <%= f.submit 'Start timer', :class => "submitbutton" %>
+          <%= f.submit "#{t('start_meeting_button')}", :class => "submitbutton", :id => "startbutton" %>
         </div>
 
     </div>
