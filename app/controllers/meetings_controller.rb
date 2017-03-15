@@ -121,25 +121,31 @@ class MeetingsController < ApplicationController
     end
   end
 
+
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_meeting
-      @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_meeting
+    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def meeting_params
-      params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
-    end
 
-    def delete_job(desired_key)
-      jobs = Delayed::Job.all
-      jobs.each do |job|
-        meeting = YAML::load(job.handler)
-        if meeting.hashkey.match(desired_key)
-          job.delete
-        end
+  def extract_locale_from_accept_language_header
+    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def meeting_params
+    params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
+  end
+
+  def delete_job(desired_key)
+    jobs = Delayed::Job.all
+    jobs.each do |job|
+      meeting = YAML::load(job.handler)
+      if meeting.hashkey.match(desired_key)
+        job.delete
       end
     end
+  end
 
 end

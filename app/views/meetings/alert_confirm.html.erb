@@ -1,12 +1,12 @@
-<div class="notification-header">Alert sent!</div>
+<div class="notification-header"><%= t('alert_confirmation_title') %></div>
 
 <div class="actions">
   <div class="field-section color-1">
     <div class="field-explanation">
-      <h2>An alert has been sent to your Artemis.</h2>
-      <p>Press the button to return to the status page.</p>
+      <h2><%= t('alert_confirmation_info_title') %></h2>
+      <p><%= t('alert_confirmation_info_text') %></p>
     </div>
-    <%= button_to "Return", :root, :method => "get", class: 'submitbutton' %>
+    <%= button_to "#{ t('alert_confirmation_return_button')}", :root, :method => "get", class: 'submitbutton' %>
   </div>
 </div>
 

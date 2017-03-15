@@ -1,0 +1,38 @@
+fi:
+  # Main title
+  title: "Artemiin Sateenvarjo"
+
+  # minute / minutes
+  minutes_plural: "minuuttia"
+  minutes_singular: "minuutti"
+
+  # Meeting creation page
+  nickname_info_title: "Kuka olet?"
+  nickname_info_text: "Meidän täytyy kertoa Artemiillesi, että joku on pulassa. Mutta kuka?"
+  nickname_placeholder: "Minun nimeni"
+  phonenumber_info_title: "Kuka on Artemiisi?"
+  phonenumber_info_text: "Meidän täytyy tavoittaa turvahenkilösi, jos emme kuule sinusta. Kirjoita hänen puhelinnumeronsa tähän."
+  phonenumber_placeholder: "Puhelinnumero"
+  duration_info_title: "Kuinka kauan odotamme?"
+  duration_info_text: "Artemiisi tulisi olla huolissaan ellet ilmoita meille olevasi kunnossa ennen kuin on kulunut.."
+  start_meeting_title: "Kaikki valmista?"
+  start_meeting_text: "Kun painat aloita-nappia käynnistämme ajastimen ja ilmoitamme Artemiillesi kun on kulunut "
+  start_meeting_button: "Aloita"
+  feedback_link: "Palaute"
+  info_link: "Info"
+
+  # Status page
+  status_page_title: "Artemiillesi ilmoitetaan kun on kulunut"
+  notification_sent_text: "Artemiillesi on lähetetty viesi!"
+  ok_confirmation_title: "Oletko turvassa?"
+  ok_confirmation_text: "Paina OK-nappia vahvistaaksesi olevasi turvassa ja palataksesi etusivulle."
+  ok_confirmation_button: "Olen OK!"
+  send_alert_title: "Oletko vaarassa?"
+  send_alert_text: "Paina Hälytys-nappia lähettääksesi hälytysviestin Artemiillesi heti."
+  send_alert_button: "Lähetä Hälytys!"
+
+  # Alert confirmation page
+  alert_confirmation_title: "Hälytysviesti lähetetty!"
+  alert_confirmation_info_title: "Artemiillesi on lähetetty hälytysviesti."
+  alert_confirmation_info_text: "Paina nappia palataksesi edelliselle sivulle."
+  alert_confirmation_return_button: "Palaa"

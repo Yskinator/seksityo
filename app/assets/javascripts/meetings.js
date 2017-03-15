@@ -33,6 +33,8 @@ window.onload = function() {
                 removeSelected('');
                 replaceHiddenInput(createNewInput(input.value));
                 setDurationInfoText(input.value);
+            } else {
+                select1h();
             }
         };
         select1h();

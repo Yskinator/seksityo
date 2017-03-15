@@ -20,4 +20,41 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  # Main title
+  title: "Artemis' Umbrella"
+
+  # minute / minutes
+  minutes_plural: "minutes"
+  minutes_singular: "minute"
+
+  # Meeting creation page
+  nickname_info_title: "Who are you?"
+  nickname_info_text: "We need to inform your Artemis someone is in trouble. But who?"
+  nickname_placeholder: "My Name"
+  phonenumber_info_title: "Who is your Artemis?"
+  phonenumber_info_text: "We need to reach you safety contact in case we don't hear from you. Enter his/her phone number here."
+  phonenumber_placeholder: "Phone number"
+  duration_info_title: "How long should we wait?"
+  duration_info_text: "Your Artemis should be worried if you don't tell us you're safe by..."
+  start_meeting_title: "Ready to go?"
+  start_meeting_text: "Once you press Start Timer, we start the clock and inform your Artemis if we don't hear from you in "
+  start_meeting_button: "Start Timer"
+  feedback_link: "Feedback"
+  info_link: "Info"
+
+  # Status page
+  status_page_title: "Informing your Artemis in"
+  notification_sent_text: "A message has been sent to your Artemis!"
+  ok_confirmation_title: "Are you safe?"
+  ok_confirmation_text: "Press the button to confirm you are safe and return to front page."
+  ok_confirmation_button: "I'm OK"
+  send_alert_title: "Are you in danger?"
+  send_alert_text: "Press the button to send an alert message to your Artemis immediately."
+  send_alert_button: "Send Alert!"
+
+  # Alert confirmation page
+  alert_confirmation_title: "Alert sent!"
+  alert_confirmation_info_title: "An alert has been sent to your Artemis."
+  alert_confirmation_info_text: "Press the button to return to the status page."
+  alert_confirmation_return_button: "Return"
+
