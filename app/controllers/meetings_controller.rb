@@ -1,6 +1,5 @@
 class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
-  before_action :set_locale
 
   # GET /meetings
   # GET /meetings.json
@@ -122,14 +121,8 @@ class MeetingsController < ApplicationController
     end
   end
 
-  def set_locale
-    logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
-    I18n.locale = extract_locale_from_accept_language_header
-    logger.debug "* Locale set to '#{I18n.locale}'"
-  end
 
   private
-
   # Use callbacks to share common setup or constraints between actions.
   def set_meeting
     @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])

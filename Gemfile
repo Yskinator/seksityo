@@ -6,6 +6,8 @@ ruby '2.2.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
 
+# gem to set locale based on browser preference
+gem 'http_accept_language'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

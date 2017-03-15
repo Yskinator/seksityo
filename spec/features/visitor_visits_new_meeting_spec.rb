@@ -11,7 +11,7 @@ feature 'New meeting' do
     fill_in 'meeting_nickname', with: "Turbo"
     fill_in 'meeting_phone_number', with: '0401231234'
     fill_in 'duration-input', with: '30'
-    click_button 'Start timer'
+    click_button 'startbutton'
     visit '/meetings/new'
 
     expect(page).to have_content('Informing your Artemis in')
