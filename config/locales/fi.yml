@@ -19,7 +19,7 @@ fi:
   start_meeting_text: "Kun painat aloita-nappia käynnistämme ajastimen ja ilmoitamme Artemiillesi kun on kulunut "
   start_meeting_button: "Aloita"
   feedback_link: "Palaute"
-  user_manual_link: "Käyttöohjeet"
+  info_link: "Info"
 
   # Status page
   status_page_title: "Artemiillesi ilmoitetaan kun on kulunut"

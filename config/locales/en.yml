@@ -40,7 +40,7 @@ en:
   start_meeting_text: "Once you press Start Timer, we start the clock and inform your Artemis if we don't hear from you in "
   start_meeting_button: "Start Timer"
   feedback_link: "Feedback"
-  user_manual_link: "User Manual"
+  info_link: "Info"
 
   # Status page
   status_page_title: "Informing your Artemis in"
