@@ -143,11 +143,6 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
   end
 
-
-  def extract_locale_from_accept_language_header
-    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
-  end
-
   # Never trust parameters from the scary internet, only allow the white list through.
   def meeting_params
     params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
