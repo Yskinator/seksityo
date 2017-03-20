@@ -133,7 +133,7 @@ class MeetingsController < ApplicationController
         job.save
       end
     end
-    redirect_to root_path
+    redirect_to '/meeting'
   end
 
   private
