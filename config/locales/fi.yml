@@ -7,6 +7,7 @@ fi:
   minutes_singular: "minuutti"
 
   # Meeting creation page
+  language_selector: "Suomeksi"
   nickname_info_title: "Kuka olet?"
   nickname_info_text: "Meidän täytyy kertoa Artemiillesi, että joku on pulassa. Mutta kuka?"
   nickname_placeholder: "Minun nimeni"

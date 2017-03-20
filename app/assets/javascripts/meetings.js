@@ -38,6 +38,7 @@ window.onload = function() {
             }
         };
         select1h();
+
 };
 
 /* Selects the "1h" option, called on page load */
@@ -97,6 +98,7 @@ removeSelected = function(id) {
             $(document.getElementById('select2h')).removeClass('selected');
         }
     }
-}
+};
+
 
 

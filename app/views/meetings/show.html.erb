@@ -12,6 +12,7 @@
 <%= javascript_include_tag "locator" %>
 <div id="javascript-protocol"><%= ENV["JAVASCRIPT_PROTOCOL"] %></div>
 
+<div class="title-container">
 <% if @meeting.time_to_live == 0 %>
     <div class="notification-header">
       <%= t('notification_sent_text') %>
@@ -27,7 +28,7 @@
     </div>
       <%= button_to "#{ t('change_time_button')} ", {action: "add_time", controller: "meetings"}, class:'changetimebutton'%>
 <% end %>
-
+</div>
 
 <div class="actions">
 

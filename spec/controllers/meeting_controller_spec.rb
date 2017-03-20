@@ -51,8 +51,24 @@ RSpec.describe MeetingsController, type: :controller do
       it "renders default localization if headers contain unavailable localization" do
         @request.env['HTTP_ACCEPT_LANGUAGE'] = "fr"
         get :new
-        puts(response.body)
         expect(response.body).to have_content("Who are you?")
+      end
+      it "render page in english if cookie is present" do
+        @request.env['HTTP_ACCEPT_LANGUAGE'] = "fi"
+        @request.cookies['lang'] = "en"
+        get :new
+        expect(response.body).to have_content("Who are you?")
+      end
+      it "has language switching link in correct language based on http headers" do
+        @request.env['HTTP_ACCEPT_LANGUAGE'] = "fi"
+        @request.cookies['lang'] = "en"
+        get :new
+        expect(response.body).to have_content("Suomeksi")
+      end
+      it "has no language selector if localized language is not available" do
+        @request.env['HTTP_ACCEPT_LANGUAGE'] = "fr"
+        get :new
+        expect(response.body).to_not  have_content("English")
       end
     end
     it "renders status page if hash found in cookies and database" do
