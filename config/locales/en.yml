@@ -28,6 +28,7 @@ en:
   minutes_singular: "minute"
 
   # Meeting creation page
+  language_selector: "English"
   nickname_info_title: "Who are you?"
   nickname_info_text: "We need to inform your Artemis someone is in trouble. But who?"
   nickname_placeholder: "My Name"

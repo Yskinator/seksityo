@@ -1,5 +1,6 @@
 class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
+  before_action :set_locale
 
   # GET /meetings
   # GET /meetings.json
@@ -152,4 +153,29 @@ class MeetingsController < ApplicationController
     params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
   end
 
+  def set_locale
+    @showChangeLink = true;
+    @changeLinkText = "Switch to english";
+
+    if cookies['lang'] == "en"
+      I18n.locale = "en"
+      @changeLinkText = I18n.t :language_selector, locale: http_accept_language.compatible_language_from(I18n.available_locales)
+    else
+      if http_accept_language.compatible_language_from(I18n.available_locales).nil?
+        I18n.locale = I18n.default_locale
+        @showChangeLink = false;
+      else
+        I18n.locale = http_accept_language.compatible_language_from(I18n.available_locales)
+      end
+
+      @changeLinkText = I18n.t :language_selector, locale: :en
+    end
+
+    if http_accept_language.compatible_language_from(http_accept_language.user_preferred_languages) == I18n.default_locale.to_s
+      @showChangeLink = false;
+    else
+
+    end
+
+  end
 end
