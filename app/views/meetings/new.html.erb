@@ -1,4 +1,14 @@
-<h1><%= t('title') %></h1>
+<div class="creation-header">
+  <div class="title-container">
+    <h1><%= t('title') %></h1>
+  </div>
+
+
+  <% if @showChangeLink %>
+      <a class="language-select" id="language-selector" href="#" onclick="switchToEnglish()"><%= @changeLinkText %></a>
+  <% end %>
+</div>
+
 
 <%= render 'form' %>
 
