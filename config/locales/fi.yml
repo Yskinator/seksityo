@@ -30,6 +30,7 @@ fi:
   send_alert_title: "Oletko vaarassa?"
   send_alert_text: "Paina Hälytys-nappia lähettääksesi hälytysviestin Artemiillesi heti."
   send_alert_button: "Lähetä Hälytys!"
+  change_time_button: "+ 10 minuuttia"
 
   # Alert confirmation page
   alert_confirmation_title: "Hälytysviesti lähetetty!"
