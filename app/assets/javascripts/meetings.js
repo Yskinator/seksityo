@@ -38,6 +38,7 @@ window.onload = function() {
             }
         };
         select1h();
+
 };
 
 /* Selects the "1h" option, called on page load */
