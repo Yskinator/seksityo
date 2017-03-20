@@ -139,13 +139,22 @@ class MeetingsController < ApplicationController
   end
 
   def delete_job(desired_key)
+    job = find_job(desired_key)
+    if job
+      job.delete
+    end
+  end
+
+  def find_job(desired_key)
     jobs = Delayed::Job.all
+    found_job = nil
     jobs.each do |job|
       meeting = YAML::load(job.handler)
       if meeting.hashkey.match(desired_key)
-        job.delete
+        found_job = job
       end
     end
+    found_job
   end
 
 end
