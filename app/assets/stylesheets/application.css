@@ -45,3 +45,13 @@
          width: 100%;
      }
  }
+
+/* LANGUAGE SELECTOR */
+.language-select {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+.language-header {
+    position: relative;
+}
