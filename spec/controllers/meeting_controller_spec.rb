@@ -163,4 +163,30 @@ RSpec.describe MeetingsController, type: :controller do
       expect(response).to redirect_to(:root)
     end
   end
+  describe "POST add_time" do
+    it "should increase meeting's duration" do
+      @meeting = Meeting.create(nickname: "Pekka", phone_number: "9991231234", duration: 10)
+      @meeting.create_hashkey
+      @request.cookies['current_meeting'] = @meeting.hashkey
+      @meeting.save
+      @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification
+
+      expect(@meeting.duration).to eq(10)
+      post :add_time
+      updated_meeting = Meeting.find_by_hashkey(@meeting.hashkey)
+      expect(updated_meeting.duration).to eq(20)
+    end
+    it "should increase job's run_at time" do
+      @meeting = Meeting.create(nickname: "Pekka", phone_number: "9991231234", duration: 10)
+      @meeting.create_hashkey
+      @request.cookies['current_meeting'] = @meeting.hashkey
+      @meeting.save
+      @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification
+      job = @meeting.find_job
+      start_time = job.run_at
+      post :add_time
+      job = @meeting.find_job
+      expect(job.run_at).to eq(start_time+10.minutes)
+    end
+  end
 end

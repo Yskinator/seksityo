@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   post 'meetings/meeting_ok' => 'meetings#meeting_ok', as: 'meeting_ok'
 
+  post 'meetings/add_time' => 'meetings#add_time', as: 'add_time'
+
   # Used to update location to meeting, basic HTML-form does not support PUT
   post 'meetings/:id' => 'meetings#update'
 

@@ -25,6 +25,7 @@
           <%= @meeting.time_to_live %> <%= t('minutes_plural') %>
       <% end %>
     </div>
+      <%= button_to "#{ t('change_time_button')} ", {action: "add_time", controller: "meetings"}, class:'changetimebutton'%>
 <% end %>
 
 
