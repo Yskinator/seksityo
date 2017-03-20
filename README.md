@@ -3,7 +3,8 @@
 Seksityöläisten turvasovellus. 
 
 ## Application links
-* [Production](https://github.com/seksityo/project-info/blob/master) - _WIP!_
+* [Info website](https://artemisumbrella.com)
+* [Production](https://info.artemisumbrella.com)
 * [Staging server](http://artemis-umbrella.herokuapp.com/)
 * [User manual](https://drive.google.com/file/d/0Bztkd2OpADZVVHhESUE5N21ZSVU/view?usp=sharing)
 
