@@ -137,6 +137,20 @@ h1{
   background-color: #39735c;
 }
 
+.changetimebutton{
+  @include button_style($opacity);
+  border-radius: 10px;
+  text-decoration: none;
+  padding: 5px;
+  margin: auto;
+  width: 200px;
+  display: block;
+}
+
+.changetimebutton:hover{
+  background-color: rgba(0,0,0,0.4);
+}
+
 .info-header {
   color: green;
   background-color: white;
