@@ -81,7 +81,7 @@ class MeetingsController < ApplicationController
   def meeting_ok
       @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
       if @meeting
-        delete_job(@meeting.hashkey)
+        @meeting.delete_job()
         @meeting.destroy
         cookies.delete 'current_meeting'
       end
@@ -122,6 +122,20 @@ class MeetingsController < ApplicationController
     end
   end
 
+  # POST /meetings/add_time
+  def add_time
+    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+    if @meeting
+      job = @meeting.find_job()
+      if job
+        @meeting.duration = @meeting.duration+10
+        job.run_at = job.run_at + 10.minutes
+        @meeting.save
+        job.save
+      end
+    end
+    redirect_to '/meeting'
+  end
 
   private
   # Use callbacks to share common setup or constraints between actions.
@@ -137,16 +151,6 @@ class MeetingsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def meeting_params
     params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
-  end
-
-  def delete_job(desired_key)
-    jobs = Delayed::Job.all
-    jobs.each do |job|
-      meeting = YAML::load(job.handler)
-      if meeting.hashkey.match(desired_key)
-        job.delete
-      end
-    end
   end
 
   def set_locale
@@ -174,5 +178,4 @@ class MeetingsController < ApplicationController
     end
 
   end
-
 end

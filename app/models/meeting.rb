@@ -38,4 +38,23 @@ class Meeting < ActiveRecord::Base
     phone = Phonelib.parse(self.phone_number)
     self.phone_number = phone.sanitized
   end
+
+  def delete_job()
+    job = find_job()
+    if job
+      job.delete
+    end
+  end
+
+  def find_job()
+    jobs = Delayed::Job.all
+    found_job = nil
+    jobs.each do |job|
+      meeting = YAML::load(job.handler)
+      if meeting.hashkey.match(hashkey)
+        found_job = job
+      end
+    end
+    found_job
+  end
 end
