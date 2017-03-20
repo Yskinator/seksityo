@@ -121,6 +121,20 @@ class MeetingsController < ApplicationController
     end
   end
 
+  # POST /meetings/add_time
+  def add_time
+    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+    if @meeting
+      job = find_job(@meeting.hashkey)
+      if job
+        @meeting.duration = @meeting.duration+10
+        job.run_at = job.run_at + 10.minutes
+        @meeting.save
+        job.save
+      end
+    end
+    redirect_to root_path
+  end
 
   private
   # Use callbacks to share common setup or constraints between actions.
