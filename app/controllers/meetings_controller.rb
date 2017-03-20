@@ -154,11 +154,11 @@ class MeetingsController < ApplicationController
   end
 
   def set_locale
-    @showChangeLink = true;
-    @changeLinkText = "Switch to english";
+    @showChangeLink = true
+    @changeLinkText = ''
 
-    if cookies['lang'] == "en"
-      I18n.locale = "en"
+    if cookies['lang'] == 'en'
+      I18n.locale = 'en'
       @changeLinkText = I18n.t :language_selector, locale: http_accept_language.compatible_language_from(I18n.available_locales)
     else
       if http_accept_language.compatible_language_from(I18n.available_locales).nil?

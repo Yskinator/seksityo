@@ -16,8 +16,11 @@
 //= require_tree .
 
 
+/*
+    Switches between browser preferred language and english.
+    Sets 'lang' cookie which the back end uses to choose between browser preferred language and english.
+ */
 switchLanguage = function() {
-    var selector = document.getElementById('language-selector');
     if (getCookie('lang') == "en"){
         document.cookie = "lang=default";
     } else {
@@ -25,7 +28,9 @@ switchLanguage = function() {
     }
 };
 
-
+/*
+    Parses document.cookies and tries to find cookie with the key given as parameter.
+ */
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
