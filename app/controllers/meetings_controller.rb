@@ -80,7 +80,7 @@ class MeetingsController < ApplicationController
   def meeting_ok
       @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
       if @meeting
-        delete_job(@meeting.hashkey)
+        @meeting.delete_job()
         @meeting.destroy
         cookies.delete 'current_meeting'
       end
@@ -125,7 +125,7 @@ class MeetingsController < ApplicationController
   def add_time
     @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
     if @meeting
-      job = find_job(@meeting.hashkey)
+      job = @meeting.find_job()
       if job
         @meeting.duration = @meeting.duration+10
         job.run_at = job.run_at + 10.minutes
@@ -150,25 +150,6 @@ class MeetingsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def meeting_params
     params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
-  end
-
-  def delete_job(desired_key)
-    job = find_job(desired_key)
-    if job
-      job.delete
-    end
-  end
-
-  def find_job(desired_key)
-    jobs = Delayed::Job.all
-    found_job = nil
-    jobs.each do |job|
-      meeting = YAML::load(job.handler)
-      if meeting.hashkey.match(desired_key)
-        found_job = job
-      end
-    end
-    found_job
   end
 
 end
