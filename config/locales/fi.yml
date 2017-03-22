@@ -14,6 +14,7 @@ fi:
   phonenumber_info_title: "Kuka on Artemiisi?"
   phonenumber_info_text: "Meidän täytyy tavoittaa turvahenkilösi, jos emme kuule sinusta. Kirjoita hänen puhelinnumeronsa tähän."
   phonenumber_placeholder: "Puhelinnumero"
+  phone_number_invalid: "Virheellinen puhelinnumero"
   duration_info_title: "Kuinka kauan odotamme?"
   duration_info_text: "Artemiisi tulisi olla huolissaan ellet ilmoita meille olevasi kunnossa ennen kuin on kulunut.."
   start_meeting_title: "Kaikki valmista?"
