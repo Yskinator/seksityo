@@ -45,15 +45,29 @@ class MeetingsController < ApplicationController
   end
 
 
+  # PATCH/PUT /meetings/1.json
+  def update
+    respond_to do |format|
+      if @meeting.update(meeting_params)
+        format.html { redirect_to '/meeting', notice: 'Meeting was successfully updated.' }
+        format.json { render :show, status: :ok, location: @meeting }
+      else
+        format.html { render :edit }
+        format.json { render json: @meeting.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
   # POST /meetings/meeting_ok/
   def meeting_ok
-      @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
-      if @meeting
-        @meeting.delete_job()
-        @meeting.destroy
-        cookies.delete 'current_meeting'
-      end
-      redirect_to root_path
+    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+    if @meeting
+      @meeting.delete_job()
+      @meeting.destroy
+      cookies.delete 'current_meeting'
+    end
+    redirect_to root_path
   end
 
 

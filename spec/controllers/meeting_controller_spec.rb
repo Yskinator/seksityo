@@ -110,6 +110,16 @@ RSpec.describe MeetingsController, type: :controller do
       Delayed::Worker.delay_jobs = true
     end
   end
+  describe "PUT update" do
+    it "should update Meeting" do
+      attr = { :nickname => "Pekka"}
+      @meeting = Meeting.create(nickname: "Matti", phone_number: "0401231234", duration: 20)
+      put :update, id: @meeting.id, :meeting => attr
+      @meeting.reload
+      expect(@meeting.nickname).to eq("Pekka")
+      expect(response).to redirect_to('/meeting')
+    end
+  end
   describe "POST send_alert" do
     it "should remove incorrect cookie" do
       @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "0401231234", duration: 1300)
