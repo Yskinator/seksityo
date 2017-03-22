@@ -2,11 +2,6 @@ class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
   before_action :set_locale
 
-  # GET /meetings
-  # GET /meetings.json
-  def index
-    @meetings = Meeting.all
-  end
 
   # GET /meetings/1
   # GET /meetings/1.json
@@ -24,10 +19,6 @@ class MeetingsController < ApplicationController
       end
     end
     @meeting = Meeting.new
-  end
-
-  # GET /meetings/1/edit
-  def edit
   end
 
   # POST /meetings
@@ -53,7 +44,7 @@ class MeetingsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /meetings/1
+
   # PATCH/PUT /meetings/1.json
   def update
     respond_to do |format|
@@ -67,25 +58,16 @@ class MeetingsController < ApplicationController
     end
   end
 
-  # DELETE /meetings/1
-  # DELETE /meetings/1.json
-  def destroy
-    @meeting.destroy
-    respond_to do |format|
-      format.html { redirect_to new_meeting_path, notice: 'Meeting was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
   # POST /meetings/meeting_ok/
   def meeting_ok
-      @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
-      if @meeting
-        @meeting.delete_job()
-        @meeting.destroy
-        cookies.delete 'current_meeting'
-      end
-      redirect_to root_path
+    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+    if @meeting
+      @meeting.delete_job()
+      @meeting.destroy
+      cookies.delete 'current_meeting'
+    end
+    redirect_to root_path
   end
 
 
