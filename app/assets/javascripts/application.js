@@ -26,6 +26,8 @@ switchLanguage = function() {
     } else {
         document.cookie = "lang=en";
     }
+
+    location.reload();
 };
 
 /*
