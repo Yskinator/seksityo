@@ -24,13 +24,6 @@ RSpec.describe MeetingsController, type: :controller do
       expect(response).to redirect_to("/")
     end
   end
-  describe "DELETE delete" do
-    it "deletes the specified meeting" do
-      @meeting = Meeting.create(nickname: "Matti", phone_number: "0401231234", duration: 20)
-      get :destroy, id: @meeting.id
-      expect(Meeting.count).to eq(0)
-    end
-  end
   describe "GET new" do
     it "renders the new template" do
       get :new
@@ -85,13 +78,6 @@ RSpec.describe MeetingsController, type: :controller do
       expect(response).to redirect_to('/meeting')
     end
   end
-  describe "GET edit" do
-    it "renders the edit template" do
-      @meeting = Meeting.create(nickname: "Matti", phone_number: "0401231234", duration: 20)
-      get :edit, id: @meeting.id
-      expect(response).to render_template("edit")
-    end
-  end
   describe "POST create" do
     it "should create new meeting with correct params" do
         meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
@@ -124,28 +110,26 @@ RSpec.describe MeetingsController, type: :controller do
       Delayed::Worker.delay_jobs = true
     end
   end
-  describe "PUT update" do
-    it "should update Meeting" do
-      attr = { :nickname => "Pekka"}
-      @meeting = Meeting.create(nickname: "Matti", phone_number: "0401231234", duration: 20)
-      put :update, id: @meeting.id, :meeting => attr
-      @meeting.reload
-      expect(@meeting.nickname).to eq("Pekka")
-      expect(response).to redirect_to('/meeting')
-    end
-  end
   describe "POST send_alert" do
-    it "should remove incorret cookie" do
-      @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "0401231234", duration: 99999)
+    it "should remove incorrect cookie" do
+      @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "0401231234", duration: 1300)
       @request.cookies["current_meeting"] = "dog treat"
       post :send_alert
       expect(@response.cookies["current_meeting"]).to equal(nil)
     end
-    it "should redirect to meet creation when the user has an incorret cookie" do
-      @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "0401231234", duration: 99999)
+    it "should redirect to meet creation when the user has an incorrect cookie" do
+      @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "0401231234", duration: 1300)
       @request.cookies["current_meeting"] = "dog treat"
       post :send_alert
       expect(response).to redirect_to(:root)
+    end
+    it "should redirect to confirmation if correct cookie" do
+      @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "0401231234", duration: 1300)
+      @meeting.create_hashkey
+      @request.cookies['current_meeting'] = @meeting.hashkey
+      @meeting.save
+      post :send_alert
+      expect(response).to redirect_to(:meetings_alert_confirm)
     end
   end
   describe "POST meeting_ok" do
@@ -208,6 +192,18 @@ RSpec.describe MeetingsController, type: :controller do
       post :add_time
       job = @meeting.find_job
       expect(job.run_at).to eq(start_time+10.minutes)
+    end
+  end
+  describe "GET meeting_exists" do
+    render_views
+    it "should find an existing meeting" do
+      @meeting = Meeting.create(nickname: "Pekka", phone_number: "9991231234", duration: 10)
+      get :exists, :id => @meeting.id
+      expect(response.body).to have_content("true")
+    end
+    it "should not find a meeting that doesn't exist" do
+      get :exists, :id => 123493
+      expect(response.body).to have_content("false")
     end
   end
 end

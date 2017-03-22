@@ -9,7 +9,7 @@ class Meeting < ActiveRecord::Base
     time = Time.new
     minutes = (((self.created_at + (self.duration * 60)) - time)/60).round
     if minutes < 0
-      return 0
+      minutes = 0
     end
 
     return minutes
