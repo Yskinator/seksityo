@@ -28,13 +28,14 @@ en:
   minutes_singular: "minute"
 
   # Meeting creation page
-  language_selector: "English"
+  language_selector: "In English"
   nickname_info_title: "Who are you?"
   nickname_info_text: "We need to inform your Artemis someone is in trouble. But who?"
   nickname_placeholder: "My Name"
   phonenumber_info_title: "Who is your Artemis?"
   phonenumber_info_text: "We need to reach you safety contact in case we don't hear from you. Enter his/her phone number here."
   phonenumber_placeholder: "Phone number"
+  phone_number_invalid: "Phone number is invalid"
   duration_info_title: "How long should we wait?"
   duration_info_text: "Your Artemis should be worried if you don't tell us you're safe by..."
   start_meeting_title: "Ready to go?"

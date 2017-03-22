@@ -70,6 +70,11 @@ RSpec.describe MeetingsController, type: :controller do
         get :new
         expect(response.body).to_not  have_content("English")
       end
+      it "has no language selector if preferred language is the default language" do
+        @request.env['HTTP_ACCEPT_LANGUAGE'] = "en"
+        get :new
+        expect(response.body).to_not have_content("English")
+      end
     end
     it "renders status page if hash found in cookies and database" do
       @meeting = Meeting.create(nickname: "Matti", phone_number: "0401231234", duration: 20)

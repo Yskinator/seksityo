@@ -1,5 +1,6 @@
+
 <%= form_for(@meeting) do |f| %>
-    <div class="field-section color-1">
+    <div class="field-section">
       <div class="field-explanation">
         <h2><%= t('nickname_info_title') %></h2>
         <p><%= t('nickname_info_text') %></p>
@@ -8,7 +9,8 @@
         <%= f.text_field :nickname, :class => "textfield", placeholder: "#{t('nickname_placeholder')}" , value: cookies['nickname'] %>
       </div>
     </div>
-    <div class="field-section color-2">
+
+    <div class="field-section">
       <div class="field-explanation">
         <h2><%= t('phonenumber_info_title') %></h2>
         <p><%= t('phonenumber_info_text') %></p>
@@ -17,12 +19,13 @@
         <%= f.text_field :phone_number, :class => "textfield", placeholder: "#{t('phonenumber_placeholder')}", value: cookies['phone_number'] %>
         <% if @meeting.errors.messages[:phone_number].any? %>
             <div class="error-explanation">
-              <p class="error-message">Phone number is invalid</p>
+              <p class="error-message"><%= t('phone_number_invalid') %></p>
             </div>
         <% end %>
       </div>
     </div>
-    <div class="field-section color-3">
+
+    <div class="field-section">
       <div class="field-explanation">
         <h2><%= t('duration_info_title') %></h2>
         <p><%= t('duration_info_text') %></p>
@@ -44,7 +47,8 @@
         </div>
       </div>
     </div>
-    <div class="field-section color-4">
+
+    <div class="field-section">
       <div class="field-explanation">
         <h2><%= t('start_meeting_title') %></h2>
         <p><%= t('start_meeting_text') %> <span id="duration-info"></span> <%= t('minutes_plural') %></p>

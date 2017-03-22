@@ -13,25 +13,28 @@
  *= require_tree .
  *= require_self
  */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400,700');
 
  body {
      width: 100%;
-     background: #5A9DFF; /* For browsers that do not support gradients */
-     /*background: -webkit-linear-gradient(#FF7600, #5A9DFF); /* For Safari 5.1 to 6.0 */
-     /*background: -o-linear-gradient(#FF7600, #5A9DFF); /* For Opera 11.1 to 12.0 */
-     /*background: -moz-linear-gradient(#FF7600, #5A9DFF); /* For Firefox 3.6 to 15 */
-     /*background: linear-gradient(#FF7600, #5A9DFF); /* Standard syntax (must be last) */
+     background: #fff;
+     margin: 123123000px !important;
  }
  .main {
-     font-family: 'Ubuntu', sans-serif;
-     background: #5A9DFF; /* For browsers that do not support gradients */
-     background: -webkit-linear-gradient(#F9B86E, #5A9DFF); /* For Safari 5.1 to 6.0 */
-     background: -o-linear-gradient(#F9B86E, #5A9DFF); /* For Opera 11.1 to 12.0 */
-     background: -moz-linear-gradient(#F9B86E, #5A9DFF); /* For Firefox 3.6 to 15 */
-     background: linear-gradient(#F9B86E, #5A9DFF); /* Standard syntax (must be last) */
-     color: #ffe;
+     font-family: 'Open-Sans', sans-serif;
+     font-weight: 500;
+     color: #593c3d;
      min-height: 90vh;
  }
+
+ h1, h2, h3, h4, h5 {
+     font-family: 'Assistant', sans-serif;
+     font-weight: 400 !important;
+     color: #dc2d2d !important;
+     line-height: .9;
+ }
+
  @media screen and (min-width: 1079px) {
    .main {
        width: 60%;

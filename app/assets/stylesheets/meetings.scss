@@ -2,11 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
-//Can be used for defining different background colors for sections, not used atm.
-$section-color-1: #6031F7;
-$section-color-2: #5135AA;
-$section-color-3: #4A358E;
 //Currently only using this opacityvariable for the sections.
 $opacity: rgba(0,0,0,0.2);
 
@@ -17,12 +12,11 @@ $opacity: rgba(0,0,0,0.2);
   height: 50px;
   color: white;
   text-align: center;
-  border: 1px solid black;
   background-color: $color;
 }
 
 h1{
-  font: 300% Helvetica;
+  font-size: 300%;
   text-align: center;
 }
 .link_to_holder{
@@ -34,7 +28,7 @@ h1{
   float: left;
   width: 25%;
   a {
-    color: #ffe;
+    color: #593c3d;
   }
 }
 .duration-select {
@@ -55,29 +49,24 @@ h1{
 }
 .selected {
   background-color: black;
-  color: white;
+  color: white !important;
   border-radius: 10px;
   padding: 5px;
 }
 .field-section{
-  margin: 5px 0;
-  padding: 10px 0;
-  width: 100%;
+  background: url("tausta.png");
+  background-repeat: no-repeat;
+  background-position: top center;
+  margin: 5px auto;
+  padding: 10px;
+  width: 92%;
   overflow: hidden;
   text-align: center;
 }
-.color-1 {
-  background: $opacity;
-}
-.color-2 {
-  background: $opacity;
-}
-.color-3 {
-  background: $opacity;
-}
 
 .field {
-  font: 200% Helvetica;
+  font-family: 'Open-Sans', sans-serif;
+  font-size: 200%;
   text-align: center;
   margin-top: 10px;
 }
@@ -94,10 +83,26 @@ h1{
   color: red;
   font-size: 30px;
   word-wrap: normal;
+  line-height: 1;
 }
 .error-explanation {
   width: 100%;
   height: 50px;
+}
+.textfield::-webkit-input-placeholder, .numfield:-ms-input-placeholder {
+  font-family: 'Assistant', sans-serif;
+}
+
+.textfield:-ms-input-placeholder, .numfield:-ms-input-placeholder {
+  font-family: 'Assistant', sans-serif;
+}
+
+.textfield:-moz-placeholder, .numfield:-ms-input-placeholder {
+  font-family: 'Assistant', sans-serif;
+}
+
+.textfield::-moz-placeholder, .numfield:-ms-input-placeholder {
+  font-family: 'Assistant', sans-serif;
 }
 
 .textfield{
@@ -114,7 +119,7 @@ h1{
 }
 
 .submitbutton{
-  @include button_style(#1EB53F);
+  @include button_style(#00ae51);
 }
 
 .submitbutton:hover{
@@ -175,11 +180,12 @@ h1{
   margin: 10px auto;
 }
 .info-links{
-  color: white;
-
+  color: #593c3d;
+  text-decoration: none;
 }
 .info-links:visited{
-  color: white;
+  color: #593c3d;
+  text-decoration: none;
 }
 
 #javascript-protocol {
@@ -188,6 +194,6 @@ h1{
 
 
 .title-container{
-  margin-top: 20px;
+  margin-top: 25px;
   overflow: hidden;
 }

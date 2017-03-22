@@ -1,8 +1,12 @@
 body {
-  color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
+  width: 100%;
+  background: #fff;
+  margin: 0px !important;
+}
+html {
+  margin-top: -25px;
 }
 
 p, ol, ul, td {
