@@ -17,6 +17,7 @@ class Stat < ActiveRecord::Base
       stat = Stat.new
       stat.country_code = country
       stat.created += 1
+      stat.save
     end
   end
 end
