@@ -2,6 +2,8 @@ class AdminsController < ApplicationController
   before_action :authenticate
 
   def index
+    @meetings = Meeting.all
+    @statistics = Stat.all
     render 'admins/index'
   end
 
