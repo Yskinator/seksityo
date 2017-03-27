@@ -64,6 +64,7 @@ class MeetingsController < ApplicationController
   def meeting_ok
     @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
     if @meeting
+      Stat.increment_confirmed(@meeting.get_country)
       @meeting.delete_job()
       @meeting.destroy
       cookies.delete 'current_meeting'

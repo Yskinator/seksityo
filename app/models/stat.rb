@@ -47,4 +47,17 @@ class Stat < ActiveRecord::Base
     end
   end
 
+  def self.increment_confirmed(country)
+    stat = Stat.find_by_country_code(country)
+    if stat
+      stat.confirmed += 1
+      stat.save
+    else
+      stat = Stat.new
+      stat.country_code = country
+      stat.confirmed += 1
+      stat.save
+    end
+  end
+
 end
