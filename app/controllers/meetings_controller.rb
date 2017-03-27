@@ -32,6 +32,7 @@ class MeetingsController < ApplicationController
 
     respond_to do |format|
       if @meeting.save
+        Stat.increment_created(@meeting.get_country)
         cookies['current_meeting'] = @meeting.hashkey
         # Runs send_notification once the timer runs out
         @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification

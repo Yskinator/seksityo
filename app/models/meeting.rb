@@ -57,4 +57,15 @@ class Meeting < ActiveRecord::Base
     end
     found_job
   end
+
+  def get_country()
+    if self.phone_number[0] == "0"
+      return "358"
+    end
+    if self.phone_number[0] == "+"
+      return self.phone_number[1,3]
+    else
+      return self.phone_number[0,3]
+    end
+  end
 end
