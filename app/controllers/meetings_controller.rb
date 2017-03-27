@@ -77,6 +77,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
     if @meeting
       @meeting.send_alert
+      Stat.increment_alerts_sent(@meeting.get_country)
       redirect_to :meetings_alert_confirm
     else
       cookies.delete 'current_meeting'
