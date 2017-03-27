@@ -7,6 +7,12 @@ RSpec.describe MeetingsController, type: :controller do
       get :show, id: 1
       expect(response).to render_template("show")
     end
+    it "redirects to root if no meeting found" do
+      Meeting.create(nickname: "Matti", phone_number: "0401231234", duration: 20)
+      @request.cookies['current_meeting'] = "randomvalue"
+      get :show, id: 123
+      expect(response).to redirect_to(:root)
+    end
   end
   describe "GET alert_confirm" do
     it "renders the alert confirmation template" do
