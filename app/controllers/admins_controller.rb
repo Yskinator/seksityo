@@ -7,6 +7,17 @@ class AdminsController < ApplicationController
     render 'admins/index'
   end
 
+  def destroy
+    if @meeting = Meeting.find_by_id(params[:id])
+      @meeting.destroy
+      flash[:notify] = "Meeting deleted succesfully"
+      redirect_to :back
+    else
+      flash[:notify] = "Failed to delete meeting"
+      redirect_to :back
+    end
+  end
+
   protected
 
   # Authentication using HTTP BASIC authentication
