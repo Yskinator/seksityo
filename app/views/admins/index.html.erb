@@ -1,15 +1,45 @@
 <h1>Admin page</h1>
 
 <div class="field-section">
+  <h2>Statistics</h2>
+  <table style="width:100%">
+    <thead>
+    <tr>
+      <th>Country code</th>
+      <th>Created</th>
+      <th>Confirmed</th>
+      <th>Alerts sent</th>
+      <th>Notifications sent</th>
+      <th colspan="5"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @statistics.each do |stat| %>
+        <tr>
+          <td><%= stat.country_code %></td>
+          <td><%= stat.created %></td>
+          <td><%= stat.confirmed %></td>
+          <td><%= stat.alerts_sent %></td>
+          <td><%= stat.notifications_sent %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>
+
+<div class="field-section">
   <h2>Current meetings</h2>
-  <table>
+  <table style="width:100%">
     <thead>
     <tr>
       <th>Nickname</th>
       <th>Phone number</th>
       <th>Duration</th>
       <th>Confirmed</th>
-      <th colspan="3"></th>
+      <th colspan="4"></th>
     </tr>
     </thead>
 

@@ -3,6 +3,7 @@ class AdminsController < ApplicationController
 
   def index
     @meetings = Meeting.all
+    @statistics = Stat.all
     render 'admins/index'
   end
 
