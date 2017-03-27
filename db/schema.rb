@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170327104747) do
     t.string   "hashkey"
     t.string   "latitude"
     t.string   "longitude"
+    t.boolean  "alert_sent"
   end
 
   create_table "stats", force: :cascade do |t|
