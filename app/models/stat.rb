@@ -20,4 +20,18 @@ class Stat < ActiveRecord::Base
       stat.save
     end
   end
+
+  def self.increment_notifications_sent(country)
+    stat = Stat.find_by_country_code(country)
+    if stat
+      stat.notifications_sent += 1
+      stat.save
+    else
+      stat = Stat.new
+      stat.country_code = country
+      stat.notifications_sent += 1
+      stat.save
+    end
+  end
+
 end

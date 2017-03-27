@@ -21,6 +21,7 @@ class Meeting < ActiveRecord::Base
 
   def send_notification
     ApplicationMailer.notification_email(self).deliver_now
+    Stat.increment_notifications_sent(self.get_country)
   end
 
   def send_alert
