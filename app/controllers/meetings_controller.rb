@@ -56,8 +56,7 @@ class MeetingsController < ApplicationController
         format.html { redirect_to '/meeting', notice: 'Meeting was successfully updated.' }
         format.json { render :show, status: :ok, location: @meeting }
       else
-        format.html { render :edit }
-        format.json { render json: @meeting.errors, status: :unprocessable_entity }
+        format.html { redirect_to :root }
       end
     end
   end
