@@ -7,6 +7,12 @@ RSpec.describe MeetingsController, type: :controller do
       get :show, id: 1
       expect(response).to render_template("show")
     end
+    it "redirects to root if no meeting found" do
+      Meeting.create(nickname: "Matti", phone_number: "0401231234", duration: 20)
+      @request.cookies['current_meeting'] = "randomvalue"
+      get :show, id: 123
+      expect(response).to redirect_to(:root)
+    end
   end
   describe "GET alert_confirm" do
     it "renders the alert confirmation template" do
@@ -118,6 +124,14 @@ RSpec.describe MeetingsController, type: :controller do
       @meeting.reload
       expect(@meeting.nickname).to eq("Pekka")
       expect(response).to redirect_to('/meeting')
+    end
+    it "should not update invalid meeting" do
+      attr = { :duration => -23}
+      @meeting = Meeting.create(nickname: "Matti", phone_number: "0401231234", duration: 20)
+      put :update, id: @meeting.id, :meeting => attr
+      @meeting.reload
+      expect(@meeting.duration).to eq(20)
+      expect(response).to redirect_to(:root)
     end
   end
   describe "POST send_alert" do

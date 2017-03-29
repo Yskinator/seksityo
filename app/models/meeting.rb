@@ -25,6 +25,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def send_alert
+    self.update(alert_sent: true)
     ApplicationMailer.alert_email(self).deliver_now
   end
 

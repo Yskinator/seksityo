@@ -1,1 +1,65 @@
 <h1>Admin page</h1>
+
+<% if flash[:notify] %>
+  <div class="notify" id="notify"><%= flash[:notify] %></div>
+<% end %>
+<script>
+  <!-- Fades the notification out after 5 seconds -->
+  $(".notify" ).fadeOut(5000);
+</script>
+
+<div class="field-section">
+  <h2>Statistics</h2>
+  <table class="admin-table">
+    <thead>
+    <tr>
+      <th>Country code</th>
+      <th>Created</th>
+      <th>Confirmed</th>
+      <th>Alerts sent</th>
+      <th>Notifications sent</th>
+      <th colspan="5"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @statistics.each do |stat| %>
+        <tr>
+          <td><%= stat.country_code %></td>
+          <td><%= stat.created %></td>
+          <td><%= stat.confirmed %></td>
+          <td><%= stat.alerts_sent %></td>
+          <td><%= stat.notifications_sent %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>
+
+<div class="field-section">
+  <h2>Current meetings</h2>
+  <table class="admin-table">
+      <thead>
+        <th>Nickname</th>
+        <th>Safety Contact</th>
+        <th>Created at</th>
+        <th>Time to live</th>
+        <th>Alert sent</th>
+        <th>Delete</th>
+      </thead>
+      <tbody>
+        <% @meetings.each do |meeting| %>
+          <tr>
+              <td><%= meeting.nickname %></td>
+              <td><%= meeting.phone_number %></td>
+              <td><%= meeting.created_at %></td>
+              <td><%= meeting.time_to_live %></td>
+              <td><%= meeting.alert_sent %></td>
+              <td><%= link_to 'Delete', 'admin/delete/'+meeting.id.to_s, method: :delete, data: { confirm: "Are you sure you want to delete the meeting?"}%>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+</div>

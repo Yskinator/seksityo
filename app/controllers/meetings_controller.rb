@@ -7,6 +7,9 @@ class MeetingsController < ApplicationController
   # GET /meetings/1.json
   def show
    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+   if @meeting.nil?
+     redirect_to :root
+   end
   end
 
   # GET /meetings/new
@@ -27,6 +30,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
     @meeting.parse_phone_number
     @meeting.create_hashkey
+    @meeting.alert_sent = false
     cookies['nickname'] = @meeting.nickname
     cookies['phone_number'] = @meeting.phone_number
 
@@ -53,8 +57,7 @@ class MeetingsController < ApplicationController
         format.html { redirect_to '/meeting', notice: 'Meeting was successfully updated.' }
         format.json { render :show, status: :ok, location: @meeting }
       else
-        format.html { render :edit }
-        format.json { render json: @meeting.errors, status: :unprocessable_entity }
+        format.html { redirect_to :root }
       end
     end
   end
