@@ -8,12 +8,27 @@
 meetings = 20
 statistics = 10
 
+# Admin user template
 User.create(username: "admin", password: "admin", password_confirmation: "admin")
 
+# Create some meetings with randomised creation date
 (1..meetings).each do |i|
   Meeting.create(nickname: "test_#{i}", duration: rand(1..1440), phone_number: "9991231234", alert_sent: [true, false].sample, created_at: Time.at(rand(Time.new(2010).to_f..Time.new().to_f)) )
 end
 
+# Create some random statistics
 (1..statistics).each do |i|
-  Stat.create(country_code: (i*100).to_s, created: rand(1..3000), confirmed: rand(1..2000), alerts_sent: rand(1..500), notifications_sent: rand(1..3000) )
+  n = Stat.new
+  n.country_code = (i*100).to_s
+  n.created = rand(1..3000)
+  n.confirmed = rand(1..2000)
+  n.alerts_sent = rand(1..1000)
+  n.notifications_sent = rand(1..3000)
+  n.country = "Testzikistan ##{i}"
+  n.save
+end
+
+# Create some meetings that will have time to live > 0
+(1..5).each do |i|
+  Meeting.create(nickname: "test_#{i}", duration: rand(1..1440), phone_number: "9991231234", alert_sent: [true, false].sample )
 end
