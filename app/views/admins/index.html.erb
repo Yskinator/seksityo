@@ -8,17 +8,16 @@
   $(".notify" ).fadeOut(5000);
 </script>
 
-<div class="field-section">
+<div data-turbolinks="true" class="field-section">
   <h2>Statistics</h2>
   <table class="admin-table">
     <thead>
     <tr>
-      <th>Country code</th>
-      <th>Created</th>
-      <th>Confirmed</th>
-      <th>Alerts sent</th>
-      <th>Notifications sent</th>
-      <th colspan="5"></th>
+      <th><%= stat_sort_link "country_code" %></th>
+      <th><%= stat_sort_link "created" %></th>
+      <th><%= stat_sort_link "confirmed" %></th>
+      <th><%= stat_sort_link "alerts_sent" %></th>
+      <th><%= stat_sort_link "notifications_sent" %></th>
     </tr>
     </thead>
 
@@ -44,9 +43,9 @@
       <thead>
         <th>Nickname</th>
         <th>Safety Contact</th>
-        <th>Created at</th>
+        <th><%= meeting_sort_link "created_at", "Created at (UTC)" %></th>
         <th>Time to live</th>
-        <th>Alert sent</th>
+        <th><%= meeting_sort_link "alert_sent", "Alert Sent" %></th>
         <th>Delete</th>
       </thead>
       <tbody>
@@ -54,10 +53,10 @@
           <tr>
               <td><%= meeting.nickname %></td>
               <td><%= meeting.phone_number %></td>
-              <td><%= meeting.created_at %></td>
+              <td><%= meeting.created_at.to_formatted_s(:long_ordinal)  %></td>
               <td><%= meeting.time_to_live %></td>
               <td><%= meeting.alert_sent %></td>
-              <td><%= link_to 'Delete', 'admin/delete/'+meeting.id.to_s, method: :delete, data: { confirm: "Are you sure you want to delete the meeting?"}%>
+              <td><%= link_to 'Delete', 'admin/delete/'+meeting.id.to_s, method: :delete, :class => 'delete-button', data: { confirm: "Are you sure you want to delete the meeting?"}%>
           </tr>
         <% end %>
       </tbody>
