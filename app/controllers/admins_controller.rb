@@ -37,7 +37,7 @@ class AdminsController < ApplicationController
   # Methods for fetching sort-related parameters
   # Only accept column name that exists for Stat. Default to country_code
   def stat_sort_column
-    Stat.column_names.include?(params[:stat_sort]) ? params[:stat_sort] : "country_code"
+    Stat.column_names.include?(params[:stat_sort]) ? params[:stat_sort] : "country"
   end
   # Only accept "asc" or "desc" as params for direction. Default to "asc".
   def stat_sort_direction
