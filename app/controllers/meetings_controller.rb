@@ -36,6 +36,7 @@ class MeetingsController < ApplicationController
 
     respond_to do |format|
       if @meeting.save
+        Stat.increment_created(@meeting.get_country_code, @meeting.get_country)
         cookies['current_meeting'] = @meeting.hashkey
         # Runs send_notification once the timer runs out
         @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification
@@ -56,8 +57,7 @@ class MeetingsController < ApplicationController
         format.html { redirect_to '/meeting', notice: 'Meeting was successfully updated.' }
         format.json { render :show, status: :ok, location: @meeting }
       else
-        format.html { render :edit }
-        format.json { render json: @meeting.errors, status: :unprocessable_entity }
+        format.html { redirect_to :root }
       end
     end
   end
@@ -67,6 +67,7 @@ class MeetingsController < ApplicationController
   def meeting_ok
     @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
     if @meeting
+      Stat.increment_confirmed(@meeting.get_country_code, @meeting.get_country)
       @meeting.delete_job()
       @meeting.destroy
       cookies.delete 'current_meeting'
@@ -80,6 +81,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
     if @meeting
       @meeting.send_alert
+      Stat.increment_alerts_sent(@meeting.get_country_code, @meeting.get_country)
       redirect_to :meetings_alert_confirm
     else
       cookies.delete 'current_meeting'

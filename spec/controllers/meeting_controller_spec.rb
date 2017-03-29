@@ -125,6 +125,14 @@ RSpec.describe MeetingsController, type: :controller do
       expect(@meeting.nickname).to eq("Pekka")
       expect(response).to redirect_to('/meeting')
     end
+    it "should not update invalid meeting" do
+      attr = { :duration => -23}
+      @meeting = Meeting.create(nickname: "Matti", phone_number: "0401231234", duration: 20)
+      put :update, id: @meeting.id, :meeting => attr
+      @meeting.reload
+      expect(@meeting.duration).to eq(20)
+      expect(response).to redirect_to(:root)
+    end
   end
   describe "POST send_alert" do
     it "should remove incorrect cookie" do
