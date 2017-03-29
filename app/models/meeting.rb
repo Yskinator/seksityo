@@ -21,7 +21,7 @@ class Meeting < ActiveRecord::Base
 
   def send_notification
     ApplicationMailer.notification_email(self).deliver_now
-    Stat.increment_notifications_sent(self.get_country)
+    Stat.increment_notifications_sent(self.get_country_code, self.get_country)
   end
 
   def send_alert
@@ -59,8 +59,13 @@ class Meeting < ActiveRecord::Base
     found_job
   end
 
-  def get_country()
+  def get_country_code()
     phone = Phonelib.parse(self.phone_number)
     return phone.country_code
+  end
+
+  def get_country()
+    phone = Phonelib.parse(self.phone_number)
+    return phone.country
   end
 end
