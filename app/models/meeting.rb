@@ -60,13 +60,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def get_country()
-    if self.phone_number[0] == "0"
-      return "358"
-    end
-    if self.phone_number[0] == "+"
-      return self.phone_number[1,3]
-    else
-      return self.phone_number[0,3]
-    end
+    phone = Phonelib.parse(self.phone_number)
+    return phone.country_code
   end
 end
