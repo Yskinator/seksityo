@@ -5,7 +5,17 @@ class AdminsController < ApplicationController
   def index
     # Fetch column name and direction from the parameters and pass them to order method.
     @statistics = Stat.order(stat_sort_column + " " + stat_sort_direction)
-    @meetings = Meeting.order(meeting_sort_column + " " + meeting_sort_direction)
+
+    # Either sort manually by time to live return value, or normally via column order.
+    if meeting_sort_column == "time_to_live"
+      @meetings = Meeting.all.sort { |a, b| a.time_to_live <=> b.time_to_live }
+      if meeting_sort_direction == "desc"
+        @meetings.reverse!
+      end
+    else
+      @meetings = Meeting.order(meeting_sort_column + " " + meeting_sort_direction)
+    end
+
 
     render 'admins/index'
   end
@@ -34,7 +44,11 @@ class AdminsController < ApplicationController
     %w[asc desc].include?(params[:stat_direction]) ? params[:stat_direction] : "asc"
   end
 
+  # Check if time to live, otherwise check if existing column name
   def meeting_sort_column
+    if params[:meeting_sort] == "time_to_live"
+      return "time_to_live"
+    end
     Meeting.column_names.include?(params[:meeting_sort]) ? params[:meeting_sort] : "created_at"
   end
 

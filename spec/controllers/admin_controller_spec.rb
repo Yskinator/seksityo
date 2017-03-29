@@ -52,12 +52,12 @@ RSpec.describe AdminsController, type: :controller do
         s2.save
         m = Meeting.new(nickname: "Vanha", created_at: Time.new(2015), duration: 1337)
         m.save(:validate => false)
-        m = Meeting.new(nickname: "Uusi", created_at: Time.new(2017), duration: 1337)
+        m = Meeting.new(nickname: "Uusi", created_at: Time.new(2017), duration: 1000)
         m.save(:validate => false)
 
-        get :index, stat_sort: "created", stat_direction: "desc", meeting_sort: "created_at", meeting_direction: "asc"
+        get :index, stat_sort: "created", stat_direction: "desc", meeting_sort: "time_to_live", meeting_direction: "desc"
         expect(response.body.index("11111")).to be > response.body.index("22222")
-        expect(response.body.index("Uusi")).to be > response.body.index("Vanha")
+        expect(response.body.index("Vanha")).to be > response.body.index("Uusi")
       end
     end
   end
