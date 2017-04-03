@@ -26,6 +26,8 @@
     <div class="info-timer">
       <% if @meeting.time_to_live == 1 %>
           <%= @meeting.time_to_live %> <%= t('minutes_singular') %>
+      <% elsif @meeting.time_to_live.between?(0,1) %>
+         <%= t('less_than_minute') %>
       <% else %>
           <%= @meeting.time_to_live %> <%= t('minutes_plural') %>
       <% end %>

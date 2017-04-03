@@ -7,7 +7,13 @@ class Meeting < ActiveRecord::Base
 
   def time_to_live
     time = Time.new
-    minutes = (((self.created_at + (self.duration * 60)) - time)/60).round
+    minutes = (((self.created_at + (self.duration * 60)) - time)/60)
+
+    # Only round minutes if the value is higher than 1
+    unless minutes.between?(0,1)
+      minutes = minutes.round
+    end
+
     if minutes < 0
       minutes = 0
     end

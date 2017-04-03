@@ -33,6 +33,7 @@ fi:
   send_alert_text: "Paina Hälytys-nappia lähettääksesi hälytysviestin Artemiillesi heti."
   send_alert_button: "Lähetä Hälytys!"
   change_time_button: "+ 10 minuuttia"
+  less_than_minute: "alle minuutti"
 
   # Alert confirmation page
   alert_confirmation_title: "Hälytysviesti lähetetty!"
