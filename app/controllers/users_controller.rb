@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  def index
+  def code_generation
     render 'users/code_generation'
   end
 end
