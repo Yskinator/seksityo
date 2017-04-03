@@ -40,3 +40,7 @@ fi:
   alert_confirmation_info_title: "Artemiillesi on lähetetty hälytysviesti."
   alert_confirmation_info_text: "Paina nappia palataksesi edelliselle sivulle."
   alert_confirmation_return_button: "Palaa"
+
+  # Code generation page
+  code_generation_title: "Sinulle on luotu henkilökohtainen koodi."
+  code_generation_return_button: "Return"
