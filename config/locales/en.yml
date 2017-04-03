@@ -54,6 +54,7 @@ en:
   send_alert_text: "Press the button to send an alert message to your Artemis immediately."
   send_alert_button: "Send Alert!"
   change_time_button: "+ 10 minutes"
+  less_than_minute: "less than a minute"
 
   # Alert confirmation page
   alert_confirmation_title: "Alert sent!"
