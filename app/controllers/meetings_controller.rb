@@ -154,7 +154,8 @@ class MeetingsController < ApplicationController
       @changeLinkText = I18n.t :language_selector, locale: :en
     end
 
-    if http_accept_language.compatible_language_from(http_accept_language.user_preferred_languages) == I18n.default_locale.to_s
+    # If users preferred language is some subset of english, dont show the language selector
+    if /^en-?/ =~ http_accept_language.compatible_language_from(http_accept_language.user_preferred_languages)
       @showChangeLink = false;
     else
 
