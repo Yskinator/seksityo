@@ -3,26 +3,26 @@ require 'rails_helper'
 RSpec.describe AdminsController, type: :controller do
   describe "GET index" do
     it "renders the index page if correct credentials" do
-      u = User.create(username: "admin", password: "admin", password_confirmation: "admin")
+      u = Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
        @request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("admin","admin")
       get :index
       expect(response).to render_template("index")
     end
     it "should not render index if incorrect credentials" do
-      u = User.create(username: "admin", password: "admin", password_confirmation: "admin")
+      u = Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
        @request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("wrong","credentials")
       get :index
       expect(response.status).to equal(401)
     end
     it "should not render index with no credentials at all" do
-      u = User.create(username: "admin", password: "admin", password_confirmation: "admin")
+      u = Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
       get :index
       expect(response.status).to equal(401)
     end
     context "sort methods" do
       render_views
       it "should arrange correctly with default sort" do
-        User.create(username: "admin", password: "admin", password_confirmation: "admin")
+        Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
         @request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("admin","admin")
         s1 = Stat.new
         s1.country = "Zimbabwe"
@@ -40,7 +40,7 @@ RSpec.describe AdminsController, type: :controller do
         expect(response.body.index("Vanha")).to be > response.body.index("Uusi")
       end
       it "should arrange correctly with given sort params" do
-        User.create(username: "admin", password: "admin", password_confirmation: "admin")
+        Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
         @request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("admin","admin")
         s1 = Stat.new
         s1.country_code = "22222"
@@ -67,7 +67,7 @@ RSpec.describe AdminsController, type: :controller do
       @request.env['HTTP_REFERER'] = "/admin"
     end
     it "should delete existing meeting if authenticated" do
-      u = User.create(username: "admin", password: "admin", password_confirmation: "admin")
+      u = Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
       @request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("admin","admin")
       @meeting = Meeting.new
       @meeting.save(:validate => false)
@@ -76,7 +76,7 @@ RSpec.describe AdminsController, type: :controller do
       expect(response.status).to eq(302)
     end
     it "should not delete existing meeting if not authenticated" do
-      u = User.create(username: "admin", password: "admin", password_confirmation: "admin")
+      u = Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
       @meeting = Meeting.new
       @meeting.save(:validate => false)
       delete :destroy, id: @meeting.id
@@ -84,7 +84,7 @@ RSpec.describe AdminsController, type: :controller do
       expect(response.status).to eq(401)
     end
     it "should not delete existing meeting if invalid credentials" do
-      u = User.create(username: "admin", password: "admin", password_confirmation: "admin")
+      u = Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
       @request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("wrong","credentials  ")
       @meeting = Meeting.new
       @meeting.save(:validate => false)
@@ -93,7 +93,7 @@ RSpec.describe AdminsController, type: :controller do
       expect(response.status).to eq(401)
     end
     it "should not delete meeting that does not exist" do
-      u = User.create(username: "admin", password: "admin", password_confirmation: "admin")
+      u = Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
       @request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("admin","admin")
       @meeting = Meeting.new
       @meeting.save(:validate => false)
