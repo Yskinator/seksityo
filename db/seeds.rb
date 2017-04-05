@@ -9,7 +9,7 @@ meetings = 20
 statistics = 10
 
 # Admin user template
-User.create(username: "admin", password: "admin", password_confirmation: "admin")
+Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
 
 # Create some meetings with randomised creation date
 (1..meetings).each do |i|
