@@ -1,5 +1,5 @@
 # Seksityo
-[![Build Status](https://travis-ci.com/Yskinator/seksityo.svg?token=41SHUMweY7uuRhfaw17C&branch=master)](https://travis-ci.com/Yskinator/seksityo)          [![Coverage Status](https://coveralls.io/repos/github/Yskinator/seksityo/badge.svg?branch=master)](https://coveralls.io/github/Yskinator/seksityo?branch=master)
+[![Build Status](https://travis-ci.com/Yskinator/seksityo.svg?token=41SHUMweY7uuRhfaw17C&branch=master)](https://travis-ci.com/Yskinator/seksityo)          [![Coverage Status](https://coveralls.io/repos/github/Yskinator/seksityo/badge.svg?branch=master)](https://coveralls.io/github/Yskinator/seksityo?branch=master) [![CodeClimate GPA](https://codeclimate.com/github/Yskinator/seksityo/badges/gpa.svg)](https://codeclimate.com/github/Yskinator/seksityo)
 
 
 Seksityöläisten turvasovellus.
