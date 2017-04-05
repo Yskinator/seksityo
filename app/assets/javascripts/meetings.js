@@ -1,30 +1,20 @@
 window.onload = function() {
 
+        chooseInput = function(elementName, time){
+          replaceHiddenInput(createNewInput(time));
+          var selected = document.getElementById(elementName);
+          $(selected).addClass('selected');
+          removeSelected(elementName);
+          setDurationInfoText(time);
+          clearManualInput();
+
+        }
+
         /* Functions for different duration selections */
-        document.getElementById('select30m').onclick = function () {
-            replaceHiddenInput(createNewInput(30));
-            var selected = document.getElementById('select30m');
-            $(selected).addClass('selected');
-            removeSelected('select30m');
-            setDurationInfoText(30);
-            clearManualInput();
-        };
-        document.getElementById('select1h').onclick = function () {
-            replaceHiddenInput(createNewInput(60));
-            var selected = document.getElementById('select1h');
-            $(selected).addClass('selected');
-            removeSelected('select1h');
-            setDurationInfoText(60);
-            clearManualInput();
-        };
-        document.getElementById('select2h').onclick = function () {
-            replaceHiddenInput(createNewInput(120));
-            var selected = document.getElementById('select2h');
-            $(selected).addClass('selected');
-            removeSelected('select2h');
-            setDurationInfoText(120);
-            clearManualInput();
-        };
+        document.getElementById('select30m').onclick = function(){chooseInput('select30min', 30)};
+        document.getElementById('select1h').onclick = function(){chooseInput('select1h', 60)};
+        document.getElementById('select2h').onclick = function(){chooseInput('select2h', 120)};
+
 
         /* Creates hidden field for the duration based on manual user input */
         document.getElementById('duration-input').onkeyup = function() {
@@ -99,6 +89,3 @@ removeSelected = function(id) {
         }
     }
 };
-
-
-
