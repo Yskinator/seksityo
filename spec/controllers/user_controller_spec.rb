@@ -31,5 +31,11 @@ RSpec.describe UsersController, type: :controller do
       get :code_generation
       expect(User.all.length).to eq(1)
     end
+    it "generates a new code if the user found in cookies not found in database" do
+      @request.cookies['code'] = 'wrongcookie'
+      get :code_generation
+      @user = User.first
+      expect(@response.cookies['code']).to eq(@user.code)
+    end
   end
 end
