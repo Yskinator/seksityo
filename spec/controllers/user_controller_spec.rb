@@ -26,5 +26,10 @@ RSpec.describe UsersController, type: :controller do
       get :code_generation
       expect(@request.cookies['code']).to eq(@user.code)
     end
+    it "adds new user to database" do
+      expect(User.all.length).to eq(0)
+      get :code_generation
+      expect(User.all.length).to eq(1)
+    end
   end
 end
