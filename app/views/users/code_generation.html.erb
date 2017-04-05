@@ -2,4 +2,10 @@
   <div class="title-container">
     <h1><%= t('code_generation_title') %></h1>
   </div>
+  <div class="textfield">
+    <h2><%= @user.code %></h2>
+  </div>
+  <div class="actions">
+    <%= button_to "#{ t('code_generation_return_button')}", :root, :method => "get", class: 'submitbutton' %>
+  </div>
 </div>
