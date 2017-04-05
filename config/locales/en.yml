@@ -63,4 +63,5 @@ en:
   alert_confirmation_return_button: "Return"
 
   # Code generation page
-  code_generation_title: "Your personal code is:"
+  code_generation_title: "A personal code has been created for you."
+  code_generation_return_button: "Return"

@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 #Ruby version
 ruby '2.2.0'
 
+# Coveralls to show off.
+gem 'coveralls', require: false
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
 
