@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-  helper_method :stat_sort_column, :stat_sort_direction, :meeting_sort_column, :meeting_sort_direction
+  helper_method :stat_sort_column, :stat_sort_direction, :meeting_sort_column, :meeting_sort_direction, :user_sort_column, :user_sort_direction
   before_action :authenticate
 
   def index
@@ -16,6 +16,7 @@ class AdminsController < ApplicationController
       @meetings = Meeting.order(meeting_sort_column + " " + meeting_sort_direction)
     end
 
+    @users = User.all.order(user_sort_column + " " + user_sort_direction)
 
     render 'admins/index'
   end
@@ -56,6 +57,13 @@ class AdminsController < ApplicationController
     %w[asc desc].include?(params[:meeting_direction]) ? params[:meeting_direction] : "desc"
   end
 
+  def user_sort_column
+    User.column_names.include?(params[:user_sort]) ? params[:user_sort] : "credits"
+  end
+
+  def user_sort_direction
+    %w[asc desc].include?(params[:user_direction]) ? params[:user_direction] : "asc"
+  end
   protected
 
   # Authentication using HTTP BASIC authentication
