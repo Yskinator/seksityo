@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
-  def code_generation
-    if cookies['code']
-      @user = User.find_by_code(cookies['code'])
-    end
+  # POST /users/
+  def create_or_find
+    @user = User.find_by_phone_number(params[:phone_number])
 
     if !@user
       cookies.delete 'code'
@@ -11,8 +10,16 @@ class UsersController < ApplicationController
       if @user.save
         cookies['code'] = @user.code
       end
+      redirect_to root_path
+    else
+      redirect_to root_path
     end
 
-    render 'users/code_generation'
+
   end
+
+  # GET /users/
+  def phone_form
+  end
+
 end

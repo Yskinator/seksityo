@@ -44,3 +44,7 @@ fi:
   # Code generation page
   code_generation_title: "Sinulle on luotu henkilökohtainen koodi."
   code_generation_return_button: "Return"
+
+   # User phone input page
+  phone_input_title: "Ole hyvä ja kirjoita puhelinnumerosi."
+  phone_input_submit_button: "Lähetä"
