@@ -43,4 +43,8 @@ fi:
 
   # Code generation page
   code_generation_title: "Sinulle on luotu henkilökohtainen koodi."
-  code_generation_return_button: "Return"
+  code_generation_return_button: "Palaa"
+
+  # SMS sent page
+  sms_sent_title: "Viesti lähetetty!"
+  sms_sent_text: "Tekstiviesti lähetetty antamaasi numeroon. Klikkaa linkkiä tekstiviestissä päästäksesi käyttämään sovellusta."
