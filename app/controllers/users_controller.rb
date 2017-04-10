@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 
   # GET /users/
   def phone_form
+    @user = User.new
   end
 
 end
