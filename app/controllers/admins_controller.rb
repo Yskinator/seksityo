@@ -16,6 +16,7 @@ class AdminsController < ApplicationController
       @meetings = Meeting.order(meeting_sort_column + " " + meeting_sort_direction)
     end
 
+    @users = User.all
 
     render 'admins/index'
   end
