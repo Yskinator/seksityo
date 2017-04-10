@@ -77,7 +77,7 @@
         <tr>
           <td><%= user.code %></td>
           <td>+<%= number_to_phone(user.phone_number) %></td>
-          <td><%= user.credits  %></td>
+          <td><input class="credit-input" type="number" id="credit-input" min="0" max="1000" value="<%= user.credits %>"></td>
         </tr>
     <% end %>
     </tbody>
