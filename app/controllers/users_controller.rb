@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
+
   def code_generation
+    @user = nil
+
     if cookies['code']
       @user = User.find_by_code(cookies['code'])
     end
@@ -12,7 +15,26 @@ class UsersController < ApplicationController
         cookies['code'] = @user.code
       end
     end
+    return @user.code
+  end
 
-    render 'users/code_generation'
+  def cookie_recovery_link(number)
+    recovery_link = ''
+    if number
+      @user = User.find_by_phone_number(number)
+
+      recovery_link = request.original_url + "/id=" + @user.code
+    end
+    return recovery_link
+  end
+
+  def recover_cookie
+    if params['id']
+      cookies['code'] = params['id']
+      redirect_to '/meetings'
+    else
+      puts "Bad URL"
+    end
+
   end
 end
