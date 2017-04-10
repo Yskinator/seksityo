@@ -62,7 +62,7 @@ class AdminsController < ApplicationController
   end
 
   def user_sort_direction
-    %w[asc desc].include?(params[:user_direction]) ? params[:user_direction] : "desc"
+    %w[asc desc].include?(params[:user_direction]) ? params[:user_direction] : "asc"
   end
   protected
 
