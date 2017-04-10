@@ -27,7 +27,6 @@ Rails.application.routes.draw do
 
   get 'users' => 'users#code_generation'
 
-  get 'sms' => 'users#sms_sent'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

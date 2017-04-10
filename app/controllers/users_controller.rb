@@ -15,11 +15,4 @@ class UsersController < ApplicationController
 
     render 'users/code_generation'
   end
-
-  def sms_sent
-    @user = User.new
-    @user.phone_number = 1231234
-    @user.save
-    render 'users/sms_sent'
-  end
 end
