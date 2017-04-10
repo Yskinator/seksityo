@@ -62,3 +62,24 @@
       </tbody>
   </table>
 </div>
+
+<div data-turbolinks="true" class="field-section">
+  <h2>Users</h2>
+  <table class="admin-table">
+    <thead>
+    <th><%= user_sort_link "code", "Code" %></th>
+    <th><%= user_sort_link "phone_number", "Phone number" %></th>
+    <th><%= user_sort_link "credits", "Credits" %></th>
+    <th>Edit</th>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+        <tr>
+          <td><%= user.code %></td>
+          <td>+<%= number_to_phone(user.phone_number) %></td>
+          <td><%= user.credits  %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

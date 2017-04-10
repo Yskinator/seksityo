@@ -66,6 +66,11 @@ en:
   code_generation_title: "A personal code has been created for you."
   code_generation_return_button: "Return"
 
+
   # User phone input page
   phone_input_title: "Please enter your phone number."
   phone_input_submit_button: "Submit"
+
+  # SMS sent page
+  sms_sent_title: "SMS has been sent!"
+  sms_sent_text: "A text message has been sent to the number below. Please click the link on the text message to use the app."
