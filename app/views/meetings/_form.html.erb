@@ -32,18 +32,18 @@
       </div>
       <div class="field">
         <div class="duration-container">
-          <a id="select30m" class="duration-select" data-turbolinks="false">30m</a>
+          <a id="select30m" class="duration-select" onclick="selectTimeValueByElementId('select30m')" data-turbolinks="false">30m</a>
         </div>
         <div class="duration-container">
-          <a id="select1h" class="duration-select" data-turbolinks="false">1h</a>
+          <a id="select1h" class="duration-select" onclick="selectTimeValueByElementId('select1h')" data-turbolinks="false">1h</a>
         </div>
         <div class="duration-container">
-          <a id="select2h" class="duration-select" data-turbolinks="false">2h</a>
+          <a id="select2h" class="duration-select" onclick="selectTimeValueByElementId('select2h')" data-turbolinks="false">2h</a>
         </div>
         <div id="duration-value">
         </div>
         <div class="duration-container">
-          <input class="duration-input" type="number" id="duration-input" min="0" max="1440" placeholder="<%= t('minutes_plural') %>">
+          <input class="duration-input" onkeyup="durationInputKeyup(this)" type="number" id="duration-input" min="0" max="1440" placeholder="<%= t('minutes_plural') %>">
         </div>
       </div>
     </div>
