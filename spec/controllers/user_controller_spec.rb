@@ -51,19 +51,20 @@ RSpec.describe UsersController, type: :controller do
   end
   describe "GET recover_cookie" do
     it "changes your cookie if user with code is found on database" do
-      u = User.new
-      u.create_code
-      u.save
-      @request.cookies['code'] = 'wrongcookie'
+      @request.cookies['code'] = "lörslärä"
+      u = User.create(phone_number: "9991231234")
+
       get :recover_cookie, :id => u.code
 
-      expect(cookies['code']).to eq(u.code)
+      expect(@response.cookies['code']).to eq(u.code)
     end
+
     it "doesn't change your cookie if no user is found with given id" do
-      request.cookies['code'] = 'originalcode'
+
+      @request.cookies['code'] = 'originalcode'
       get :recover_cookie, :id => 'bad_id'
-      
-      expect(cookies['code']).to eq('originalcode')
+
+      expect(@response.cookies['code']).to eq(nil)
 
     end
   end

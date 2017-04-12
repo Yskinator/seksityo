@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   # POST /users/
   def receive_phone
     @user = User.find_by_phone_number(user_params[:phone_number])
@@ -16,8 +15,7 @@ class UsersController < ApplicationController
     if @user.save
       cookies['code'] = @user.code
     end
-
-    return @user.code
+    redirect_to root_path
   end
 
   def cookie_recovery_link
@@ -31,15 +29,14 @@ class UsersController < ApplicationController
   end
 
   def recover_cookie
-    if params['id']
-      if(User.find_by_code(params['id']))
-        cookies['code'] = params['id']
-      end
-      redirect_to :root
-    else
-      puts "Bad URL"
-      redirect_to :root
+    @user = User.find_by_code(params['id'])
+
+    if @user
+      cookies.delete :code
+      cookies['code'] = params['id']
     end
+    redirect_to :root
+
   end
 
 
