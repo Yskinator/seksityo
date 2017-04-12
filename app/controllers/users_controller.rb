@@ -1,21 +1,21 @@
 class UsersController < ApplicationController
   # POST /users/
-  def create_or_find
+  def receive_phone
     @user = User.find_by_phone_number(user_params[:phone_number])
     if !@user
-      cookies.delete 'code'
-      @user = User.new(user_params)
-      @user.parse_phone_number
-      @user.create_code
-      if @user.save
-        cookies['code'] = @user.code
-      end
-      redirect_to root_path
+      create_user
     else
       redirect_to root_path
     end
+  end
 
-
+  def create_user
+    cookies.delete 'code'
+    @user = User.new(user_params)
+    if @user.save
+      cookies['code'] = @user.code
+    end
+    redirect_to root_path
   end
 
   # GET /users/
