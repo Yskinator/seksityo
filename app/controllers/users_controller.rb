@@ -24,7 +24,7 @@ class UsersController < ApplicationController
         format.html { redirect_to '/admin', notice: 'Credits were successfully edited.' }
         format.json { render 'admins/index', status: :ok}
       else
-        format.html { redirect_to admin_path}
+        format.html { redirect_to '/admin'}
       end
     end
   end

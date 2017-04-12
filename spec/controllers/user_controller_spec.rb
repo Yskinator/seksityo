@@ -32,10 +32,20 @@ RSpec.describe UsersController, type: :controller do
       expect(User.all.length).to eq(1)
     end
     it "generates a new code if the user found in cookies not found in database" do
-      @request.cookies['code'] = 'wrongcookie'
+      @request.cookies['code'] = "moi"
       get :code_generation
       @user = User.first
       expect(@response.cookies['code']).to eq(@user.code)
+    end
+  end
+  describe "POST update" do
+    it "should update user" do
+      attr = { :credits => "12"}
+      @user = User.create(code: "1234", phone_number: "0401231234", credits: 0)
+      put :update, id: @user.id, :user => attr
+      @user.reload
+      expect(@user.credits).to eq(12)
+      expect(response).to redirect_to('/admin')
     end
   end
 end
