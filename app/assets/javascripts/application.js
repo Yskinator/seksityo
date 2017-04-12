@@ -21,7 +21,7 @@
     Sets 'lang' cookie which the back end uses to choose between browser preferred language and english.
  */
 switchLanguage = function() {
-    if (getCookie('lang') == "en"){
+    if (getCookie('lang') === "en"){
         document.cookie = "lang=default";
     } else {
         document.cookie = "lang=en";
@@ -39,10 +39,10 @@ function getCookie(cname) {
     var ca = decodedCookie.split(';');
     for(var i = 0; i <ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0) == ' ') {
+        while (c.charAt(0) === ' ') {
             c = c.substring(1);
         }
-        if (c.indexOf(name) == 0) {
+        if (c.indexOf(name) === 0) {
             return c.substring(name.length, c.length);
         }
     }

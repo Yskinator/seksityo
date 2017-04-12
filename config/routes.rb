@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'meetings/alert_confirm' => 'meetings#alert_confirm'
   resources :meetings, :except => [:index, :show, :destroy, :edit]
+  resources :users, :except => [:index, :show, :destroy, :edit]
 
   #Used to send alerts
   post 'meetings/send_alert' => 'meetings#send_alert', as: 'send_alert'
@@ -28,6 +29,11 @@ Rails.application.routes.draw do
   get 'admin' => 'admins#index', as: 'admin'
 
   delete 'admin/delete/:id' => 'admins#destroy'
+
+
+  get 'users/recover_cookie/phone_number=:phone_number' => 'users#cookie_recovery_link'
+
+  get 'users/id=:id' => 'users#recover_cookie'
 
   get 'users' => 'users#phone_form'
 

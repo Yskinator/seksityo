@@ -21,7 +21,7 @@ window.onload = function() {
 
     /* If meeting has not been updated in the last 2 minutes, or has just been created, update location */
     updatePosition = function (){
-      if (updated < (now - 120000) || meeting_updated == meeting_created){
+      if (updated < (now - 120000) || meeting_updated === meeting_created) {
         getPosition();
       }
     }
