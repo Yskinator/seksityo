@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   get 'meeting' => 'meetings#show'
 
+  get 'credits' => 'users#out_of_credits'
+
   # Used to check if the given meeting exists
   get 'meetings/exists/:id' => 'meetings#exists'
 

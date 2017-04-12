@@ -74,3 +74,7 @@ en:
   # SMS sent page
   sms_sent_title: "SMS has been sent!"
   sms_sent_text: "A text message has been sent to the number below. Please click the link on the text message to use the app."
+
+  # Out of credits page
+  out_of_credits_title: "Out of credits!"
+  out_of_credits_text: "Your account has run out of credits. Please use a voucher to add more."
