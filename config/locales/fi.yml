@@ -52,3 +52,7 @@ fi:
   # SMS sent page
   sms_sent_title: "Viesti lähetetty!"
   sms_sent_text: "Tekstiviesti lähetetty antamaasi numeroon. Klikkaa linkkiä tekstiviestissä päästäksesi käyttämään sovellusta."
+
+ # Out of credits page
+  out_of_credits_title: "Krediitit ovat lopussa!"
+  out_of_credits_text: "Käyttäjätililläsi ei ole krediittejä. Ole hyvä ja käytä voucheri lisätäksesi niitä."

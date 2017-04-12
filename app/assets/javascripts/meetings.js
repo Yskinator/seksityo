@@ -1,57 +1,38 @@
-window.onload = function() {
-
-        /* Functions for different duration selections */
-        document.getElementById('select30m').onclick = function () {
-            replaceHiddenInput(createNewInput(30));
-            var selected = document.getElementById('select30m');
-            $(selected).addClass('selected');
-            removeSelected('select30m');
-            setDurationInfoText(30);
-            clearManualInput();
-        };
-        document.getElementById('select1h').onclick = function () {
-            replaceHiddenInput(createNewInput(60));
-            var selected = document.getElementById('select1h');
-            $(selected).addClass('selected');
-            removeSelected('select1h');
-            setDurationInfoText(60);
-            clearManualInput();
-        };
-        document.getElementById('select2h').onclick = function () {
-            replaceHiddenInput(createNewInput(120));
-            var selected = document.getElementById('select2h');
-            $(selected).addClass('selected');
-            removeSelected('select2h');
-            setDurationInfoText(120);
-            clearManualInput();
-        };
-
-        /* Creates hidden field for the duration based on manual user input */
-        document.getElementById('duration-input').onkeyup = function() {
-            var input = document.getElementById('duration-input');
-            if ( input.value ){
-                removeSelected('');
-                replaceHiddenInput(createNewInput(input.value));
-                setDurationInfoText(input.value);
-            } else {
-                select1h();
-            }
-        };
-        select1h();
-
-};
-
-/* Selects the "1h" option, called on page load */
-select1h = function() {
-    replaceHiddenInput(createNewInput(60));
-    var selected = document.getElementById('select1h');
+/* Selects the given time value by element ID */
+function selectTimeValueByElementId(elementId) {
+    var timeValue;
+    switch (elementId) {
+        case 'select30m':
+            timeValue = 30;
+            break;
+        case 'select2h':
+            timeValue = 120;
+            break;
+        default:
+            timeValue = 60;
+    }
+    replaceHiddenInput(createNewHiddenInput(timeValue));
+    document.getElementById('duration-input').value = '';
+    var selected = document.getElementById(elementId);
+    removeSelected();
+    setDurationInfoText(timeValue);
     $(selected).addClass('selected');
-    removeSelected('select1h');
-    setDurationInfoText(60);
 };
+
+/* Keyup function for manual duration input */
+function durationInputKeyup(input){
+  if (input.value) {
+      removeSelected();
+      replaceHiddenInput(createNewHiddenInput(input.value));
+      setDurationInfoText(input.value);
+  } else {
+      selectTimeValueByElementId('select1h');
+  }
+
+}
 
 /* Creates a new hidden duration field with the given value */
-createNewInput = function(value) {
+createNewHiddenInput = function(value) {
     var input = document.createElement("INPUT");
     input.setAttribute('type', 'hidden');
     input.setAttribute('name', 'meeting[duration]');
@@ -68,37 +49,24 @@ replaceHiddenInput = function(newInput) {
     durationdiv.appendChild(newInput);
 };
 
-/* Clears the manual duration input, called when a new duration is selected */
-clearManualInput = function(){
-    document.getElementById('duration-input').value = '';
-};
-
 /* Sets the selected duration value to the info text on top of start button */
 setDurationInfoText = function(value) {
     document.getElementById('duration-info').innerHTML = value;
 };
 
-/* Removes 'selected' class from every selection, except the one specified */
-removeSelected = function(id) {
-    if ( id !== 'select30m') {
-        var tag = document.getElementById('select30m');
-        if ($(tag).hasClass('selected')) {
-            $(document.getElementById('select30m')).removeClass('selected');
-        }
-    }
-    if ( id !== 'select1h') {
-        var tag = document.getElementById('select1h');
-        if ($(tag).hasClass('selected')) {
-            $(document.getElementById('select1h')).removeClass('selected');
-        }
-    }
-    if ( id !== 'select2h') {
-        var tag = document.getElementById('select2h');
-        if ($(tag).hasClass('selected')) {
-            $(document.getElementById('select2h')).removeClass('selected');
+/* Removes 'selected' class from every element that has it */
+removeSelected = function() {
+    var elements = document.getElementsByClassName('selected');
+    for (var i = 0; i < elements.length; i++){
+        if ($(elements[i]).hasClass('selected')) {
+            $(elements[i]).removeClass('selected');
         }
     }
 };
 
-
-
+/* Select 1h when the page loads */
+window.onload = function() {
+  if (document.getElementById('select1h')) {
+    selectTimeValueByElementId('select1h');
+  }
+};

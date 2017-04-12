@@ -34,15 +34,18 @@ RSpec.describe AdminsController, type: :controller do
         m.save(:validate => false)
         m = Meeting.new(nickname: "Uusi", created_at: Time.new(2017), duration: 1337)
         m.save(:validate => false)
-        u = User.new(code: "fasd", phone_number: "9991231234", credits: 99999)
+        u = User.new(phone_number: "9991231234")
+        u.credits=99999
         u.save(:validate => false)
-        u = User.new(code: "asdf", phone_number: "9991231234", credits: 0)
+        credit_99999 = u.code
+        u = User.new(phone_number: "9991231234")
+        credit_0 = u.code
         u.save(:validate => false)
 
         get :index
         expect(response.body.index("Zimbabwe")).to be > response.body.index("Aasia")
         expect(response.body.index("Vanha")).to be > response.body.index("Uusi")
-        expect(response.body.index("fasd")).to be > response.body.index("asdf")
+        expect(response.body.index(credit_99999)).to be > response.body.index(u.code)
       end
       it "should arrange correctly with given sort params" do
         Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
@@ -59,15 +62,18 @@ RSpec.describe AdminsController, type: :controller do
         m.save(:validate => false)
         m = Meeting.new(nickname: "Uusi", created_at: Time.new(2017), duration: 1000)
         m.save(:validate => false)
-        u = User.new(code: "fasd", phone_number: "9991231234", credits: 99999)
+        u = User.new(phone_number: "9991231234")
+        u.credits = 99999
+        credit_99999 = u.code
         u.save(:validate => false)
-        u = User.new(code: "asdf", phone_number: "9991231234", credits: 0)
+        u = User.new(phone_number: "9991231234")
+        credit_0 = u.code
         u.save(:validate => false)
 
         get :index, stat_sort: "created", stat_direction: "desc", meeting_sort: "time_to_live", meeting_direction: "desc", user_sort: "credits", user_direction: "desc"
         expect(response.body.index("11111")).to be > response.body.index("22222")
         expect(response.body.index("Vanha")).to be > response.body.index("Uusi")
-        expect(response.body.index("asdf")).to be > response.body.index("fasd")
+        expect(response.body.index(credit_0)).to be > response.body.index(credit_99999)
       end
     end
   end
