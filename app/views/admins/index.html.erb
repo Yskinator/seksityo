@@ -41,8 +41,6 @@
   <h2>Current meetings</h2>
   <table class="admin-table">
       <thead>
-        <th>Nickname</th>
-        <th>Safety Contact</th>
         <th><%= sort_link("meeting", "created_at", "Created at (UTC)") %></th>
         <th><%= sort_link("meeting", "time_to_live", "Duration remaining") %></th>
         <th><%= sort_link("meeting", "alert_sent", "Alert Sent") %></th>
@@ -51,8 +49,6 @@
       <tbody>
         <% @meetings.each do |meeting| %>
           <tr>
-              <td><%= meeting.nickname %></td>
-              <td>+<%= number_to_phone(meeting.phone_number) %></td>
               <td><%= meeting.created_at.to_formatted_s(:long_ordinal)  %></td>
               <td><%= meeting.time_to_live %> min</td>
               <td><%= meeting.alert_sent %></td>
@@ -68,7 +64,6 @@
   <table class="admin-table">
     <thead>
     <th><%= sort_link("user", "code", "Code") %></th>
-    <th><%= sort_link("user", "phone_number", "Phone number") %></th>
     <th><%= sort_link("user", "credits", "Credits") %></th>
     <th>Edit</th>
     </thead>
@@ -76,7 +71,6 @@
     <% @users.each do |user| %>
         <tr>
           <td><%= user.code %></td>
-          <td>+<%= number_to_phone(user.phone_number) %></td>
           <td><%= user.credits  %></td>
         </tr>
     <% end %>
