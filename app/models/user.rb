@@ -1,6 +1,13 @@
 class User < ActiveRecord::Base
   validate :validate_phone_number
 
+  def initialize(user_params = nil)
+    super
+    self.credits = 0
+    self.parse_phone_number
+    self.create_code
+  end
+
   def create_code
     self.code = SecureRandom.hex
   end

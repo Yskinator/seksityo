@@ -12,8 +12,6 @@ class UsersController < ApplicationController
   def create_user
     cookies.delete 'code'
     @user = User.new(user_params)
-    @user.parse_phone_number
-    @user.create_code
     if @user.save
       cookies['code'] = @user.code
     end
