@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate, only: :update
+
   # POST /users/
   def receive_phone
     @user = User.find_by_phone_number(user_params[:phone_number])
