@@ -30,9 +30,9 @@ RSpec.describe AdminsController, type: :controller do
         s2 = Stat.new
         s2.country = "Aasia"
         s2.save
-        m = Meeting.new(nickname: "Vanha", created_at: Time.new(2015), duration: 1337)
+        m = Meeting.new(nickname: "Vanha", created_at: Time.new(2015), duration: 1337, alert_sent: false)
         m.save(:validate => false)
-        m = Meeting.new(nickname: "Uusi", created_at: Time.new(2017), duration: 1337)
+        m = Meeting.new(nickname: "Uusi", created_at: Time.new(2017), duration: 1337, alert_sent: true)
         m.save(:validate => false)
         u = User.new(phone_number: "9991231234")
         u.credits=99999
@@ -44,7 +44,7 @@ RSpec.describe AdminsController, type: :controller do
 
         get :index
         expect(response.body.index("Zimbabwe")).to be > response.body.index("Aasia")
-        expect(response.body.index("Vanha")).to be > response.body.index("Uusi")
+        expect(response.body.index("false")).to be > response.body.index("true")
         expect(response.body.index(credit_99999)).to be > response.body.index(u.code)
       end
       it "should arrange correctly with given sort params" do
@@ -58,9 +58,9 @@ RSpec.describe AdminsController, type: :controller do
         s2.country_code = "11111"
         s2.created = 2
         s2.save
-        m = Meeting.new(nickname: "Vanha", created_at: Time.new(2015), duration: 1337)
+        m = Meeting.new(nickname: "Vanha", created_at: Time.new(2015), duration: 1337, alert_sent: false)
         m.save(:validate => false)
-        m = Meeting.new(nickname: "Uusi", created_at: Time.new(2017), duration: 1000)
+        m = Meeting.new(nickname: "Uusi", created_at: Time.new(2017), duration: 1000, alert_sent: true)
         m.save(:validate => false)
         u = User.new(phone_number: "9991231234")
         u.credits = 99999
@@ -72,7 +72,7 @@ RSpec.describe AdminsController, type: :controller do
 
         get :index, stat_sort: "created", stat_direction: "desc", meeting_sort: "time_to_live", meeting_direction: "desc", user_sort: "credits", user_direction: "desc"
         expect(response.body.index("11111")).to be > response.body.index("22222")
-        expect(response.body.index("Vanha")).to be > response.body.index("Uusi")
+        expect(response.body.index("false")).to be > response.body.index("true")
         expect(response.body.index(credit_0)).to be > response.body.index(credit_99999)
       end
     end

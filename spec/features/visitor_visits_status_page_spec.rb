@@ -2,9 +2,11 @@ require 'rails_helper'
 
 feature 'When on the status page' do
   before :each do
+    u = User.create(phone_number: "9991231234")
+    create_cookie('code', u.code)
     visit '/meetings/new'
     fill_in 'meeting_nickname', with: 'Pekka'
-    fill_in 'meeting_phone_number', with: '0401231234'
+    fill_in 'meeting_phone_number', with: '9991231234'
     fill_in 'duration-input', with: '111'
     click_button 'startbutton'
   end
@@ -15,8 +17,8 @@ feature 'When on the status page' do
   scenario 'user can press the alert button and send an alert message', js: true do
     expect(page).to have_button("Send Alert!")
     click_button 'Send Alert!'
-    sleep(0.1)
-    open_email('0401231234@textmagic.com')
+    sleep(0.5)
+    open_email('9991231234@textmagic.com')
     expect(current_email).to have_content "is in trouble and needs help immediately"
   end
   scenario 'user can see the confirmation page after pressing the alert button', js:true do
