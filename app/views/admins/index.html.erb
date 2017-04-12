@@ -41,12 +41,14 @@
   <h2>Current meetings</h2>
   <table class="admin-table">
     <thead>
-    <th>Nickname</th>
-    <th>Safety Contact</th>
-    <th><%= meeting_sort_link "created_at", "Created at (UTC)" %></th>
-    <th><%= meeting_sort_link "time_to_live", "Duration remaining" %></th>
-    <th><%= meeting_sort_link "alert_sent", "Alert Sent" %></th>
-    <th>Delete</th>
+    <tr>
+      <th>Nickname</th>
+      <th>Safety Contact</th>
+      <th><%= meeting_sort_link "created_at", "Created at (UTC)" %></th>
+      <th><%= meeting_sort_link "time_to_live", "Duration remaining" %></th>
+      <th><%= meeting_sort_link "alert_sent", "Alert Sent" %></th>
+      <th>Delete</th>
+    </tr>
     </thead>
     <tbody>
     <% @meetings.each do |meeting| %>
@@ -68,10 +70,12 @@
   <h2>Users</h2>
   <table class="admin-table">
     <thead>
-    <th><%= user_sort_link "code", "Code" %></th>
-    <th><%= user_sort_link "phone_number", "Phone number" %></th>
-    <th><%= user_sort_link "credits", "Credits" %></th>
-    <th>Edit</th>
+    <tr>
+      <th><%= user_sort_link "code", "Code" %></th>
+      <th><%= user_sort_link "phone_number", "Phone number" %></th>
+      <th><%= user_sort_link "credits", "Credits" %></th>
+      <th>Edit</th>
+    </tr>
     </thead>
     <tbody>
     <% @users.each do |user| %>
@@ -82,7 +86,7 @@
               <td>+<%= number_to_phone(user.phone_number) %></td>
               <td><%= f.number_field :credits %></td>
               <td><%= f.submit "Update", :class => "edit-button", :id => "update" %></td>
-            <% end %>
+          <% end %>
           </td>
         </tr>
     <% end %>
