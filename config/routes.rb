@@ -13,9 +13,13 @@ Rails.application.routes.draw do
   # Used to update location to meeting, basic HTML-form does not support PUT
   post 'meetings/:id' => 'meetings#update'
 
+  post 'users' => 'users#receive_phone'
+
   root 'meetings#new'
 
   get 'meeting' => 'meetings#show'
+
+  get 'credits' => 'users#out_of_credits'
 
   # Used to check if the given meeting exists
   get 'meetings/exists/:id' => 'meetings#exists'
@@ -26,7 +30,7 @@ Rails.application.routes.draw do
 
   delete 'admin/delete/:id' => 'admins#destroy'
 
-  get 'users' => 'users#code_generation'
+  get 'users' => 'users#phone_form'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

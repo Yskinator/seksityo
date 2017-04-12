@@ -13,11 +13,11 @@
   <table class="admin-table">
     <thead>
     <tr>
-      <th><%= stat_sort_link "country" %></th>
-      <th><%= stat_sort_link "created" %></th>
-      <th><%= stat_sort_link "confirmed" %></th>
-      <th><%= stat_sort_link "alerts_sent" %></th>
-      <th><%= stat_sort_link "notifications_sent" %></th>
+      <th><%= sort_link("stat", "country") %></th>
+      <th><%= sort_link("stat", "created") %></th>
+      <th><%= sort_link("stat", "confirmed") %></th>
+      <th><%= sort_link("stat", "alerts_sent") %></th>
+      <th><%= sort_link("stat", "notifications_sent") %></th>
     </tr>
     </thead>
 
@@ -40,28 +40,22 @@
 <div data-turbolinks="true" class="field-section">
   <h2>Current meetings</h2>
   <table class="admin-table">
-    <thead>
-    <tr>
-      <th>Nickname</th>
-      <th>Safety Contact</th>
-      <th><%= meeting_sort_link "created_at", "Created at (UTC)" %></th>
-      <th><%= meeting_sort_link "time_to_live", "Duration remaining" %></th>
-      <th><%= meeting_sort_link "alert_sent", "Alert Sent" %></th>
-      <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @meetings.each do |meeting| %>
-        <tr>
-          <td><%= meeting.nickname %></td>
-          <td>+<%= number_to_phone(meeting.phone_number) %></td>
-          <td><%= meeting.created_at.to_formatted_s(:long_ordinal) %></td>
-          <td><%= meeting.time_to_live %> min</td>
-          <td><%= meeting.alert_sent %></td>
-          <td><%= link_to 'Delete', 'admin/delete/'+meeting.id.to_s, method: :delete, :class => 'delete-button', data: {confirm: "Are you sure you want to delete the meeting?"} %>
-        </tr>
-    <% end %>
-    </tbody>
+      <thead>
+        <th><%= sort_link("meeting", "created_at", "Created at (UTC)") %></th>
+        <th><%= sort_link("meeting", "time_to_live", "Duration remaining") %></th>
+        <th><%= sort_link("meeting", "alert_sent", "Alert Sent") %></th>
+        <th>Delete</th>
+      </thead>
+      <tbody>
+        <% @meetings.each do |meeting| %>
+          <tr>
+              <td><%= meeting.created_at.to_formatted_s(:long_ordinal)  %></td>
+              <td><%= meeting.time_to_live %> min</td>
+              <td><%= meeting.alert_sent %></td>
+              <td><%= link_to 'Delete', 'admin/delete/'+meeting.id.to_s, method: :delete, :class => 'delete-button', data: { confirm: "Are you sure you want to delete the meeting?"}%>
+          </tr>
+        <% end %>
+      </tbody>
   </table>
 </div>
 
@@ -70,12 +64,9 @@
   <h2>Users</h2>
   <table class="admin-table">
     <thead>
-    <tr>
-      <th><%= user_sort_link "code", "Code" %></th>
-      <th><%= user_sort_link "phone_number", "Phone number" %></th>
-      <th><%= user_sort_link "credits", "Credits" %></th>
-      <th>Edit</th>
-    </tr>
+    <th><%= sort_link("user", "code", "Code") %></th>
+    <th><%= sort_link("user", "credits", "Credits") %></th>
+    <th>Edit</th>
     </thead>
     <tbody>
     <% @users.each do |user| %>

@@ -1,0 +1,15 @@
+
+<%= form_for(@user) do |f| %>
+
+    <div class="field-section">
+      <div class="field">
+        <%= f.text_field :phone_number, :class => "textfield", placeholder: "#{t('phonenumber_placeholder')}" %>
+      </div>
+    </div>
+    <div class="field-section">
+      <div class="actions">
+        <%= f.submit "#{t('phone_input_submit_button')}", :class => "submitbutton", :id => "startbutton" %>
+      </div>
+    </div>
+
+<% end %>
