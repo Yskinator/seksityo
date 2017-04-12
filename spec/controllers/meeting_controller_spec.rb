@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe MeetingsController, type: :controller do
+  before :each do
+    u = User.create(phone_number: "9991231234")
+    @request.cookies['code'] = u.code
+  end
   describe "GET show" do
     it "renders the show template" do
       Meeting.create(nickname: "Matti", phone_number: "0401231234", duration: 20)
