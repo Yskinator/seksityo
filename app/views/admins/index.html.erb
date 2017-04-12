@@ -13,11 +13,11 @@
   <table class="admin-table">
     <thead>
     <tr>
-      <th><%= stat_sort_link "country" %></th>
-      <th><%= stat_sort_link "created" %></th>
-      <th><%= stat_sort_link "confirmed" %></th>
-      <th><%= stat_sort_link "alerts_sent" %></th>
-      <th><%= stat_sort_link "notifications_sent" %></th>
+      <th><%= sort_link("stat", "country") %></th>
+      <th><%= sort_link("stat", "created") %></th>
+      <th><%= sort_link("stat", "confirmed") %></th>
+      <th><%= sort_link("stat", "alerts_sent") %></th>
+      <th><%= sort_link("stat", "notifications_sent") %></th>
     </tr>
     </thead>
 
@@ -43,9 +43,9 @@
       <thead>
         <th>Nickname</th>
         <th>Safety Contact</th>
-        <th><%= meeting_sort_link "created_at", "Created at (UTC)" %></th>
-        <th><%= meeting_sort_link "time_to_live", "Duration remaining" %></th>
-        <th><%= meeting_sort_link "alert_sent", "Alert Sent" %></th>
+        <th><%= sort_link("meeting", "created_at", "Created at (UTC)") %></th>
+        <th><%= sort_link("meeting", "time_to_live", "Duration remaining") %></th>
+        <th><%= sort_link("meeting", "alert_sent", "Alert Sent") %></th>
         <th>Delete</th>
       </thead>
       <tbody>
@@ -67,9 +67,9 @@
   <h2>Users</h2>
   <table class="admin-table">
     <thead>
-    <th><%= user_sort_link "code", "Code" %></th>
-    <th><%= user_sort_link "phone_number", "Phone number" %></th>
-    <th><%= user_sort_link "credits", "Credits" %></th>
+    <th><%= sort_link("user", "code", "Code") %></th>
+    <th><%= sort_link("user", "phone_number", "Phone number") %></th>
+    <th><%= sort_link("user", "credits", "Credits") %></th>
     <th>Edit</th>
     </thead>
     <tbody>

@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-  helper_method :stat_sort_column, :stat_sort_direction, :meeting_sort_column, :meeting_sort_direction, :user_sort_column, :user_sort_direction
+  helper_method :sort_column, :sort_direction
   before_action :authenticate
 
   def index
@@ -36,6 +36,28 @@ class AdminsController < ApplicationController
   private
 
   # Methods for fetching sort-related parameters
+  def sort_column model
+    case model
+    when 'stat'
+      stat_sort_column
+    when 'meeting'
+      meeting_sort_column
+    when 'user'
+      user_sort_column
+    end
+  end
+
+  def sort_direction model
+    case model
+    when 'stat'
+      stat_sort_direction
+    when 'meeting'
+      meeting_sort_direction
+    when 'user'
+      user_sort_direction
+    end
+  end
+
   # Only accept column name that exists for Stat. Default to country_code
   def stat_sort_column
     Stat.column_names.include?(params[:stat_sort]) ? params[:stat_sort] : "country"
