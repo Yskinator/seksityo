@@ -20,6 +20,28 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def cookie_recovery_link
+    @recovery_link = ''
+    if params['phone_number']
+      @user = User.find_by_phone_number(params['phone_number'])
+      if @user
+        @recovery_link = request.base_url  + "/users/id=" + @user.code
+      end
+    end
+  end
+
+  def recover_cookie
+    @user = User.find_by_code(params['id'])
+
+    if @user
+      cookies.delete :code
+      cookies['code'] = params['id']
+    end
+    redirect_to :root
+
+  end
+
+
   # GET /users/
   def phone_form
     @user = User.new
