@@ -28,6 +28,10 @@ Rails.application.routes.draw do
   get 'users' => 'users#code_generation'
 
   get 'users/id=:id' => 'users#recover_cookie'
+
+  get 'users/recover_cookie/phone_number=:phone_number' => 'users#cookie_recovery_link'
+
+  get 'users/id=:id' => 'users#recover_cookie'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

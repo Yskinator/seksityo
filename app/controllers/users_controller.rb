@@ -18,23 +18,25 @@ class UsersController < ApplicationController
     return @user.code
   end
 
-  def cookie_recovery_link(number)
-    recovery_link = ''
-    if number
-      @user = User.find_by_phone_number(number)
-
-      recovery_link = request.original_url + "/id=" + @user.code
+  def cookie_recovery_link
+    @recovery_link = ''
+    if params['phone_number']
+      @user = User.find_by_phone_number(params['phone_number'])
+      if @user
+        @recovery_link = request.base_url  + "/users/id=" + @user.code
+      end
     end
-    return recovery_link
   end
 
   def recover_cookie
     if params['id']
-      cookies['code'] = params['id']
-      redirect_to '/meetings'
+      if(User.find_by_code(params['id']))
+        cookies['code'] = params['id']
+      end
+      redirect_to :root
     else
       puts "Bad URL"
+      redirect_to :root
     end
-
   end
 end
