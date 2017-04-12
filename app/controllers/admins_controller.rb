@@ -88,17 +88,4 @@ class AdminsController < ApplicationController
   end
   protected
 
-  # Authentication using HTTP BASIC authentication
-  def authenticate
-    # Set admin to nil
-    admin = nil
-    # Try authenticating with supplied username and password
-    authenticate_or_request_with_http_basic do |username, password|
-      admin = Admin.find_by(username: username).try(:authenticate, password)
-    end
-    # If authentication fails, admin is nil and authentication is requested from the user.
-    if admin.nil?
-      request_http_basic_authentication
-    end
-  end
 end
