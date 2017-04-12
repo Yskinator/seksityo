@@ -68,7 +68,6 @@ RSpec.describe UsersController, type: :controller do
 
     end
   end
-end
   describe "POST update" do
     it "should update user" do
       u = Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
