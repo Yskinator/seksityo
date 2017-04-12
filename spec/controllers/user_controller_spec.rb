@@ -7,6 +7,12 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to render_template("phone_form")
     end
   end
+  describe "GET credits" do
+    it "renders the out of credits apge" do
+      get :out_of_credits
+      expect(response).to render_template("out_of_credits")
+    end
+  end
   describe "POST users" do
     user_params = {:phone_number => "0401231234"}
     it "creates a new user if it does not exist" do
