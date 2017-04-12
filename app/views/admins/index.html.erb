@@ -1,11 +1,11 @@
 <h1>Artemis' Umbrella administration page</h1>
 
 <% if flash[:notify] %>
-  <div class="notify" id="notify"><%= flash[:notify] %></div>
+    <div class="notify" id="notify"><%= flash[:notify] %></div>
 <% end %>
 <script>
-  <!-- Fades the notification out after 5 seconds -->
-  $(".notify" ).fadeOut(5000);
+    <!-- Fades the notification out after 5 seconds -->
+    $(".notify").fadeOut(5000);
 </script>
 
 <div data-turbolinks="true" class="field-section">
@@ -40,45 +40,52 @@
 <div data-turbolinks="true" class="field-section">
   <h2>Current meetings</h2>
   <table class="admin-table">
-      <thead>
-        <th>Nickname</th>
-        <th>Safety Contact</th>
-        <th><%= meeting_sort_link "created_at", "Created at (UTC)" %></th>
-        <th><%= meeting_sort_link "time_to_live", "Duration remaining" %></th>
-        <th><%= meeting_sort_link "alert_sent", "Alert Sent" %></th>
-        <th>Delete</th>
-      </thead>
-      <tbody>
-        <% @meetings.each do |meeting| %>
-          <tr>
-              <td><%= meeting.nickname %></td>
-              <td>+<%= number_to_phone(meeting.phone_number) %></td>
-              <td><%= meeting.created_at.to_formatted_s(:long_ordinal)  %></td>
-              <td><%= meeting.time_to_live %> min</td>
-              <td><%= meeting.alert_sent %></td>
-              <td><%= link_to 'Delete', 'admin/delete/'+meeting.id.to_s, method: :delete, :class => 'delete-button', data: { confirm: "Are you sure you want to delete the meeting?"}%>
-          </tr>
-        <% end %>
-      </tbody>
+    <thead>
+    <th>Nickname</th>
+    <th>Safety Contact</th>
+    <th><%= meeting_sort_link "created_at", "Created at (UTC)" %></th>
+    <th><%= meeting_sort_link "time_to_live", "Duration remaining" %></th>
+    <th><%= meeting_sort_link "alert_sent", "Alert Sent" %></th>
+    <th>Delete</th>
+    </thead>
+    <tbody>
+    <% @meetings.each do |meeting| %>
+        <tr>
+          <td><%= meeting.nickname %></td>
+          <td>+<%= number_to_phone(meeting.phone_number) %></td>
+          <td><%= meeting.created_at.to_formatted_s(:long_ordinal) %></td>
+          <td><%= meeting.time_to_live %> min</td>
+          <td><%= meeting.alert_sent %></td>
+          <td><%= link_to 'Delete', 'admin/delete/'+meeting.id.to_s, method: :delete, :class => 'delete-button', data: {confirm: "Are you sure you want to delete the meeting?"} %>
+        </tr>
+    <% end %>
+    </tbody>
   </table>
 </div>
 
+
 <div data-turbolinks="true" class="field-section">
   <h2>Users</h2>
-  <div class="table">
-    <div class="thead">
-      <span class="th"><%= user_sort_link "code", "Code" %></span>
-      <span class="th"><%= user_sort_link "phone_number", "Phone number" %></span>
-      <span class="th"><%= user_sort_link "credits", "Credits" %></span>
-      <span class="th">Edit</span>
-    </div>
+  <table class="admin-table">
+    <thead>
+    <th><%= user_sort_link "code", "Code" %></th>
+    <th><%= user_sort_link "phone_number", "Phone number" %></th>
+    <th><%= user_sort_link "credits", "Credits" %></th>
+    <th>Edit</th>
+    </thead>
+    <tbody>
     <% @users.each do |user| %>
-        <form class="tr" method="post" action="blah.html">
-          <span class="td"><%= user.code %></span>
-          <span class="td">+<%= number_to_phone(user.phone_number) %></span>
-          <span class="td"><input class="credit-input" type="number" id="credit-input" min="0" max="1000" value="<%= user.credits %>"></span>
-          <span class="td"><%= link_to 'Edit', 'admin/update/'+user.id.to_s, method: :update, :class => 'edit-button', data: { confirm: "Are you sure you want to edit user's credits?" }%></span>
-        </form>
+        <tr>
+          <%= form_for(user) do |f| %>
+              <%= f.hidden_field :code, :value => user.code %>
+              <td><%= user.code %></td>
+              <td>+<%= number_to_phone(user.phone_number) %></td>
+              <td><%= f.number_field :credits %></td>
+              <td><%= f.submit "Update", :class => "edit-button", :id => "update" %></td>
+            <% end %>
+          </td>
+        </tr>
     <% end %>
-  </div>
+    </tbody>
+  </table>
 </div>

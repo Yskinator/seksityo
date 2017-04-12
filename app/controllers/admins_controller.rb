@@ -32,7 +32,6 @@ class AdminsController < ApplicationController
     end
   end
 
-
   private
 
   # Methods for fetching sort-related parameters
