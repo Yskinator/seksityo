@@ -4,6 +4,11 @@
     <div class="field-section">
       <div class="field">
         <%= f.text_field :phone_number, :class => "textfield", placeholder: "#{t('phonenumber_placeholder')}" %>
+        <% if @user.errors.messages[:phone_number].any? %>
+            <div class="error-explanation">
+              <p class="error-message"><%= t('phone_number_invalid') %></p>
+            </div>
+        <% end %>
       </div>
     </div>
     <div class="field-section">
