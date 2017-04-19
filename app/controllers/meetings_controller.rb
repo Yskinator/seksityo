@@ -15,7 +15,7 @@ class MeetingsController < ApplicationController
   # GET /meetings/new
   def new
     # Redirect to phone input page unless user is found
-    unless User.find_by_code(cookies[:code])
+    unless User.find_by_code(cookies['ucd'])
       redirect_to users_path
     end
     # If user already has an active meeting, find it based on cookies.

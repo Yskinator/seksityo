@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe MeetingsController, type: :controller do
   before :each do
     u = User.create(phone_number: "9991231234")
-    @request.cookies['code'] = u.code
+    @request.cookies['ucd'] = u.code
   end
   describe "GET show" do
     it "renders the show template" do
