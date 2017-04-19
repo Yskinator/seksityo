@@ -41,6 +41,18 @@ RSpec.describe MeetingsController, type: :controller do
       get :new
       expect(response).to render_template("new")
     end
+    it "redirects to phone input if no user" do
+      @request.cookies['code'] = ""
+      get :new
+      expect(response).to redirect_to("/users")
+    end
+    it "redirects to out of credits page if no credits" do
+      u = User.find_by_code(@request.cookies['code'])
+      u.credits = 0
+      u.save
+      get :new
+      expect(response).to redirect_to("/credits")
+    end
     context "with render views" do
       render_views
 
@@ -91,6 +103,20 @@ RSpec.describe MeetingsController, type: :controller do
     end
   end
   describe "POST create" do
+    it "redirects to phone input if no user" do
+      @request.cookies['code'] = ""
+      meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
+      post :create, :meeting => meeting_params
+      expect(response).to redirect_to("/users")
+    end
+    it "redirects to out of credits page if no credits" do
+      u = User.find_by_code(@request.cookies['code'])
+      u.credits = 0
+      u.save
+      meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
+      post :create, :meeting => meeting_params
+      expect(response).to redirect_to("/credits")
+    end
     it "should create new meeting with correct params" do
         meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
         expect { post :create, :meeting => meeting_params }.to change(Meeting, :count).by(1)
@@ -141,6 +167,18 @@ RSpec.describe MeetingsController, type: :controller do
     end
   end
   describe "POST send_alert" do
+    it "redirects to phone input if no user" do
+      @request.cookies['code'] = ""
+      post :send_alert
+      expect(response).to redirect_to("/users")
+    end
+    it "redirects to out of credits page if no credits" do
+      u = User.find_by_code(@request.cookies['code'])
+      u.credits = 0
+      u.save
+      post :send_alert
+      expect(response).to redirect_to("/credits")
+    end
     it "should remove incorrect cookie" do
       @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "0401231234", duration: 1300)
       @request.cookies["current_meeting"] = "dog treat"
