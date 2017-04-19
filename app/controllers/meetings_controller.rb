@@ -6,7 +6,7 @@ class MeetingsController < ApplicationController
   # GET /meetings/1
   # GET /meetings/1.json
   def show
-   @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+   @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
    if @meeting.nil?
      redirect_to :root
    end
@@ -15,12 +15,12 @@ class MeetingsController < ApplicationController
   # GET /meetings/new
   def new
     # Redirect to phone input page unless user is found
-    unless User.find_by_code(cookies[:code])
+    unless User.find_by_code(cookies['ucd'])
       redirect_to users_path
     end
     # If user already has an active meeting, find it based on cookies.
-    if cookies['current_meeting']
-      @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+    if cookies['curr_me']
+      @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
       if @meeting
         redirect_to('/meeting')
       end
@@ -35,13 +35,13 @@ class MeetingsController < ApplicationController
     @meeting.parse_phone_number
     @meeting.create_hashkey
     @meeting.alert_sent = false
-    cookies['nickname'] = @meeting.nickname
-    cookies['phone_number'] = @meeting.phone_number
+    cookies['nkn'] = @meeting.nickname
+    cookies['pnmr'] = @meeting.phone_number
 
     respond_to do |format|
       if @meeting.save
         Stat.increment_created(@meeting.get_country_code, @meeting.get_country)
-        cookies['current_meeting'] = @meeting.hashkey
+        cookies['curr_me'] = @meeting.hashkey
         # Runs send_notification once the timer runs out
         @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification
         format.html { redirect_to '/meeting', notice: 'Meeting was successfully created.' }
@@ -69,12 +69,12 @@ class MeetingsController < ApplicationController
 
   # POST /meetings/meeting_ok/
   def meeting_ok
-    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+    @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
     if @meeting
       Stat.increment_confirmed(@meeting.get_country_code, @meeting.get_country)
       @meeting.delete_job()
       @meeting.destroy
-      cookies.delete 'current_meeting'
+      cookies.delete 'curr_me'
     end
     redirect_to root_path
   end
@@ -82,13 +82,13 @@ class MeetingsController < ApplicationController
 
   # POST /meetings/send_alert/
   def send_alert
-    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+    @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
     if @meeting
       @meeting.send_alert
       Stat.increment_alerts_sent(@meeting.get_country_code, @meeting.get_country)
       redirect_to :meetings_alert_confirm
     else
-      cookies.delete 'current_meeting'
+      cookies.delete 'curr_me'
       redirect_to root_path
     end
   end
@@ -107,16 +107,16 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/alert_confirm
   def alert_confirm
-    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+    @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
     if !@meeting
-      cookies.delete 'current_meeting'
+      cookies.delete 'curr_me'
       redirect_to root_path
     end
   end
 
   # POST /meetings/add_time
   def add_time
-    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+    @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
     if @meeting
       job = @meeting.find_job()
       if job
@@ -132,7 +132,7 @@ class MeetingsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_meeting
-    @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
+    @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
