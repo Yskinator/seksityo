@@ -51,14 +51,26 @@ RSpec.describe UsersController, type: :controller do
     end
   end
   describe "GET receive_phone" do
-    it "should show SMS sent view if user found in database" do
+    it "should show SMS sent view if user's phone number found in database" do
       u = User.create(phone_number: "9991231234")
       attr = { :phone_number => "9991231234"}
       get :receive_phone, :user => attr
 
       expect(response).to render_template("sms_sent")
     end
+    it "should redirect to root if phone number not found in database" do
+      attr = { :phone_number => "9991231234"}
+      get :receive_phone, :user => attr
 
+      expect(response).to redirect_to(:root)
+    end
+    it "should create a new user if phone number not found in database" do
+      attr = { :phone_number => "9991231234"}
+      get :receive_phone, :user => attr
+
+      user = User.find_by_phone_number("9991231234")
+      expect(user).not_to eq(nil)
+    end
   end
   describe "POST update" do
     it "should update user" do
