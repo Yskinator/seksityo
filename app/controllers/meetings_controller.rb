@@ -1,7 +1,7 @@
 class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
   before_action :set_locale
-  before_action :validate_user, only: [:new, :create, :send_alert]
+  before_action :validate_user, only: [:create, :send_alert]
 
 
   # GET /meetings/1
@@ -15,6 +15,10 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/new
   def new
+    unless user_exists
+      redirect_to users_path
+      return
+    end
     # If user already has an active meeting, find it based on cookies.
     if cookies['curr_me']
       @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
