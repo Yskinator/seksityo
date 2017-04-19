@@ -18,16 +18,19 @@ class MeetingsController < ApplicationController
       redirect_to users_path
       return
     end
-    unless user_has_credits
-      redirect_to credits_path
-      return
-    end
+    # Existing meeting
     # If user already has an active meeting, find it based on cookies.
     if cookies['curr_me']
       @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
       if @meeting
         redirect_to('/meeting')
+        return
       end
+    end
+    # New meeting
+    unless user_has_credits
+      redirect_to credits_path
+      return
     end
     @meeting = Meeting.new
   end
@@ -108,6 +111,8 @@ class MeetingsController < ApplicationController
       redirect_to root_path
       return
     end
+    @user.credits -= 1
+    @user.save
     @meeting.send_alert
     Stat.increment_alerts_sent(@meeting.get_country_code, @meeting.get_country)
     redirect_to :meetings_alert_confirm
@@ -138,7 +143,7 @@ class MeetingsController < ApplicationController
   def add_time
     @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
     if @meeting
-      job = @meeting.find_job()
+      job = @meeting.find_job
       if job
         @meeting.duration = @meeting.duration+10
         job.run_at = job.run_at + 10.minutes
