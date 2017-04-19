@@ -7,7 +7,8 @@ class UsersController < ApplicationController
     if !@user
       create_user
     else
-      redirect_to root_path
+      @user.send_recovery_link(request.base_url)
+      render 'users/sms_sent'
     end
   end
 
@@ -18,16 +19,6 @@ class UsersController < ApplicationController
       cookies['ucd'] = @user.code
     end
     redirect_to root_path
-  end
-
-  def cookie_recovery_link
-    @recovery_link = ''
-    if params['phone_number']
-      @user = User.find_by_phone_number(params['phone_number'])
-      if @user
-        @recovery_link = request.base_url  + "/users/id=" + @user.code
-      end
-    end
   end
 
   def recover_cookie
