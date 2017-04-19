@@ -5,7 +5,7 @@ feature 'When starting a new meeting' do
     u = User.create(phone_number: "9991231234")
     u.credits = 100
     u.save
-    create_cookie('code', u.code)
+    create_cookie('ucd', u.code)
   end
 
   scenario 'user can create a meeting', js: true do

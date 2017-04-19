@@ -10,7 +10,7 @@ feature 'New meeting' do
   end
   scenario 'user with no credits visits new meeting' do
     u = User.create(phone_number: "9991231234")
-    create_cookie('code', u.code)
+    create_cookie('ucd', u.code)
     visit '/meetings/new'
     expect(page).to have_content("Out of credits!")
   end
@@ -18,7 +18,7 @@ feature 'New meeting' do
     u = User.create(phone_number: "9991231234")
     u.credits = 100
     u.save
-    create_cookie('code', u.code)
+    create_cookie('ucd', u.code)
     visit '/meetings/new'
 
     expect(page).to have_content("Artemis' Umbrella")
@@ -27,7 +27,7 @@ feature 'New meeting' do
     u = User.create(phone_number: "9991231234")
     u.credits = 100
     u.save
-    create_cookie('code', u.code)
+    create_cookie('ucd', u.code)
     visit '/'
     fill_in 'meeting_nickname', with: "Turbo"
     fill_in 'meeting_phone_number', with: '0401231234'
