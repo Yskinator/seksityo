@@ -15,10 +15,17 @@ class UsersController < ApplicationController
   def create_user
     cookies.delete 'ucd'
     @user = User.new(user_params)
-    if @user.save
-      cookies['ucd'] = @user.code
+
+    respond_to do |format|
+      if @user.save
+        cookies['ucd'] = @user.code
+        format.html { redirect_to :root, notice: 'A new user was successfully created.' }
+        format.json { render 'meetings/new', status: :created}
+      else
+        format.html { render '/users/phone_form' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
-    redirect_to root_path
   end
 
   def recover_cookie
