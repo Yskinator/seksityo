@@ -69,12 +69,11 @@ window.onload = function() {
 
             /* Submit form */
             form.submit();
-        
+
     }
 
     /* Display error message in case location does not work */
     function error_callback(p){
-        console.error(p.message)
         document.getElementById('location').innerHTML = "Error: " + p.message;
     }
 

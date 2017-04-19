@@ -15,7 +15,7 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/new
   def new
-    #If user already has an active meeting, find it based on cookies.
+    # If user already has an active meeting, find it based on cookies.
     if cookies['curr_me']
       @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
       if @meeting
