@@ -57,6 +57,8 @@ class MeetingsController < ApplicationController
       if @meeting.save
         Stat.increment_created(@meeting.get_country_code, @meeting.get_country)
         cookies['curr_me'] = @meeting.hashkey
+        # Reserve one credit to for sending a notification
+        @user.credits -= 1
         # Runs send_notification once the timer runs out
         @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification
         format.html { redirect_to '/meeting', notice: 'Meeting was successfully created.' }
@@ -87,7 +89,11 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
     if @meeting
       Stat.increment_confirmed(@meeting.get_country_code, @meeting.get_country)
-      @meeting.delete_job()
+      if @meeting.find_job
+        @user = User.find_by_code(cookies[:ucd])
+        @user.credits += 1
+      end
+      @meeting.delete_job
       @meeting.destroy
       cookies.delete 'curr_me'
     end
