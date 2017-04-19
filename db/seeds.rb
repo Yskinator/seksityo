@@ -13,7 +13,9 @@ Admin.create(username: "admin", password: "admin", password_confirmation: "admin
 
 # Create some meetings with randomised creation date
 (1..meetings).each do |i|
-  Meeting.create(nickname: "test_#{i}", duration: rand(1..1440), phone_number: "9991231234", alert_sent: [true, false].sample, created_at: Time.at(rand(Time.new(2010).to_f..Time.new().to_f)) )
+  m = Meeting.create(nickname: "test_#{i}", duration: rand(1..1440), phone_number: "9991231234", alert_sent: [true, false].sample, created_at: Time.at(rand(Time.new(2010).to_f..Time.new().to_f)) )
+  m.create_hashkey
+  m.save
 end
 
 # Create some random statistics
@@ -30,5 +32,7 @@ end
 
 # Create some meetings that will have time to live > 0
 (1..5).each do |i|
-  Meeting.create(nickname: "test_#{i}", duration: rand(1..1440), phone_number: "9991231234", alert_sent: [true, false].sample )
+  m = Meeting.create(nickname: "test_#{i}", duration: rand(1..1440), phone_number: "9991231234", alert_sent: [true, false].sample )
+  m.create_hashkey
+  m.save
 end
