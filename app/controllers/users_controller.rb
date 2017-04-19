@@ -7,6 +7,8 @@ class UsersController < ApplicationController
     if !@user
       create_user
     else
+      # Replace with sending the cookie creation sms
+      cookies['code'] = @user.code
       redirect_to root_path
     end
   end
