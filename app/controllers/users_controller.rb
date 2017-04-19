@@ -38,7 +38,16 @@ class UsersController < ApplicationController
     redirect_to :root
 
   end
+  def out_of_credits
+    @user = User.find_by_code(cookies['ucd'])
 
+    if @user && @user.credits < 1
+        render 'out_of_credits'
+        return
+    end
+
+    redirect_to :root
+  end
 
   # GET /users/
   def phone_form
