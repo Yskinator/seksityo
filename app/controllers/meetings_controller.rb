@@ -14,8 +14,12 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/new
   def new
-    unless user_exists && has_credits
-      no_credits_redirect
+    unless user_exists
+      redirect_to users_path
+      return
+    end
+    unless user_has_credits
+      redirect_to credits_path
       return
     end
     # If user already has an active meeting, find it based on cookies.
@@ -31,8 +35,12 @@ class MeetingsController < ApplicationController
   # POST /meetings
   # POST /meetings.json
   def create
-    unless user_exists && has_credits
-      no_credits_redirect
+    unless user_exists
+      redirect_to users_path
+      return
+    end
+    unless user_has_credits
+      redirect_to credits_path
       return
     end
     @meeting = Meeting.new(meeting_params)
@@ -86,8 +94,12 @@ class MeetingsController < ApplicationController
 
   # POST /meetings/send_alert/
   def send_alert
-    unless user_exists && has_credits
-      no_credits_redirect
+    unless user_exists
+      redirect_to users_path
+      return
+    end
+    unless user_has_credits
+      redirect_to credits_path
       return
     end
     @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
@@ -96,7 +108,6 @@ class MeetingsController < ApplicationController
       redirect_to root_path
       return
     end
-    @user =
     @meeting.send_alert
     Stat.increment_alerts_sent(@meeting.get_country_code, @meeting.get_country)
     redirect_to :meetings_alert_confirm
@@ -139,8 +150,8 @@ class MeetingsController < ApplicationController
   end
 
   private
-  def has_credits
-    @user = User.find_by_code(cookies[:code])
+  def user_has_credits
+    @user = User.find_by_code(cookies[:ucd])
     if @user.credits > 0
       return true
     else
@@ -148,22 +159,11 @@ class MeetingsController < ApplicationController
     end
   end
   def user_exists
-    @user = User.find_by_code(cookies[:code])
+    @user = User.find_by_code(cookies[:ucd])
     if @user
       return true
     else
       return false
-    end
-  end
-  def no_credits_redirect
-    # Redirect to phone input page unless user is found
-    unless user_exists
-      redirect_to users_path
-      return
-    end
-    # Redirect to out of credits page unless the user has some credits
-    unless has_credits
-      redirect_to credits_path
     end
   end
 
