@@ -26,7 +26,7 @@ RSpec.describe UsersController, type: :controller do
     it "adds the code to cookies" do
       post :receive_phone, :user => user_params
       @user = User.first
-      expect(@response.cookies['code']).to eq(@user.code)
+      expect(@response.cookies['ucd']).to eq(@user.code)
     end
     it "does not create a new user if a user corresponding to the number already exists" do
       post :receive_phone, :user=>user_params
@@ -35,19 +35,19 @@ RSpec.describe UsersController, type: :controller do
   end
   describe "GET recover_cookie" do
     it "changes your cookie if user with code is found on database" do
-      @request.cookies['code'] = "lörslärä"
+      @request.cookies['ucd'] = "lörslärä"
       u = User.create(phone_number: "9991231234")
 
       get :recover_cookie, :id => u.code
 
-      expect(@response.cookies['code']).to eq(u.code)
+      expect(@response.cookies['ucd']).to eq(u.code)
     end
 
     it "doesn't change your cookie if no user is found with given id" do
-      @request.cookies['code'] = 'originalcode'
+      @request.cookies['ucd'] = 'originalcode'
       get :recover_cookie, :id => 'bad_id'
 
-      expect(@response.cookies['code']).to eq(nil)
+      expect(@response.cookies['ucd']).to eq(nil)
     end
   end
   describe "POST update" do

@@ -3,7 +3,9 @@ require 'rails_helper'
 feature 'When starting a new meeting' do
   before :each do
     u = User.create(phone_number: "9991231234")
-    create_cookie('code', u.code)
+    u.credits = 100
+    u.save
+    create_cookie('ucd', u.code)
   end
 
   scenario 'user can create a meeting', js: true do

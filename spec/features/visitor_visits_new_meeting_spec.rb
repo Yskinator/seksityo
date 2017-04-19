@@ -2,15 +2,32 @@ require 'rails_helper'
 
 feature 'New meeting' do
   before :each do
+
+  end
+  scenario 'new user visits new meeting' do
+    visit '/meetings/new'
+    expect(page).to have_content("Please enter your phone number.")
+  end
+  scenario 'user with no credits visits new meeting' do
     u = User.create(phone_number: "9991231234")
-    create_cookie('code', u.code)
+    create_cookie('ucd', u.code)
+    visit '/meetings/new'
+    expect(page).to have_content("Out of credits!")
   end
   scenario 'user visits new meeting' do
+    u = User.create(phone_number: "9991231234")
+    u.credits = 100
+    u.save
+    create_cookie('ucd', u.code)
     visit '/meetings/new'
 
     expect(page).to have_content("Artemis' Umbrella")
   end
-  scenario 'user visits new meeting and gets redirected to status page if already has an active meeting', js: true do
+  scenario 'user with existing meeting visits new meeting and gets redirected to status page', js: true do
+    u = User.create(phone_number: "9991231234")
+    u.credits = 100
+    u.save
+    create_cookie('ucd', u.code)
     visit '/'
     fill_in 'meeting_nickname', with: "Turbo"
     fill_in 'meeting_phone_number', with: '0401231234'

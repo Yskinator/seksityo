@@ -6,7 +6,7 @@
         <p><%= t('nickname_info_text') %></p>
       </div>
       <div class="field">
-        <%= f.text_field :nickname, :class => "textfield", placeholder: "#{t('nickname_placeholder')}" , value: cookies['nickname'] %>
+        <%= f.text_field :nickname, :class => "textfield", placeholder: "#{t('nickname_placeholder')}" , value: cookies['nkn'] %>
       </div>
     </div>
 
@@ -16,7 +16,7 @@
         <p><%= t('phonenumber_info_text') %></p>
       </div>
       <div class="field">
-        <%= f.text_field :phone_number, :class => "textfield", placeholder: "#{t('phonenumber_placeholder')}", value: cookies['phone_number'] %>
+        <%= f.text_field :phone_number, :class => "textfield", placeholder: "#{t('phonenumber_placeholder')}", value: cookies['pnmr'] %>
         <% if @meeting.errors.messages[:phone_number].any? %>
             <div class="error-explanation">
               <p class="error-message"><%= t('phone_number_invalid') %></p>

@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe MeetingsController, type: :controller do
   before :each do
-    u = User.create(phone_number: "9991231234")
-    @request.cookies['code'] = u.code
+    u = User.create({phone_number: "9991231234"})
+    u.credits = 100
+    u.save
+    @request.cookies['ucd'] = u.code
   end
   describe "GET show" do
     it "renders the show template" do
@@ -13,7 +15,7 @@ RSpec.describe MeetingsController, type: :controller do
     end
     it "redirects to root if no meeting found" do
       Meeting.create(nickname: "Matti", phone_number: "0401231234", duration: 20)
-      @request.cookies['current_meeting'] = "randomvalue"
+      @request.cookies['curr_me'] = "randomvalue"
       get :show, id: 123
       expect(response).to redirect_to(:root)
     end
@@ -22,14 +24,14 @@ RSpec.describe MeetingsController, type: :controller do
     it "renders the alert confirmation template" do
       @meeting = Meeting.create(nickname: "Matti", phone_number: "9991231234", duration: 42)
       @meeting.create_hashkey
-      @request.cookies['current_meeting'] = @meeting.hashkey
+      @request.cookies['curr_me'] = @meeting.hashkey
       @meeting.save
       get :alert_confirm
       expect(response).to render_template("alert_confirm")
     end
     it "redirects to root if cookie is incorrect" do
       Meeting.create(nickname: "Matti", phone_number: "9991231234", duration: 42)
-      @request.cookies['current_meeting'] = "Even incorrect cookies are tasty."
+      @request.cookies['curr_me'] = "Even incorrect cookies are tasty."
       get :alert_confirm
       expect(response).to redirect_to("/")
     end
@@ -38,6 +40,18 @@ RSpec.describe MeetingsController, type: :controller do
     it "renders the new template" do
       get :new
       expect(response).to render_template("new")
+    end
+    it "redirects to phone input if no user" do
+      @request.cookies['ucd'] = ""
+      get :new
+      expect(response).to redirect_to("/users")
+    end
+    it "redirects to out of credits page if no credits" do
+      u = User.find_by_code(@request.cookies['ucd'])
+      u.credits = 0
+      u.save
+      get :new
+      expect(response).to redirect_to("/credits")
     end
     context "with render views" do
       render_views
@@ -82,13 +96,27 @@ RSpec.describe MeetingsController, type: :controller do
     it "renders status page if hash found in cookies and database" do
       @meeting = Meeting.create(nickname: "Matti", phone_number: "0401231234", duration: 20)
       @meeting.create_hashkey
-      @request.cookies['current_meeting'] = @meeting.hashkey
+      @request.cookies['curr_me'] = @meeting.hashkey
       @meeting.save
       get :new
       expect(response).to redirect_to('/meeting')
     end
   end
   describe "POST create" do
+    it "redirects to phone input if no user" do
+      @request.cookies['ucd'] = ""
+      meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
+      post :create, :meeting => meeting_params
+      expect(response).to redirect_to("/users")
+    end
+    it "redirects to out of credits page if no credits" do
+      u = User.find_by_code(@request.cookies['ucd'])
+      u.credits = 0
+      u.save
+      meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
+      post :create, :meeting => meeting_params
+      expect(response).to redirect_to("/credits")
+    end
     it "should create new meeting with correct params" do
         meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
         expect { post :create, :meeting => meeting_params }.to change(Meeting, :count).by(1)
@@ -139,22 +167,34 @@ RSpec.describe MeetingsController, type: :controller do
     end
   end
   describe "POST send_alert" do
+    it "redirects to phone input if no user" do
+      @request.cookies['ucd'] = ""
+      post :send_alert
+      expect(response).to redirect_to("/users")
+    end
+    it "redirects to out of credits page if no credits" do
+      u = User.find_by_code(@request.cookies['ucd'])
+      u.credits = 0
+      u.save
+      post :send_alert
+      expect(response).to redirect_to("/credits")
+    end
     it "should remove incorrect cookie" do
       @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "0401231234", duration: 1300)
-      @request.cookies["current_meeting"] = "dog treat"
+      @request.cookies['curr_me'] = "dog treat"
       post :send_alert
-      expect(@response.cookies["current_meeting"]).to equal(nil)
+      expect(@response.cookies['curr_me']).to equal(nil)
     end
     it "should redirect to meet creation when the user has an incorrect cookie" do
       @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "0401231234", duration: 1300)
-      @request.cookies["current_meeting"] = "dog treat"
+      @request.cookies['curr_me'] = "dog treat"
       post :send_alert
       expect(response).to redirect_to(:root)
     end
     it "should redirect to confirmation if correct cookie" do
       @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "0401231234", duration: 1300)
       @meeting.create_hashkey
-      @request.cookies['current_meeting'] = @meeting.hashkey
+      @request.cookies['curr_me'] = @meeting.hashkey
       @meeting.save
       post :send_alert
       expect(response).to redirect_to(:meetings_alert_confirm)
@@ -164,15 +204,15 @@ RSpec.describe MeetingsController, type: :controller do
     it "should remove cookie" do
       @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "0401231234", duration: 20)
       @meeting.create_hashkey
-      @request.cookies['current_meeting'] = @meeting.hashkey
+      @request.cookies['curr_me'] = @meeting.hashkey
       @meeting.save
       post :meeting_ok
-      expect(@response.cookies['current_meeting']).to equal(nil)
+      expect(@response.cookies['curr_me']).to equal(nil)
     end
     it "should delete the meeting from database" do
       @meeting = Meeting.create(nickname: "Testuser", phone_number: "0401231234", duration: 10)
       @meeting.create_hashkey
-      @request.cookies['current_meeting'] = @meeting.hashkey
+      @request.cookies['curr_me'] = @meeting.hashkey
       @meeting.save
       post :meeting_ok
       expect(Meeting.count).to eq(0)
@@ -190,7 +230,7 @@ RSpec.describe MeetingsController, type: :controller do
       @meeting = Meeting.create(nickname: "Test", phone_number: "testi@testi.test", duration: 10)
 
       @meeting.create_hashkey
-      @request.cookies['current_meeting'] = @meeting.hashkey
+      @request.cookies['curr_me'] = @meeting.hashkey
       @meeting.save
       post :meeting_ok
       expect(response).to redirect_to(:root)
@@ -200,7 +240,7 @@ RSpec.describe MeetingsController, type: :controller do
     it "should increase meeting's duration" do
       @meeting = Meeting.create(nickname: "Pekka", phone_number: "9991231234", duration: 10)
       @meeting.create_hashkey
-      @request.cookies['current_meeting'] = @meeting.hashkey
+      @request.cookies['curr_me'] = @meeting.hashkey
       @meeting.save
       @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification
 
@@ -212,7 +252,7 @@ RSpec.describe MeetingsController, type: :controller do
     it "should increase job's run_at time" do
       @meeting = Meeting.create(nickname: "Pekka", phone_number: "9991231234", duration: 10)
       @meeting.create_hashkey
-      @request.cookies['current_meeting'] = @meeting.hashkey
+      @request.cookies['curr_me'] = @meeting.hashkey
       @meeting.save
       @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification
       job = @meeting.find_job
