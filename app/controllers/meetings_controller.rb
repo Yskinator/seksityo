@@ -14,14 +14,9 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/new
   def new
-    # Redirect to phone input page unless user is found
-    @user = User.find_by_code(cookies[:code])
-    unless @user
-      redirect_to users_path
+    unless user_exists && has_credits
+      no_credits_redirect
       return
-    end
-    unless @user.credits > 0
-      redirect_to credits_path
     end
     # If user already has an active meeting, find it based on cookies.
     if cookies['current_meeting']
@@ -36,6 +31,10 @@ class MeetingsController < ApplicationController
   # POST /meetings
   # POST /meetings.json
   def create
+    unless user_exists && has_credits
+      no_credits_redirect
+      return
+    end
     @meeting = Meeting.new(meeting_params)
     @meeting.parse_phone_number
     @meeting.create_hashkey
@@ -87,15 +86,20 @@ class MeetingsController < ApplicationController
 
   # POST /meetings/send_alert/
   def send_alert
+    unless user_exists && has_credits
+      no_credits_redirect
+      return
+    end
     @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
-    if @meeting
-      @meeting.send_alert
-      Stat.increment_alerts_sent(@meeting.get_country_code, @meeting.get_country)
-      redirect_to :meetings_alert_confirm
-    else
+    unless @meeting
       cookies.delete 'current_meeting'
       redirect_to root_path
+      return
     end
+    @user =
+    @meeting.send_alert
+    Stat.increment_alerts_sent(@meeting.get_country_code, @meeting.get_country)
+    redirect_to :meetings_alert_confirm
   end
 
 
@@ -135,6 +139,34 @@ class MeetingsController < ApplicationController
   end
 
   private
+  def has_credits
+    @user = User.find_by_code(cookies[:code])
+    if @user.credits > 0
+      return true
+    else
+      return false
+    end
+  end
+  def user_exists
+    @user = User.find_by_code(cookies[:code])
+    if @user
+      return true
+    else
+      return false
+    end
+  end
+  def no_credits_redirect
+    # Redirect to phone input page unless user is found
+    unless user_exists
+      redirect_to users_path
+      return
+    end
+    # Redirect to out of credits page unless the user has some credits
+    unless has_credits
+      redirect_to credits_path
+    end
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_meeting
     @meeting = Meeting.find_by_hashkey(cookies['current_meeting'])
