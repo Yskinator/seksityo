@@ -29,11 +29,8 @@ window.onload = function() {
 
     /* When position is successfully fetched, add link to page */
     function success_callback(p){
-        //Do not break the page by trying to update it if the meeting does not exist!
-        $.getJSON(document.getElementById('javascript-protocol').innerHTML+window.location.host + '/meetings/exists/'+meeting_id, function(data) {
-            if (!data.meeting_exists){
-                return;
-            }
+
+
 
             /* Clear any previous location links */
             var locationDiv = document.getElementById('location');
@@ -72,11 +69,12 @@ window.onload = function() {
 
             /* Submit form */
             form.submit();
-        });
+        
     }
 
     /* Display error message in case location does not work */
     function error_callback(p){
+        console.error(p.message)
         document.getElementById('location').innerHTML = "Error: " + p.message;
     }
 
