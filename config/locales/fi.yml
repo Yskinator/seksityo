@@ -57,7 +57,10 @@ fi:
   out_of_credits_title: "Krediitit ovat lopussa!"
   out_of_credits_text: "Käyttäjätililläsi ei ole krediittejä. Ota yhteyttä ylläpitäjään."
 
- # Alert SMS content
+ # SMS content
   alert_message_text: "on pulassa ja tarvitsee apuasi heti!"
-  alert_message_location: "Viimeisin sijainti:"
-  alert_message_location_unavailable: "Sijantitietoja ei saatavilla."
+  notification_message_from: "Ajastettu viesti käyttäjältä"
+  notification_message_text: "Ota häneen yhteyttä ja varmista, että kaikki on kunnossa."
+  recovery_message_text: "Klikkaa linkkiä käyttääksesi Artemiin Sateenvarjoa:"
+  message_location: "Viimeisin sijainti:"
+  message_location_unavailable: "Sijantitietoja ei saatavilla."

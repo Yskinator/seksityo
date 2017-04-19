@@ -7,10 +7,10 @@
   <p>
     <b><%= @meeting.nickname %></b> <%= t('alert_message_text') %>
     <% if (@meeting.latitude && @meeting.longitude) %>
-        <%= t('alert_message_location') %>
+        <%= t('message_location') %>
         http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>
     <% else %>
-        <%= t('alert_message_location_unavailable') %>
+        <%= t('message_location_unavailable') %>
     <% end %>
   </p>
 </body>
