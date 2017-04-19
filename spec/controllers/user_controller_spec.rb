@@ -50,6 +50,27 @@ RSpec.describe UsersController, type: :controller do
       expect(@response.cookies['code']).to eq(nil)
     end
   end
+  describe "POST update" do
+    it "should update user" do
+      u = Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
+      @request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("admin","admin")
+      attr = { :credits => "12"}
+      @user = User.create(code: "1234", phone_number: "0401231234", credits: 0)
+      put :update, id: @user.id, :user => attr
+      @user.reload
+      expect(@user.credits).to eq(12)
+      expect(response).to redirect_to('/admin')
+    end
+    it "should not update user if not authenticated" do
+      u = Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
+      attr = { :credits => "12"}
+      @user = User.create(code: "1234", phone_number: "0401231234", credits: 0)
+      put :update, id: @user.id, :user => attr
+      @user.reload
+      expect(@user.credits).to eq(0)
+      expect(response.status).to eq(401)
+    end
+  end
   describe "GET receive_phone" do
     it "should show SMS sent view if user's phone number found in database" do
       u = User.create(phone_number: "9991231234")
@@ -70,27 +91,6 @@ RSpec.describe UsersController, type: :controller do
 
       user = User.find_by_phone_number("9991231234")
       expect(user).not_to eq(nil)
-    end
-  end
-  describe "POST update" do
-    it "should update user" do
-      u = Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
-      @request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials("admin","admin")
-      attr = { :credits => "12"}
-      @user = User.create(code: "1234", phone_number: "0401231234", credits: 0)
-      put :update, id: @user.id, :user => attr
-      @user.reload
-      expect(@user.credits).to eq(12)
-      expect(response).to redirect_to('/admin')
-    end
-    it "should not update user if not authenticated" do
-      u = Admin.create(username: "admin", password: "admin", password_confirmation: "admin")
-      attr = { :credits => "12"}
-      @user = User.create(code: "1234", phone_number: "0401231234", credits: 0)
-      put :update, id: @user.id, :user => attr
-      @user.reload
-      expect(@user.credits).to eq(0)
-      expect(response.status).to eq(401)
     end
   end
 end
