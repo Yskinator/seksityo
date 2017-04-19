@@ -1,5 +1,5 @@
 
-<%= form_for(@user) do |f| %>
+<%= form_for @user, :url => receive_phone_path(@user) do |f| %>
 
     <div class="field-section">
       <div class="field">
