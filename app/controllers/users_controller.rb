@@ -7,6 +7,8 @@ class UsersController < ApplicationController
     if !@user
       create_user
     else
+      @recovery_link = cookie_recovery_link
+      @user.send_recovery_link(@recovery_link)
       redirect_to root_path
     end
   end
