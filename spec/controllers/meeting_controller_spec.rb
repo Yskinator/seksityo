@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe MeetingsController, type: :controller do
   before :each do
-    u = User.create(phone_number: "9991231234")
+    u = User.create({phone_number: "9991231234"})
+    u.credits = 100
+    u.save
     @request.cookies['code'] = u.code
   end
   describe "GET show" do

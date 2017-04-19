@@ -3,6 +3,8 @@ require 'rails_helper'
 feature 'When starting a new meeting' do
   before :each do
     u = User.create(phone_number: "9991231234")
+    u.credits = 100
+    u.save
     create_cookie('code', u.code)
   end
 
