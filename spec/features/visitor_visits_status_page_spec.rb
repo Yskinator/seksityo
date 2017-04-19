@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'When on the status page' do
   before :each do
     u = User.create(phone_number: "9991231234")
-    create_cookie('code', u.code)
+    create_cookie('ucd', u.code)
     visit '/meetings/new'
     fill_in 'meeting_nickname', with: 'Pekka'
     fill_in 'meeting_phone_number', with: '9991231234'
