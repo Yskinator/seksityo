@@ -56,3 +56,8 @@ fi:
  # Out of credits page
   out_of_credits_title: "Krediitit ovat lopussa!"
   out_of_credits_text: "Käyttäjätililläsi ei ole krediittejä. Ota yhteyttä ylläpitäjään."
+
+ # Alert SMS content
+  alert_message_text: "on pulassa ja tarvitsee apuasi heti!"
+  alert_message_location: "Viimeisin sijainti:"
+  alert_message_location_unavailable: "Sijantitietoja ei saatavilla."

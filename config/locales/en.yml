@@ -78,3 +78,8 @@ en:
   # Out of credits page
   out_of_credits_title: "Out of credits!"
   out_of_credits_text: "Your account has run out of credits. Please contact an admin to add more."
+
+  # Alert SMS content
+  alert_message_text: "is in trouble and needs help immediately!"
+  alert_message_location: "Last updated location:"
+  alert_message_location_unavailable: "Location unavailable."

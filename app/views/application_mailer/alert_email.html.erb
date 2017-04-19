@@ -5,11 +5,12 @@
 </head>
 <body>
   <p>
-    <b><%= @meeting.nickname %></b> is in trouble and needs help immediately!
+    <b><%= @meeting.nickname %></b> <%= t('alert_message_text') %>
     <% if (@meeting.latitude && @meeting.longitude) %>
-        Last updated location: http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>
+        <%= t('alert_message_location') %>
+        http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>
     <% else %>
-      Location unavailable.
+        <%= t('alert_message_location_unavailable') %>
     <% end %>
   </p>
 </body>
