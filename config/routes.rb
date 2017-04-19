@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # Used to update location to meeting, basic HTML-form does not support PUT
   post 'meetings/:id' => 'meetings#update'
 
-  post 'users' => 'users#receive_phone'
+  post 'users/receive_phone' => 'users#receive_phone', as: 'receive_phone'
 
   root 'meetings#new'
 
