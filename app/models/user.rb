@@ -25,7 +25,12 @@ class User < ActiveRecord::Base
     self.phone_number = phone.sanitized
   end
 
-  def send_recovery_link(recovery_link)
-    ApplicationMailer.recovery_link_email(self, recovery_link).deliver_now
+  def send_recovery_link(url)
+    create_recovery_link(url)
+    ApplicationMailer.recovery_link_email(self, @recovery_link).deliver_now
+  end
+
+  def create_recovery_link(url)
+    @recovery_link = url  + "/users/id=" + self.code
   end
 end

@@ -33,22 +33,6 @@ RSpec.describe UsersController, type: :controller do
       expect { post :receive_phone, :user => user_params }.to change(User, :count).by(0)
     end
   end
-  describe "GET cookie_recovery_link" do
-    it "returns an empty link if phonenumber doesn't match any user" do
-      get :cookie_recovery_link, :phone_number => "0401231234"
-
-      expect(assigns(:recovery_link)).to eq('')
-    end
-    it "returns the correct link if phonenumber matches user" do
-      u = User.new
-      u.create_code
-      u.phone_number = "0401231234"
-      u.save
-      get :cookie_recovery_link, :phone_number =>"0401231234"
-
-      expect(assigns(:recovery_link)).to eq(request.base_url  + "/users/id=" + u.code)
-    end
-  end
   describe "GET recover_cookie" do
     it "changes your cookie if user with code is found on database" do
       @request.cookies['code'] = "lörslärä"
