@@ -8,9 +8,26 @@ RSpec.describe UsersController, type: :controller do
     end
   end
   describe "GET credits" do
-    it "renders the out of credits apge" do
+    it "renders the out of credits page if user has no credits" do
+      u = User.create({phone_number: "9991231234"})
+      u.create_code
+      @request.cookies['ucd'] = u.code
+      u.credits = 0
+      u.save
+
       get :out_of_credits
       expect(response).to render_template("out_of_credits")
+    end
+    it "renders root if user with cookiecode has credits" do
+      u = User.create({phone_number: "9991231234"})
+      u.create_code
+      @request.cookies['ucd'] = u.code
+      u.credits = 10;
+      u.save
+
+      get :out_of_credits
+      expect(response).to redirect_to(:root)
+      
     end
   end
   describe "POST users" do

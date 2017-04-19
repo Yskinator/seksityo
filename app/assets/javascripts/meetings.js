@@ -16,7 +16,7 @@ function selectTimeValueByElementId(elementId) {
     var selected = document.getElementById(elementId);
     removeSelected();
     setDurationInfoText(timeValue);
-    $(selected).addClass('selected');
+    selected.className += " selected";
 };
 
 /* Keyup function for manual duration input */
@@ -58,9 +58,7 @@ setDurationInfoText = function(value) {
 removeSelected = function() {
     var elements = document.getElementsByClassName('selected');
     for (var i = 0; i < elements.length; i++){
-        if ($(elements[i]).hasClass('selected')) {
-            $(elements[i]).removeClass('selected');
-        }
+            elements[i].classList.remove('selected');
     }
 };
 
