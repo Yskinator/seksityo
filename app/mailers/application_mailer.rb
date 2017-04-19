@@ -10,4 +10,10 @@ class ApplicationMailer < ActionMailer::Base
     @meeting = meeting
     mail(to: @meeting.phone_number+'@textmagic.com', subject: 'Alert, friend is in danger!')
   end
+
+  def recovery_link_email(user, recovery_link)
+    @user = user
+    @recovery_link = recovery_link
+    mail(to: @user.phone_number+'@textmagic.com', subject: "Link to Artemis' Umbrella!")
+  end
 end

@@ -24,4 +24,13 @@ class User < ActiveRecord::Base
     phone = Phonelib.parse(self.phone_number)
     self.phone_number = phone.sanitized
   end
+
+  def send_recovery_link(url)
+    create_recovery_link(url)
+    ApplicationMailer.recovery_link_email(self, @recovery_link).deliver_now
+  end
+
+  def create_recovery_link(url)
+    @recovery_link = url  + "/users/id=" + self.code
+  end
 end

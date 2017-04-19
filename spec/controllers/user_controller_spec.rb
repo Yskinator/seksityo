@@ -33,22 +33,6 @@ RSpec.describe UsersController, type: :controller do
       expect { post :receive_phone, :user => user_params }.to change(User, :count).by(0)
     end
   end
-  describe "GET cookie_recovery_link" do
-    it "returns an empty link if phonenumber doesn't match any user" do
-      get :cookie_recovery_link, :phone_number => "0401231234"
-
-      expect(assigns(:recovery_link)).to eq('')
-    end
-    it "returns the correct link if phonenumber matches user" do
-      u = User.new
-      u.create_code
-      u.phone_number = "0401231234"
-      u.save
-      get :cookie_recovery_link, :phone_number =>"0401231234"
-
-      expect(assigns(:recovery_link)).to eq(request.base_url  + "/users/id=" + u.code)
-    end
-  end
   describe "GET recover_cookie" do
     it "changes your cookie if user with code is found on database" do
       @request.cookies['ucd'] = "lörslärä"
@@ -60,12 +44,10 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it "doesn't change your cookie if no user is found with given id" do
-
       @request.cookies['ucd'] = 'originalcode'
       get :recover_cookie, :id => 'bad_id'
 
       expect(@response.cookies['ucd']).to eq(nil)
-
     end
   end
   describe "POST update" do
@@ -87,6 +69,28 @@ RSpec.describe UsersController, type: :controller do
       @user.reload
       expect(@user.credits).to eq(0)
       expect(response.status).to eq(401)
+    end
+  end
+  describe "GET receive_phone" do
+    it "should show SMS sent view if user's phone number found in database" do
+      u = User.create(phone_number: "9991231234")
+      attr = { :phone_number => "9991231234"}
+      get :receive_phone, :user => attr
+
+      expect(response).to render_template("sms_sent")
+    end
+    it "should redirect to root if phone number not found in database" do
+      attr = { :phone_number => "9991231234"}
+      get :receive_phone, :user => attr
+
+      expect(response).to redirect_to(:root)
+    end
+    it "should create a new user if phone number not found in database" do
+      attr = { :phone_number => "9991231234"}
+      get :receive_phone, :user => attr
+
+      user = User.find_by_phone_number("9991231234")
+      expect(user).not_to eq(nil)
     end
   end
 end
