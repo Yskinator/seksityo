@@ -60,13 +60,21 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it "doesn't change your cookie if no user is found with given id" do
-
       @request.cookies['code'] = 'originalcode'
       get :recover_cookie, :id => 'bad_id'
 
       expect(@response.cookies['code']).to eq(nil)
-
     end
+  end
+  describe "GET receive_phone" do
+    it "should show SMS sent view if user found in database" do
+      u = User.create(phone_number: "9991231234")
+      attr = { :phone_number => "9991231234"}
+      get :receive_phone, :user => attr
+
+      expect(response).to render_template("sms_sent")
+    end
+
   end
   describe "POST update" do
     it "should update user" do

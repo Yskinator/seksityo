@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     else
       @recovery_link = cookie_recovery_link
       @user.send_recovery_link(@recovery_link)
-      redirect_to root_path
+      render 'users/sms_sent'
     end
   end
 
