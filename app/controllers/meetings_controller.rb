@@ -1,7 +1,7 @@
 class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
   before_action :set_locale
-  before_action :validate_user, only: [:new, :create, :send_alert]
+  before_action :validate_user, only: [:create, :send_alert]
 
 
   # GET /meetings/1
@@ -15,12 +15,22 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/new
   def new
+    unless user_exists
+      redirect_to users_path
+      return
+    end
     # If user already has an active meeting, find it based on cookies.
     if cookies['curr_me']
       @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
       if @meeting
         redirect_to('/meeting')
+        return
       end
+    end
+    # New meeting
+    unless user_has_credits
+      redirect_to credits_path
+      return
     end
     @meeting = Meeting.new
   end
@@ -39,6 +49,9 @@ class MeetingsController < ApplicationController
       if @meeting.save
         Stat.increment_created(@meeting.get_country_code, @meeting.get_country)
         cookies['curr_me'] = @meeting.hashkey
+        # Reserve one credit to for sending a notification
+        @user.credits -= 1
+        @user.save
         # Runs send_notification once the timer runs out
         @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification
         format.html { redirect_to '/meeting', notice: 'Meeting was successfully created.' }
@@ -69,7 +82,12 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
     if @meeting
       Stat.increment_confirmed(@meeting.get_country_code, @meeting.get_country)
-      @meeting.delete_job()
+      if @meeting.find_job
+        @user = User.find_by_code(cookies[:ucd])
+        @user.credits += 1
+        @user.save
+      end
+      @meeting.delete_job
       @meeting.destroy
       cookies.delete 'curr_me'
     end
@@ -85,6 +103,8 @@ class MeetingsController < ApplicationController
       redirect_to root_path
       return
     end
+    @user.credits -= 1
+    @user.save
     @meeting.send_alert
     Stat.increment_alerts_sent(@meeting.get_country_code, @meeting.get_country)
     redirect_to :meetings_alert_confirm
@@ -115,7 +135,7 @@ class MeetingsController < ApplicationController
   def add_time
     @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
     if @meeting
-      job = @meeting.find_job()
+      job = @meeting.find_job
       if job
         @meeting.duration = @meeting.duration+10
         job.run_at = job.run_at + 10.minutes
