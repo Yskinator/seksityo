@@ -5,6 +5,8 @@ describe 'Mailer' do
     clear_emails
     Delayed::Worker.delay_jobs = false
     u = User.create(phone_number: "9991231234")
+    u.credits = 100
+    u.save
     create_cookie('ucd', u.code)
     visit '/meetings/new'
     fill_in 'meeting_nickname', with: 'Pekka'
