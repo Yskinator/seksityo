@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Root redirection' do
   scenario 'existing user visits root' do
     u = User.create(phone_number: "9991231234")
-    create_cookie('code', u.code)
+    create_cookie('ucd', u.code)
     visit '/'
 
     expect(page).to have_content("Artemis' Umbrella")

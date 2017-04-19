@@ -12,10 +12,10 @@ class UsersController < ApplicationController
   end
 
   def create_user
-    cookies.delete 'code'
+    cookies.delete 'ucd'
     @user = User.new(user_params)
     if @user.save
-      cookies['code'] = @user.code
+      cookies['ucd'] = @user.code
     end
     redirect_to root_path
   end
@@ -34,8 +34,8 @@ class UsersController < ApplicationController
     @user = User.find_by_code(params['id'])
 
     if @user
-      cookies.delete :code
-      cookies['code'] = params['id']
+      cookies.delete 'ucd'
+      cookies['ucd'] = params['id']
     end
     redirect_to :root
 
