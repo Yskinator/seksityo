@@ -1,4 +1,4 @@
-<h1>Artemis' Umbrella administration page</h1>
+<h1><%= t('adminstration_page_title') %></h1>
 
 <% if flash[:notify] %>
     <div class="notify" id="notify"><%= flash[:notify] %></div>
@@ -9,15 +9,15 @@
 </script>
 
 <div data-turbolinks="true" class="field-section">
-  <h2>Usage statistics by country</h2>
+  <h2><%= t('usage_statistics_by_country') %></h2>
   <table class="admin-table">
     <thead>
     <tr>
-      <th><%= sort_link("stat", "country") %></th>
-      <th><%= sort_link("stat", "created") %></th>
-      <th><%= sort_link("stat", "confirmed") %></th>
-      <th><%= sort_link("stat", "alerts_sent") %></th>
-      <th><%= sort_link("stat", "notifications_sent") %></th>
+      <th><%= sort_link("stat", "country", t('country')) %></th>
+      <th><%= sort_link("stat", "created", t('created')) %></th>
+      <th><%= sort_link("stat", "confirmed", t('confirmed')) %></th>
+      <th><%= sort_link("stat", "alerts_sent", t('alerts_sent')) %></th>
+      <th><%= sort_link("stat", "notifications_sent", t('notifications_sent')) %></th>
     </tr>
     </thead>
 
@@ -38,13 +38,13 @@
 <br>
 
 <div data-turbolinks="true" class="field-section">
-  <h2>Current meetings</h2>
+  <h2><%= t('current_meetings') %></h2>
   <table class="admin-table">
       <thead>
-        <th><%= sort_link("meeting", "created_at", "Created at (UTC)") %></th>
-        <th><%= sort_link("meeting", "time_to_live", "Duration remaining") %></th>
-        <th><%= sort_link("meeting", "alert_sent", "Alert Sent") %></th>
-        <th>Delete</th>
+        <th><%= sort_link("meeting", "created_at", t('created_at')) %></th>
+        <th><%= sort_link("meeting", "time_to_live", t('duration_remaining')) %></th>
+        <th><%= sort_link("meeting", "alert_sent", t('alert_sent')) %></th>
+        <th><%= t('delete') %></th>
       </thead>
       <tbody>
         <% @meetings.each do |meeting| %>
@@ -52,7 +52,7 @@
               <td><%= meeting.created_at.to_formatted_s(:long_ordinal)  %></td>
               <td><%= meeting.time_to_live %> min</td>
               <td><%= meeting.alert_sent %></td>
-              <td><%= link_to 'Delete', 'admin/delete/'+meeting.id.to_s, method: :delete, :class => 'delete-button', data: { confirm: "Are you sure you want to delete the meeting?"}%>
+              <td><%= link_to t('delete'), 'admin/delete/'+meeting.id.to_s, method: :delete, :class => 'delete-button', data: { confirm: t('delete_confirm')}%>
           </tr>
         <% end %>
       </tbody>
@@ -61,13 +61,13 @@
 
 
 <div data-turbolinks="true" class="field-section">
-  <h2>Users</h2>
+  <h2><%= t('users') %></h2>
   <table class="admin-table">
     <thead>
-    <th><%= sort_link("user", "code", "Code") %></th>
-    <th>Phone Number</th>
-    <th><%= sort_link("user", "credits", "Credits") %></th>
-    <th>Edit</th>
+    <th><%= sort_link("user", "code", t('code')) %></th>
+    <th><%= t('phone_number') %></th>
+    <th><%= sort_link("user", "credits", t('credits')) %></th>
+    <th><%= t('edit') %></th>
     </thead>
     <tbody>
     <% @users.each do |user| %>
@@ -77,7 +77,7 @@
               <td><%= user.code %></td>
               <td>+<%= number_to_phone(user.phone_number) %></td>
               <td><%= f.number_field :credits %></td>
-              <td><%= f.submit "Update", :class => "edit-button", :id => "update" %></td>
+              <td><%= f.submit t('update'), :class => "edit-button", :id => "update" %></td>
           <% end %>
           </td>
         </tr>
