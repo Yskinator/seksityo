@@ -24,10 +24,10 @@ class AdminsController < ApplicationController
   def destroy
     if @meeting = Meeting.find_by_id(params[:id])
       @meeting.destroy
-      flash[:notify] = "Meeting deleted succesfully"
+      flash[:notify] = t('meeting_delete_success')
       redirect_to :back
     else
-      flash[:notify] = "Failed to delete meeting"
+      flash[:notify] = t('meeting_delete_fail')
       redirect_to :back
     end
   end
