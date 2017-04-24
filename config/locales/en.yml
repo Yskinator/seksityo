@@ -99,6 +99,7 @@ en:
   created_at: "Created at (UTC)"
   duration_remaining: "Duration remaining"
   alert_sent: "Alert sent"
+  update_credits: "Add/Remove Credits"
   delete: "Delete"
   delete_confirm: "Are you sure you want to delete this meeting?"
   users: "Users"
