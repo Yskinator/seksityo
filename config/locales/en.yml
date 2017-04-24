@@ -88,7 +88,7 @@ en:
   message_location_unavailable: "Location unavailable."
 
   # Admin panel
-  adminstration_page_title: "Artemis' Umbrella adminstration page"
+  administration_page_title: "Artemis' Umbrella administration page"
   usage_statistics_by_country: "Usage statistics by country"
   country: "Country"
   created: "Created"
@@ -105,5 +105,8 @@ en:
   code: "Code"
   phone_number: "Phone number"
   credits: "Credits"
-  edit: "Edit"
   update: "Update"
+  meeting_delete_success: "Meeting deleted successfully"
+  meeting_delete_fail: "Failed to delete meeting"
+  user_credits_update_success: "User's credits updated successfully"
+  user_credits_update_fail: "Failed to update user's credits"

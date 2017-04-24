@@ -1,4 +1,4 @@
-<h1><%= t('adminstration_page_title') %></h1>
+<h1><%= t('administration_page_title') %></h1>
 
 <% if flash[:notify] %>
     <div class="notify" id="notify"><%= flash[:notify] %></div>
@@ -67,7 +67,7 @@
     <th><%= sort_link("user", "code", t('code')) %></th>
     <th><%= t('phone_number') %></th>
     <th><%= sort_link("user", "credits", t('credits')) %></th>
-    <th><%= t('edit') %></th>
+    <th><%= t('update') %></th>
     </thead>
     <tbody>
     <% @users.each do |user| %>

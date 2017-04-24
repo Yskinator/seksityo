@@ -60,11 +60,11 @@ class UsersController < ApplicationController
     @user = User.find params[:id]
     respond_to do |format|
       if @user.update(user_params)
-        flash[:notify] = "User's credits changed successfully."
+        flash[:notify] = t('user_credits_update_success')
         format.html { redirect_to '/admin', notice: 'Credits were successfully edited.' }
         format.json { render 'admins/index', status: :ok}
       else
-        flash[:notify] = "Failed to change user's credits."
+        flash[:notify] = t('user_credits_update_fail')
         format.html { redirect_to '/admin'}
       end
     end
