@@ -1,8 +1,8 @@
 module UserHelper
-  @credits_enabled = false
+  @@credits_enabled = false
 
   def decrease_credits
-    if @credits_enabled
+    if @@credits_enabled
       @user = User.find_by_code(cookies[:ucd])
       @user.credits -= 1
       @user.save
@@ -10,7 +10,7 @@ module UserHelper
   end
 
   def increment_credits
-    if @credits_enabled
+    if @@credits_enabled
       @user = User.find_by_code(cookies[:ucd])
       @user.credits += 1
       @user.save
@@ -19,7 +19,7 @@ module UserHelper
 
   # Validates that the user exists and has credits
   def validate_user
-    unless @credits_enabled
+    unless @@credits_enabled
       return true
     end
     unless user_exists
@@ -33,7 +33,7 @@ module UserHelper
   end
 
   def user_has_credits
-    unless @credits_enabled
+    unless @@credits_enabled
       return true
     end
     @user = User.find_by_code(cookies[:ucd])
@@ -44,7 +44,7 @@ module UserHelper
     end
   end
   def user_exists
-    unless @credits_enabled
+    unless @@credits_enabled
       return true
     end
     @user = User.find_by_code(cookies[:ucd])
