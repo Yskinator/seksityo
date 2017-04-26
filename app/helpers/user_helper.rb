@@ -1,27 +1,28 @@
 module UserHelper
   @credits_enabled = false
 
-  def decrease_credits
-    if @credits_enabled
-      @user = User.find_by_code(cookies[:ucd])
-      @user.credits -= 1
-      @user.save
+  # This check happens before every method
+  # Returns true so that validate_user always returns true when credits are disabled
+  def self.included(base)
+    unless @credits_enabled
+      return true
     end
   end
 
+  def decrease_credits
+    @user = User.find_by_code(cookies[:ucd])
+    @user.credits -= 1
+    @user.save
+  end
+
   def increment_credits
-    if @credits_enabled
-      @user = User.find_by_code(cookies[:ucd])
-      @user.credits += 1
-      @user.save
-    end
+    @user = User.find_by_code(cookies[:ucd])
+    @user.credits += 1
+    @user.save
   end
 
   # Validates that the user exists and has credits
   def validate_user
-    unless @credits_enabled
-      return true
-    end
     unless user_exists
       redirect_to users_path
       return
