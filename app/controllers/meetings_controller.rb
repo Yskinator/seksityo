@@ -2,6 +2,7 @@ class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
   before_action :set_locale
   before_action :validate_user, only: [:create, :send_alert]
+  before_action :authenticate, only: [:destroy]
   include UserHelper
 
 
@@ -60,6 +61,17 @@ class MeetingsController < ApplicationController
         format.html { render :new }
         format.json { render json: @meeting.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    if @meeting = Meeting.find_by_id(params[:id])
+      @meeting.destroy
+      flash[:notify] = t('meeting_delete_success')
+      redirect_to :back
+    else
+      flash[:notify] = t('meeting_delete_fail')
+      redirect_to :back
     end
   end
 
@@ -155,32 +167,4 @@ class MeetingsController < ApplicationController
     params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
   end
 
-  def set_locale
-    @showChangeLink = true
-    @changeLinkText = ''
-
-    if cookies['lang'] == 'en'
-      I18n.locale = 'en'
-      @changeLinkText = I18n.t :language_selector, locale: http_accept_language.compatible_language_from(I18n.available_locales)
-    else
-      if http_accept_language.compatible_language_from(I18n.available_locales).nil?
-        I18n.locale = I18n.default_locale
-        @showChangeLink = false;
-      else
-        I18n.locale = http_accept_language.compatible_language_from(I18n.available_locales)
-      end
-
-      @changeLinkText = I18n.t :language_selector, locale: :en
-    end
-
-    # Get the preferred locale
-    preferred_locale_string = http_accept_language.compatible_language_from(http_accept_language.user_preferred_languages)
-    # If users preferred language is "en" or some subset of "en", dont show the language selector
-    if /^en$/ =~ preferred_locale_string || /^en-/ =~ preferred_locale_string
-      @showChangeLink = false;
-    else
-
-    end
-
-  end
 end
