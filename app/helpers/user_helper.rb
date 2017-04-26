@@ -1,19 +1,17 @@
 module UserHelper
-  @@credits_enabled = false
+  @@credits_enabled = true
 
   def decrease_credits
     if @@credits_enabled
       @user = User.find_by_code(cookies[:ucd])
-      @user.credits -= 1
-      @user.save
+      @user.decrement!(:credits)
     end
   end
 
   def increment_credits
     if @@credits_enabled
       @user = User.find_by_code(cookies[:ucd])
-      @user.credits += 1
-      @user.save
+      @user.increment!(:credits)
     end
   end
 
