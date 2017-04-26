@@ -33,6 +33,9 @@ module UserHelper
   end
 
   def user_has_credits
+    unless @credits_enabled
+      return true
+    end
     @user = User.find_by_code(cookies[:ucd])
     if @user.credits > 0
       return true
@@ -41,6 +44,9 @@ module UserHelper
     end
   end
   def user_exists
+    unless @credits_enabled
+      return true
+    end
     @user = User.find_by_code(cookies[:ucd])
     if @user
       return true
