@@ -53,7 +53,7 @@ class MeetingsController < ApplicationController
         @user.credits -= 1
         @user.save
         # Runs send_notification once the timer runs out
-        @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification
+        @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification(I18n.locale)
         format.html { redirect_to '/meeting', notice: 'Meeting was successfully created.' }
         format.json { render :show, status: :created, location: @meeting }
       else
