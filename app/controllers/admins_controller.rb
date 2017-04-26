@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_action :authenticate
+  before_action :authenticate, :set_locale
 
   def index
     # Fetch column name and direction from the parameters and pass them to order method.
@@ -19,17 +19,6 @@ class AdminsController < ApplicationController
     @users = User.all.order(user_sort_column + " " + user_sort_direction)
 
     render 'admins/index'
-  end
-
-  def destroy
-    if @meeting = Meeting.find_by_id(params[:id])
-      @meeting.destroy
-      flash[:notify] = t('meeting_delete_success')
-      redirect_to :back
-    else
-      flash[:notify] = t('meeting_delete_fail')
-      redirect_to :back
-    end
   end
 
 
