@@ -50,8 +50,8 @@ class MeetingsController < ApplicationController
         Stat.increment_created(@meeting.get_country_code, @meeting.get_country)
         cookies['curr_me'] = @meeting.hashkey
         # Reserve one credit to for sending a notification
-        @user.credits -= 1
-        @user.save
+        #@user.credits -= 1
+        #@user.save
         # Runs send_notification once the timer runs out
         @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification
         format.html { redirect_to '/meeting', notice: 'Meeting was successfully created.' }
@@ -83,9 +83,9 @@ class MeetingsController < ApplicationController
     if @meeting
       Stat.increment_confirmed(@meeting.get_country_code, @meeting.get_country)
       if @meeting.find_job
-        @user = User.find_by_code(cookies[:ucd])
-        @user.credits += 1
-        @user.save
+        #@user = User.find_by_code(cookies[:ucd])
+        #@user.credits += 1
+        #@user.save
       end
       @meeting.delete_job
       @meeting.destroy
@@ -103,8 +103,8 @@ class MeetingsController < ApplicationController
       redirect_to root_path
       return
     end
-    @user.credits -= 1
-    @user.save
+    #@user.credits -= 1
+    #@user.save
     @meeting.send_alert
     Stat.increment_alerts_sent(@meeting.get_country_code, @meeting.get_country)
     redirect_to :meetings_alert_confirm
@@ -161,6 +161,7 @@ class MeetingsController < ApplicationController
   end
 
   def user_has_credits
+    return true
     @user = User.find_by_code(cookies[:ucd])
     if @user.credits > 0
       return true
@@ -169,6 +170,7 @@ class MeetingsController < ApplicationController
     end
   end
   def user_exists
+    return true
     @user = User.find_by_code(cookies[:ucd])
     if @user
       return true
