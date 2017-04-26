@@ -10,6 +10,7 @@ feature 'Root redirection' do
 
     expect(page).to have_content("Artemis' Umbrella")
   end
+=begin
   scenario 'existing user without credits visits root' do
     u = User.create(phone_number: "9991231234")
     create_cookie('ucd', u.code)
@@ -21,4 +22,5 @@ feature 'Root redirection' do
     visit '/'
     expect(page).to have_content("Please enter your phone number.")
   end
+=end
 end
