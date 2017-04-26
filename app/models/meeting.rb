@@ -25,7 +25,8 @@ class Meeting < ActiveRecord::Base
     self.hashkey = Digest::SHA2.new(512).hexdigest(self.nickname + self.phone_number + Time.now.to_s)
   end
 
-  def send_notification
+  def send_notification(locale)
+    I18n.locale = locale
     ApplicationMailer.notification_email(self).deliver_now
     Stat.increment_notifications_sent(self.get_country_code, self.get_country)
   end
