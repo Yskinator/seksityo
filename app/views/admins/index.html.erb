@@ -3,12 +3,8 @@
 <% if flash[:notify] %>
     <div class="notify" id="notify"><%= flash[:notify] %></div>
 <% end %>
-<script>
-    <!-- Fades the notification out after 5 seconds -->
-    $(".notify").fadeOut(5000);
-</script>
 
-<div data-turbolinks="true" class="field-section">
+<div class="field-section">
   <h2><%= t('usage_statistics_by_country') %></h2>
   <table class="admin-table">
     <thead>
@@ -37,7 +33,7 @@
 
 <br>
 
-<div data-turbolinks="true" class="field-section">
+<div class="field-section">
   <h2><%= t('current_meetings') %></h2>
   <table class="admin-table">
       <thead>
@@ -52,7 +48,7 @@
               <td><%= meeting.created_at.to_formatted_s(:long_ordinal)  %></td>
               <td><%= meeting.time_to_live %> min</td>
               <td><%= meeting.alert_sent %></td>
-              <td><%= link_to t('delete'), 'admin/delete/'+meeting.id.to_s, method: :delete, :class => 'delete-button', data: { confirm: t('delete_confirm')}%>
+              <td><%= button_to t('delete'), 'admin/delete/'+meeting.id.to_s, :method => :delete, :class => 'delete-button', data: { confirm: t('delete_confirm')}%>
           </tr>
         <% end %>
       </tbody>
@@ -60,13 +56,14 @@
 </div>
 
 
-<div data-turbolinks="true" class="field-section">
+<div class="field-section">
   <h2><%= t('users') %></h2>
   <table class="admin-table">
     <thead>
     <th><%= sort_link("user", "code", t('code')) %></th>
     <th><%= t('phone_number') %></th>
     <th><%= sort_link("user", "credits", t('credits')) %></th>
+    <th><%= t('update_credits') %></th>
     <th><%= t('update') %></th>
     </thead>
     <tbody>
@@ -76,6 +73,7 @@
               <%= f.hidden_field :code, :value => user.code %>
               <td><%= user.code %></td>
               <td>+<%= number_to_phone(user.phone_number) %></td>
+              <td><%= user.credits %></td>
               <td><%= f.number_field :credits %></td>
               <td><%= f.submit t('update'), :class => "edit-button", :id => "update" %></td>
           <% end %>
