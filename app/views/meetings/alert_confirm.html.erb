@@ -13,7 +13,7 @@
 
 
 
-<div id="location">
+<div id="location" class="field-explanation">
   <% if not @meeting.longitude.nil? %>
       <a href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= @meeting.latitude %>+<%= @meeting.longitude %>" target="_blank">Last
         updated location</a>
