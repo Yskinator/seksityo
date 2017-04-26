@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   get 'admin' => 'admins#index', as: 'admin'
 
-  delete 'admin/delete/:id' => 'admins#destroy'
+  delete 'admin/delete/:id' => 'meetings#destroy'
 
 
   get 'users/recover_cookie/phone_number=:phone_number' => 'users#cookie_recovery_link'

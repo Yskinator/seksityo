@@ -2,6 +2,8 @@ class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
   before_action :set_locale
   before_action :validate_user, only: [:create, :send_alert]
+  before_action :authenticate, only: [:destroy]
+  include UserHelper
 
 
   # GET /meetings/1
@@ -50,8 +52,7 @@ class MeetingsController < ApplicationController
         Stat.increment_created(@meeting.get_country_code, @meeting.get_country)
         cookies['curr_me'] = @meeting.hashkey
         # Reserve one credit to for sending a notification
-        @user.credits -= 1
-        @user.save
+        decrease_credits
         # Runs send_notification once the timer runs out
         @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification(I18n.locale)
         format.html { redirect_to '/meeting', notice: 'Meeting was successfully created.' }
@@ -60,6 +61,17 @@ class MeetingsController < ApplicationController
         format.html { render :new }
         format.json { render json: @meeting.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    if @meeting = Meeting.find_by_id(params[:id])
+      @meeting.destroy
+      flash[:notify] = t('meeting_delete_success')
+      redirect_to :back
+    else
+      flash[:notify] = t('meeting_delete_fail')
+      redirect_to :back
     end
   end
 
@@ -83,9 +95,7 @@ class MeetingsController < ApplicationController
     if @meeting
       Stat.increment_confirmed(@meeting.get_country_code, @meeting.get_country)
       if @meeting.find_job
-        @user = User.find_by_code(cookies[:ucd])
-        @user.credits += 1
-        @user.save
+        increment_credits
       end
       @meeting.delete_job
       @meeting.destroy
@@ -103,8 +113,7 @@ class MeetingsController < ApplicationController
       redirect_to root_path
       return
     end
-    @user.credits -= 1
-    @user.save
+    decrease_credits
     @meeting.send_alert
     Stat.increment_alerts_sent(@meeting.get_country_code, @meeting.get_country)
     redirect_to :meetings_alert_confirm
@@ -148,35 +157,6 @@ class MeetingsController < ApplicationController
 
   private
 
-  # Validates that the user exists and has credits
-  def validate_user
-    unless user_exists
-      redirect_to users_path
-      return
-    end
-    unless user_has_credits
-      redirect_to credits_path
-      return
-    end
-  end
-
-  def user_has_credits
-    @user = User.find_by_code(cookies[:ucd])
-    if @user.credits > 0
-      return true
-    else
-      return false
-    end
-  end
-  def user_exists
-    @user = User.find_by_code(cookies[:ucd])
-    if @user
-      return true
-    else
-      return false
-    end
-  end
-
   # Use callbacks to share common setup or constraints between actions.
   def set_meeting
     @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
@@ -187,32 +167,4 @@ class MeetingsController < ApplicationController
     params.require(:meeting).permit(:nickname, :phone_number, :duration, :confirmed, :latitude, :longitude)
   end
 
-  def set_locale
-    @showChangeLink = true
-    @changeLinkText = ''
-
-    if cookies['lang'] == 'en'
-      I18n.locale = 'en'
-      @changeLinkText = I18n.t :language_selector, locale: http_accept_language.compatible_language_from(I18n.available_locales)
-    else
-      if http_accept_language.compatible_language_from(I18n.available_locales).nil?
-        I18n.locale = I18n.default_locale
-        @showChangeLink = false;
-      else
-        I18n.locale = http_accept_language.compatible_language_from(I18n.available_locales)
-      end
-
-      @changeLinkText = I18n.t :language_selector, locale: :en
-    end
-
-    # Get the preferred locale
-    preferred_locale_string = http_accept_language.compatible_language_from(http_accept_language.user_preferred_languages)
-    # If users preferred language is "en" or some subset of "en", dont show the language selector
-    if /^en$/ =~ preferred_locale_string || /^en-/ =~ preferred_locale_string
-      @showChangeLink = false;
-    else
-
-    end
-
-  end
 end
