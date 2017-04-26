@@ -4,6 +4,7 @@ feature 'New meeting' do
   before :each do
 
   end
+=begin
   scenario 'new user visits new meeting' do
     visit '/meetings/new'
     expect(page).to have_content("Please enter your phone number.")
@@ -14,6 +15,7 @@ feature 'New meeting' do
     visit '/meetings/new'
     expect(page).to have_content("Out of credits!")
   end
+=end
   scenario 'user visits new meeting' do
     u = User.create(phone_number: "9991231234")
     u.credits = 100

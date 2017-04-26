@@ -41,6 +41,7 @@ RSpec.describe MeetingsController, type: :controller do
       get :new
       expect(response).to render_template("new")
     end
+=begin
     it "redirects to phone input if no user" do
       @request.cookies['ucd'] = ""
       get :new
@@ -53,6 +54,7 @@ RSpec.describe MeetingsController, type: :controller do
       get :new
       expect(response).to redirect_to("/credits")
     end
+=end
     context "with render views" do
       render_views
 
@@ -103,6 +105,7 @@ RSpec.describe MeetingsController, type: :controller do
     end
   end
   describe "POST create" do
+=begin
     it "should redirect to phone input if no user" do
       @request.cookies['ucd'] = ""
       meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
@@ -117,14 +120,17 @@ RSpec.describe MeetingsController, type: :controller do
       post :create, :meeting => meeting_params
       expect(response).to redirect_to("/credits")
     end
+=end
     it "should create new meeting with correct params" do
         meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
         expect { post :create, :meeting => meeting_params }.to change(Meeting, :count).by(1)
     end
+=begin
     it "should cost one credit to create the meeting" do
       meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
       expect { post :create, :meeting => meeting_params }.to change{User.find_by_code(@request.cookies['ucd']).credits}.by(-1)
     end
+=end
     it "should not create new meeting with negative duration" do
       meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => -1}
       expect { post :create, :meeting => meeting_params }.to change(Meeting, :count).by(0)
@@ -171,6 +177,7 @@ RSpec.describe MeetingsController, type: :controller do
     end
   end
   describe "POST send_alert" do
+=begin
     it "should redirect to phone input if no user" do
       @request.cookies['ucd'] = ""
       post :send_alert
@@ -190,6 +197,7 @@ RSpec.describe MeetingsController, type: :controller do
       @meeting.save
       expect {post :send_alert}.to change {User.find_by_code(@request.cookies['ucd']).credits}.by(-1)
     end
+=end
     it "should remove incorrect cookie" do
       @meeting = Meeting.create(nickname: "Cookie breaker", phone_number: "0401231234", duration: 1300)
       @request.cookies['curr_me'] = "dog treat"
@@ -246,6 +254,7 @@ RSpec.describe MeetingsController, type: :controller do
       post :meeting_ok
       expect(response).to redirect_to(:root)
     end
+=begin
     it "should refund notification credits if not used" do
       #To properly create a job the meeting has to be created via a post to create. Best not ask why.
       meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
@@ -253,6 +262,7 @@ RSpec.describe MeetingsController, type: :controller do
       @meeting = Meeting.find_by_nickname("Pekka")
       expect {post :meeting_ok}.to change{User.find_by_code(@request.cookies['ucd']).credits}.by(1)
     end
+=end
   end
   describe "POST add_time" do
     it "should increase meeting's duration" do
