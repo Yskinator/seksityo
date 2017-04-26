@@ -3,6 +3,7 @@ branches:
   only: 
     - master
     - dev
+    - production
 services:
   - postgresql
 before_script:
