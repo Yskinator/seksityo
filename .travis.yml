@@ -3,6 +3,7 @@ branches:
   only: 
     - master
     - dev
+    - disablecredits
 services:
   - postgresql
 before_script:
