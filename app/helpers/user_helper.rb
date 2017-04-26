@@ -1,5 +1,5 @@
 module UserHelper
-  @@credits_enabled = true
+  @@credits_enabled = false
 
   def decrease_credits
     if @@credits_enabled
