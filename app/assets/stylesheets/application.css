@@ -13,13 +13,14 @@
  *= require_tree .
  *= require_self
  */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
-@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,800');
+@import url('https://fonts.googleapis.com/css?family=Assistant:300,400,700,800');
 
  body {
      width: 100%;
      background: #fff;
      margin: 123123000px !important;
+     font-family: 'Assistant', sans-serif !important;
  }
  .main {
      font-family: 'Open-Sans', sans-serif;

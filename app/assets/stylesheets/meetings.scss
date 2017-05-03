@@ -62,6 +62,7 @@ h1{
   width: 92%;
   overflow: hidden;
   text-align: center;
+  border-bottom: 3px solid #dc2d2d !important;
 }
 
 .field {
@@ -69,7 +70,21 @@ h1{
   font-size: 200%;
   text-align: center;
   margin-top: 10px;
+  position: relative !important;
+  float: left !important;
+  width: 100% !important;
+  padding-top: 30px !important;
 }
+
+.field input {
+
+    border: 1px solid #dc2d2d !important;
+    border-radius: 0px !important;
+    min-height: 42px;
+
+}
+
+
 .field-explanation {
   text-align: center;
 }
@@ -119,7 +134,12 @@ h1{
 }
 
 .submitbutton{
-  @include button_style(#00ae51);
+  @include button_style(#dc2d2d);
+
+
+  text-transform: uppercase;
+  color: white;
+  border: 0px !important;
 }
 
 .submitbutton:hover{
@@ -196,4 +216,42 @@ h1{
 .title-container{
   margin-top: 25px;
   overflow: hidden;
+}
+
+
+.creation-header .title-container h1 {
+
+  text-transform: uppercase;
+  color: white;
+  background: #dc2d2d !important;
+
+}
+
+
+.field-section.color-2 {
+  border-bottom: 3px solid #009245 !important;
+}
+
+
+.field-explanation h2 {
+  color: #009245;
+}
+
+
+.field-section.color-2 .submitbutton {
+
+  background-color: #009245 !important;
+  text-transform: uppercase;
+  color: white;
+  border: 0px !important;
+
+}
+
+.field-section.color-3 .submitbutton {
+
+  background-color: #dc2d2d !important;
+  text-transform: uppercase;
+  color: white;
+  border: 0px !important;
+
 }
