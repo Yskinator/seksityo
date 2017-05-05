@@ -9,7 +9,7 @@ Vertaistukeen pohjautuva turvasovellus.
 * [Info website](https://artemisumbrella.com)
 * [Production](https://info.artemisumbrella.com)
 * [Staging server](http://staging.artemisumbrella.com/) *Not automated yet!* 
-* [Heroku](http://artemisumbrella.herokuapp.com)
+* [Heroku](http://artemis-umbrella.herokuapp.com)
 * [User manual](https://drive.google.com/file/d/0Bztkd2OpADZVVHhESUE5N21ZSVU/view?usp=sharing)
 
 ## Project progress
