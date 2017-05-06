@@ -5,6 +5,8 @@ fi:
   # minute / minutes
   minutes_plural: "minuuttia"
   minutes_singular: "minuutti"
+  hours_plural: "tuntia"
+  hours_singular: "tunti"
 
   # Meeting creation page
   language_selector: "Suomeksi"

@@ -23,7 +23,7 @@ function selectTimeValueByElementId(elementId) {
 function durationInputKeyup(input){
   if (input.value) {
       removeSelected();
-      replaceHiddenInput(createNewHiddenInput(input.value));
+      replaceHiddenInput(createNewHiddenInput(input.value*60));
       setDurationInfoText(input.value);
   } else {
       selectTimeValueByElementId('select1h');

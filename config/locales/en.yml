@@ -26,6 +26,8 @@ en:
   # minute / minutes
   minutes_plural: "minutes"
   minutes_singular: "minute"
+  hours_plural: "hours"
+  hours_singular: "hour"
 
   # Meeting creation page
   language_selector: "In English"
