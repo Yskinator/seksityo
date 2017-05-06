@@ -85,3 +85,5 @@ fi:
   meeting_delete_fail: "Tapaamisen poistaminen ei onnistunut"
   user_credits_update_success: "Käyttäjän krediitit päivitetty onnistuneesti"
   user_credits_update_fail: "Käyttäjän krediittien päivittäminen ei onnistunut"
+
+  service_link: "https://www.artemisumbrella.com/?page_id=51&lang=fi"
