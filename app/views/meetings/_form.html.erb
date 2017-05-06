@@ -3,7 +3,7 @@
     <div class="field-section">
       <div class="field-explanation">
         <h2><%= t('nickname_info_title') %></h2>
-        <p><%= t('nickname_info_text') %></p>
+        <!-- <p><%= t('nickname_info_text') %></p> -->
       </div>
       <div class="field">
         <%= f.text_field :nickname, :class => "textfield", placeholder: "#{t('nickname_placeholder')}" , value: cookies['nkn'] %>
@@ -13,7 +13,7 @@
     <div class="field-section">
       <div class="field-explanation">
         <h2><%= t('phonenumber_info_title') %></h2>
-        <p><%= t('phonenumber_info_text') %></p>
+        <!-- <p><%= t('phonenumber_info_text') %></p> -->
       </div>
       <div class="field">
         <%= f.text_field :phone_number, :class => "textfield", placeholder: "#{t('phonenumber_placeholder')}", value: cookies['pnmr'] %>
@@ -28,12 +28,14 @@
     <div class="field-section">
       <div class="field-explanation">
         <h2><%= t('duration_info_title') %></h2>
-        <p><%= t('duration_info_text') %></p>
+        <!-- <p><%= t('duration_info_text') %></p> -->
       </div>
       <div class="field">
+<!--    remove number of options
         <div class="duration-container">
           <a id="select30m" class="duration-select" onclick="selectTimeValueByElementId('select30m')" data-turbolinks="false">30m</a>
         </div>
+-->
         <div class="duration-container">
           <a id="select1h" class="duration-select" onclick="selectTimeValueByElementId('select1h')" data-turbolinks="false">1h</a>
         </div>
@@ -51,7 +53,7 @@
     <div class="field-section">
       <div class="field-explanation">
         <h2><%= t('start_meeting_title') %></h2>
-        <p><%= t('start_meeting_text') %> <span id="duration-info"></span> <%= t('minutes_plural') %></p>
+        <!-- <p><%= t('start_meeting_text') %> <span id="duration-info"></span> <%= t('minutes_plural') %></p> -->
       </div>
         <div class="actions">
           <%= f.submit "#{t('start_meeting_button')}", :class => "submitbutton", :id => "startbutton" %>
