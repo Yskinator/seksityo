@@ -29,6 +29,13 @@
      min-height: 90vh;
  }
 
+ .footer {
+   font-family: 'Open-Sans', sans-serif;
+   font-weight: 500;
+   color: #593c3d;
+   min-height: 90vh;
+ }
+
  h1, h2, h3, h4, h5 {
      font-family: 'Assistant', sans-serif;
      font-weight: 400 !important;
@@ -42,10 +49,20 @@
        margin: 20px auto;
        border: 1px solid black;
    }
+
+   .footer {
+       width: 60%;
+       margin: auto;
+       margin-top: 10px;
+   }
  }
 
  @media screen and (max-width: 1078px) {
      .main {
+         width: 100%;
+     }
+
+     .footer {
          width: 100%;
      }
  }
