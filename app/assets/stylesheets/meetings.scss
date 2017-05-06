@@ -163,13 +163,7 @@ h1{
 }
 
 .changetimebutton{
-  @include button_style($opacity);
-  border-radius: 10px;
-  text-decoration: none;
-  padding: 5px;
-  margin: auto;
-  width: 200px;
-  display: block;
+  @include button_style(#48a58b);
 }
 
 .changetimebutton:hover{
@@ -260,7 +254,7 @@ h1{
    color: #af0000 !important;
 }
 
- 
+
 
 .color-2 .submitbutton:hover {
    color: #106818 !important;
