@@ -41,6 +41,7 @@ en:
   start_meeting_button: "Start Timer"
   feedback_link: "Feedback"
   info_link: "Info"
+  choose_time: "Custom time"
 
   # Status page
   status_page_title: "Informing your Artemis in"

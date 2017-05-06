@@ -31,21 +31,21 @@
         <!-- <p><%= t('duration_info_text') %></p> -->
       </div>
       <div class="field">
-<!--    remove number of options
-        <div class="duration-container">
-          <a id="select30m" class="duration-select" onclick="selectTimeValueByElementId('select30m')" data-turbolinks="false">30m</a>
-        </div>
--->
-        <div class="duration-container">
-          <a id="select1h" class="duration-select" onclick="selectTimeValueByElementId('select1h')" data-turbolinks="false">1h</a>
-        </div>
-        <div class="duration-container">
-          <a id="select2h" class="duration-select" onclick="selectTimeValueByElementId('select2h')" data-turbolinks="false">2h</a>
-        </div>
         <div id="duration-value">
         </div>
         <div class="duration-container">
-          <input class="duration-input" onkeyup="durationInputKeyup(this)" type="number" id="duration-input" min="0" max="24" placeholder="<%= t('hours_plural') %>">
+          <a id="select30m" class="duration-select" onclick="selectTimeValueByElementId('select30m')" data-turbolinks="false">30 minutes</a>
+        </div>
+        <div class="duration-container">
+          <a id="select1h" class="duration-select" onclick="selectTimeValueByElementId('select1h')" data-turbolinks="false">60 minutes</a>
+        </div>
+        <!--
+        <div class="duration-container">
+          <a id="select2h" class="duration-select" onclick="selectTimeValueByElementId('select2h')" data-turbolinks="false">2h</a>
+        </div>
+      -->
+        <div class="duration-container">
+          <input class="duration-input" onkeyup="durationInputKeyup(this)" type="number" id="duration-input" min="0" max="24" placeholder="<%= t('choose_time') %>">
         </div>
       </div>
     </div>

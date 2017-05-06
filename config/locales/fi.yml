@@ -20,6 +20,7 @@ fi:
   start_meeting_button: "Aloita"
   feedback_link: "Palaute"
   info_link: "Info"
+  choose_time: "Oma aika"
 
   # Status page
   status_page_title: "Artemiillesi ilmoitetaan kun on kulunut"
