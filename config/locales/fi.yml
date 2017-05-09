@@ -23,8 +23,8 @@ fi:
   choose_time: "Oma aika"
 
   # Status page
-  status_page_title: "Artemiillesi ilmoitetaan kun on kulunut"
-  notification_sent_text: "Artemiillesi on lähetetty viesi!"
+  status_page_title: "Artemiksellesi ilmoitetaan kun on kulunut"
+  notification_sent_text: "Artemiksellesi on lähetetty viesti!"
   ok_confirmation_title: "Oletko turvassa?"
   ok_confirmation_button: "Olen OK!"
   send_alert_title: "Oletko vaarassa?"
@@ -34,7 +34,7 @@ fi:
 
   # Alert confirmation page
   alert_confirmation_title: "Hälytysviesti lähetetty!"
-  alert_confirmation_info_title: "Artemiillesi on lähetetty hälytysviesti."
+  alert_confirmation_info_title: "Artemiksellesi on lähetetty hälytysviesti."
   alert_confirmation_info_text: "Paina nappia palataksesi edelliselle sivulle."
   alert_confirmation_return_button: "Palaa"
 
@@ -58,12 +58,12 @@ fi:
   alert_message_text: "on pulassa ja tarvitsee apuasi heti!"
   notification_message_from: "Ajastettu viesti käyttäjältä"
   notification_message_text: "Ota häneen yhteyttä ja varmista, että kaikki on kunnossa."
-  recovery_message_text: "Klikkaa linkkiä käyttääksesi Artemiin Sateenvarjoa:"
+  recovery_message_text: "Klikkaa linkkiä käyttääksesi Artemiksen Sateenvarjoa:"
   message_location: "Viimeisin sijainti:"
   message_location_unavailable: "Sijantitietoja ei saatavilla."
 
   # Admin panel
-  administration_page_title: "Artemiin sateenvarjon hallintapaneeli"
+  administration_page_title: "Artemiksen sateenvarjon hallintapaneeli"
   usage_statistics_by_country: "Käyttötilastot maittain"
   country: "Maa"
   created: "Luotu"
