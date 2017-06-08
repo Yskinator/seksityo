@@ -5,39 +5,36 @@ fi:
   # minute / minutes
   minutes_plural: "minuuttia"
   minutes_singular: "minuutti"
+  hours_plural: "tuntia"
+  hours_singular: "tunti"
 
   # Meeting creation page
   language_selector: "Suomeksi"
-  nickname_info_title: "Kuka olet?"
-  nickname_info_text: "Meidän täytyy kertoa Artemiillesi, että joku on pulassa. Mutta kuka?"
+  nickname_info_title: "Nimeni"
   nickname_placeholder: "Minun nimeni"
-  phonenumber_info_title: "Kuka on Artemiisi?"
-  phonenumber_info_text: "Meidän täytyy tavoittaa turvahenkilösi, jos emme kuule sinusta. Kirjoita hänen puhelinnumeronsa tähän."
+  phonenumber_info_title: "Ystäväni puhelinnumero"
   phonenumber_placeholder: "Puhelinnumero"
   phone_number_invalid: "Virheellinen puhelinnumero"
-  duration_info_title: "Kuinka kauan odotamme?"
-  duration_info_text: "Artemiisi tulisi olla huolissaan ellet ilmoita meille olevasi kunnossa ennen kuin on kulunut.."
+  duration_info_title: "Odotusaika"
   start_meeting_title: "Kaikki valmista?"
-  start_meeting_text: "Kun painat aloita-nappia käynnistämme ajastimen ja ilmoitamme Artemiillesi kun on kulunut "
   start_meeting_button: "Aloita"
   feedback_link: "Palaute"
   info_link: "Info"
+  choose_time: "Oma aika"
 
   # Status page
-  status_page_title: "Artemiillesi ilmoitetaan kun on kulunut"
-  notification_sent_text: "Artemiillesi on lähetetty viesi!"
+  status_page_title: "Artemiksellesi ilmoitetaan kun on kulunut"
+  notification_sent_text: "Artemiksellesi on lähetetty viesti!"
   ok_confirmation_title: "Oletko turvassa?"
-  ok_confirmation_text: "Paina OK-nappia vahvistaaksesi olevasi turvassa ja palataksesi etusivulle."
   ok_confirmation_button: "Olen OK!"
   send_alert_title: "Oletko vaarassa?"
-  send_alert_text: "Paina Hälytys-nappia lähettääksesi hälytysviestin Artemiillesi heti."
   send_alert_button: "Lähetä Hälytys!"
   change_time_button: "+ 10 minuuttia"
   less_than_minute: "alle minuutti"
 
   # Alert confirmation page
   alert_confirmation_title: "Hälytysviesti lähetetty!"
-  alert_confirmation_info_title: "Artemiillesi on lähetetty hälytysviesti."
+  alert_confirmation_info_title: "Artemiksellesi on lähetetty hälytysviesti."
   alert_confirmation_info_text: "Paina nappia palataksesi edelliselle sivulle."
   alert_confirmation_return_button: "Palaa"
 
@@ -61,12 +58,12 @@ fi:
   alert_message_text: "on pulassa ja tarvitsee apuasi heti!"
   notification_message_from: "Ajastettu viesti käyttäjältä"
   notification_message_text: "Ota häneen yhteyttä ja varmista, että kaikki on kunnossa."
-  recovery_message_text: "Klikkaa linkkiä käyttääksesi Artemiin Sateenvarjoa:"
+  recovery_message_text: "Klikkaa linkkiä käyttääksesi Artemiksen Sateenvarjoa:"
   message_location: "Viimeisin sijainti:"
   message_location_unavailable: "Sijantitietoja ei saatavilla."
 
   # Admin panel
-  administration_page_title: "Artemiin sateenvarjon hallintapaneeli"
+  administration_page_title: "Artemiksen sateenvarjon hallintapaneeli"
   usage_statistics_by_country: "Käyttötilastot maittain"
   country: "Maa"
   created: "Luotu"
@@ -89,3 +86,5 @@ fi:
   meeting_delete_fail: "Tapaamisen poistaminen ei onnistunut"
   user_credits_update_success: "Käyttäjän krediitit päivitetty onnistuneesti"
   user_credits_update_fail: "Käyttäjän krediittien päivittäminen ei onnistunut"
+
+  service_link: "https://www.artemisumbrella.com/?page_id=51&lang=fi"

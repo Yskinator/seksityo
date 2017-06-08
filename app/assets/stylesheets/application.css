@@ -13,19 +13,28 @@
  *= require_tree .
  *= require_self
  */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
-@import url('https://fonts.googleapis.com/css?family=Assistant:200,300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,800');
+@import url('https://fonts.googleapis.com/css?family=Assistant:300,400,700,800');
 
  body {
      width: 100%;
      background: #fff;
      margin: 123123000px !important;
+     font-family: 'Assistant', sans-serif !important;
  }
  .main {
      font-family: 'Open-Sans', sans-serif;
      font-weight: 500;
      color: #593c3d;
      min-height: 90vh;
+ }
+
+ .footer {
+   font-family: 'Open-Sans', sans-serif;
+   font-weight: 500;
+   font-size: 150%;
+   color: #593c3d;
+   min-height: 90vh;
  }
 
  h1, h2, h3, h4, h5 {
@@ -41,10 +50,20 @@
        margin: 20px auto;
        border: 1px solid black;
    }
+
+   .footer {
+       width: 60%;
+       margin: auto;
+       margin-top: 10px;
+   }
  }
 
  @media screen and (max-width: 1078px) {
      .main {
+         width: 100%;
+     }
+
+     .footer {
          width: 100%;
      }
  }
