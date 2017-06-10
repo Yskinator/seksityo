@@ -31,6 +31,6 @@ feature 'When on the status page' do
   scenario 'user can add more time to the meeting by pressing the add time -button', js:true do
     expect(page).to have_button("+ 10 minutes")
     click_button '+ 10 minutes'
-    expect(page).to have_content("670")
+    expect(page).to have_content("21")
   end
 end
