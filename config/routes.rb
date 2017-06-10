@@ -37,6 +37,10 @@ Rails.application.routes.draw do
 
   get 'users' => 'users#phone_form'
 
+  # Language selection link for info website
+  get 'lang=:lang' => 'application#set_locale_from_link'
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

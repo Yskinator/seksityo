@@ -110,4 +110,5 @@ en:
   user_credits_update_success: "User's credits updated successfully"
   user_credits_update_fail: "Failed to update user's credits"
 
+  info_page: "Artemis' Umbrella"
   service_link: "https://www.artemisumbrella.com/?page_id=15&lang=en"

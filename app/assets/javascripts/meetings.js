@@ -51,7 +51,8 @@ replaceHiddenInput = function(newInput) {
 
 /* Sets the selected duration value to the info text on top of start button */
 setDurationInfoText = function(value) {
-    document.getElementById('duration-info').innerHTML = value;
+    //duration-info does not currently exist - uncomment when it is added.
+    //document.getElementById('duration-info').innerHTML = value;
 };
 
 /* Removes 'selected' class from every element that has it */
