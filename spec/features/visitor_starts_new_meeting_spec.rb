@@ -12,7 +12,7 @@ feature 'When starting a new meeting' do
     visit '/meetings/new'
     fill_in 'meeting_nickname', with: 'Pekka'
     fill_in 'meeting_phone_number', with: '0401231234'
-    fill_in 'duration-input', with: '111'
+    fill_in 'duration-input', with: '11'
     click_button 'startbutton'
 
     expect(page).to have_content('Informing your Artemis in')
@@ -44,7 +44,7 @@ feature 'When starting a new meeting' do
     visit '/meetings/new'
     fill_in 'meeting_nickname', with: 'Pekka'
     fill_in 'meeting_phone_number', with: '+2541231234'
-    fill_in 'duration-input', with: '111'
+    fill_in 'duration-input', with: '11'
     click_button 'startbutton'
 
     expect(page).to have_content('Informing your Artemis in')
@@ -53,19 +53,19 @@ feature 'When starting a new meeting' do
     visit '/meetings/new'
     fill_in 'meeting_nickname', with: 'Matti'
     fill_in 'meeting_phone_number', with: '0401231234'
-    fill_in 'duration-input', with: '55'
+    fill_in 'duration-input', with: '5'
     click_button 'startbutton'
 
-    expect(page).to have_content('55 minutes')
+    expect(page).to have_content('300 minutes')
   end
-  scenario 'user sees selected 2h duration on status page', js: true do
-    visit '/meetings/new'
-    fill_in 'meeting_nickname', with: 'Sami'
-    fill_in 'meeting_phone_number', with: '0401231234'
-    find('#select2h').click
-    click_button 'startbutton'
-    expect(page).to have_content('120 minutes')
-  end
+  # scenario 'user sees selected 2h duration on status page', js: true do
+  #   visit '/meetings/new'
+  #   fill_in 'meeting_nickname', with: 'Sami'
+  #   fill_in 'meeting_phone_number', with: '0401231234'
+  #   find('#select2h').click
+  #   click_button 'startbutton'
+  #   expect(page).to have_content('120 minutes')
+  # end
   scenario 'user sees selected 1h duration on status page', js: true do
     visit '/meetings/new'
     fill_in 'meeting_nickname', with: 'Jyrki'
@@ -78,26 +78,26 @@ feature 'When starting a new meeting' do
     visit '/meetings/new'
     fill_in 'meeting_nickname', with: 'Hilla'
     fill_in 'meeting_phone_number', with: '0401231234'
-    fill_in 'duration-input', with: '115'
+    find('#select30m').click
     click_button 'startbutton'
-    expect(page).to have_content('115 minutes')
+    expect(page).to have_content('30 minutes')
   end
   scenario 'user selects duration and then manually enters one', js: true do
     visit '/meetings/new'
     fill_in 'meeting_nickname', with: 'Tatti'
     fill_in 'meeting_phone_number', with: '0401231234'
     find('#select30m').click
-    fill_in 'duration-input', with: '75'
+    fill_in 'duration-input', with: '12'
     click_button 'startbutton'
-    expect(page).to have_content('75 minutes')
+    expect(page).to have_content('720 minutes')
   end
   scenario 'user manually enters duration and then selects one', js: true do
     visit '/meetings/new'
     fill_in 'meeting_nickname', with: 'Laura'
     fill_in 'meeting_phone_number', with: '0401231234'
     fill_in 'duration-input', with: '75'
-    find('#select2h').click
+    find('#select30m').click
     click_button 'startbutton'
-    expect(page).to have_content('120 minutes')
+    expect(page).to have_content('30 minutes')
   end
 end

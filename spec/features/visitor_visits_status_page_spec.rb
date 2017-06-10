@@ -9,7 +9,7 @@ feature 'When on the status page' do
     visit '/meetings/new'
     fill_in 'meeting_nickname', with: 'Pekka'
     fill_in 'meeting_phone_number', with: '9991231234'
-    fill_in 'duration-input', with: '111'
+    fill_in 'duration-input', with: '11'
     click_button 'startbutton'
   end
   scenario 'user can press the ok button to get back to meeting creation page', js: true do
@@ -31,6 +31,6 @@ feature 'When on the status page' do
   scenario 'user can add more time to the meeting by pressing the add time -button', js:true do
     expect(page).to have_button("+ 10 minutes")
     click_button '+ 10 minutes'
-    expect(page).to have_content("121")
+    expect(page).to have_content("670")
   end
 end
