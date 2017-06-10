@@ -56,7 +56,7 @@ feature 'When starting a new meeting' do
     fill_in 'duration-input', with: '5'
     click_button 'startbutton'
 
-    expect(page).to have_content('300 minutes')
+    expect(page).to have_content('5 minutes')
   end
   # scenario 'user sees selected 2h duration on status page', js: true do
   #   visit '/meetings/new'
@@ -89,7 +89,7 @@ feature 'When starting a new meeting' do
     find('#select30m').click
     fill_in 'duration-input', with: '12'
     click_button 'startbutton'
-    expect(page).to have_content('720 minutes')
+    expect(page).to have_content('12 minutes')
   end
   scenario 'user manually enters duration and then selects one', js: true do
     visit '/meetings/new'
