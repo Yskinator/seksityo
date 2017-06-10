@@ -87,4 +87,5 @@ fi:
   user_credits_update_success: "Käyttäjän krediitit päivitetty onnistuneesti"
   user_credits_update_fail: "Käyttäjän krediittien päivittäminen ei onnistunut"
 
+  info_page: "Artemiin sateenvarjo"
   service_link: "https://www.artemisumbrella.com/?page_id=51&lang=fi"
