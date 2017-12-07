@@ -26,7 +26,7 @@ feature 'When on the status page' do
   scenario 'user can see the confirmation page after pressing the alert button', js:true do
     expect(page).to have_button("Send Alert!")
     click_button 'Send Alert!'
-    expect(page).to have_content("An alert has been sent to your Artemis")
+    expect(page).to have_content("A message has been sent to your Artemis")
   end
   scenario 'user can add more time to the meeting by pressing the add time -button', js:true do
     expect(page).to have_button("+ 10 minutes")
