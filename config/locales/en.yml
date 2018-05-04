@@ -51,7 +51,8 @@ en:
   ok_confirmation_button: "Shut down timer!"
   send_alert_title: "Are you in danger?"
   send_alert_button: "Send Alert!"
-  change_time_button: "Add 10 minutes to the timer"
+  change_time_tittle: "Add more time?"
+  change_time_button: "+10 minutes"
   less_than_minute: "less than a minute"
 
   # Alert confirmation page
