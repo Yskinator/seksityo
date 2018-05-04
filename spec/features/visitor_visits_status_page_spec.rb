@@ -13,7 +13,7 @@ feature 'When on the status page' do
     click_button 'startbutton'
   end
   scenario 'user can press the ok button to get back to meeting creation page', js: true do
-    click_button "I'm OK"
+    click_button "Shut down timer!"
     expect(page).to have_content("Artemis' Umbrella")
   end
   scenario 'user can press the alert button and send an alert message', js: true do
@@ -29,8 +29,8 @@ feature 'When on the status page' do
     expect(page).to have_content("A message has been sent to your Artemis")
   end
   scenario 'user can add more time to the meeting by pressing the add time -button', js:true do
-    expect(page).to have_button("+ 10 minutes")
-    click_button '+ 10 minutes'
+    expect(page).to have_button("Add 10 minutes to the timer")
+    click_button 'Add 10 minutes to the timer'
     expect(page).to have_content("21")
   end
   scenario 'user can send a timed message', js:true do
