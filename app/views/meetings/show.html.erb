@@ -34,6 +34,9 @@
     </div>
 
     <div class="field-section color-2">
+      <div class="field-explanation">
+        <h2><%= t('change_time_tittle') %></h2>
+      </div>
       <%= button_to "#{ t('change_time_button')} ", {action: "add_time", controller: "meetings"}, class:'changetimebutton'%>
     </div>
 <% end %>

@@ -29,8 +29,8 @@ feature 'When on the status page' do
     expect(page).to have_content("A message has been sent to your Artemis")
   end
   scenario 'user can add more time to the meeting by pressing the add time -button', js:true do
-    expect(page).to have_button("Add 10 minutes to the timer")
-    click_button 'Add 10 minutes to the timer'
+    expect(page).to have_button("+10 minutes")
+    click_button '+10 minutes'
     expect(page).to have_content("21")
   end
   scenario 'user can send a timed message', js:true do
