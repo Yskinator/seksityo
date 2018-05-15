@@ -26,7 +26,7 @@ fi:
   status_page_title: "Artemiksellesi ilmoitetaan kun on kulunut"
   notification_sent_text: "Artemiksellesi on lähetetty viesti!"
   ok_confirmation_title: "Vaara ohi?"
-  ok_confirmation_button: "Sammuta ajastin!"
+  ok_confirmation_button: "Sammuta ajastin"
   send_alert_title: "Oletko vaarassa?"
   send_alert_button: "Lähetä hälytys heti!"
   change_time_tittle: "Lisää aikaa?"
