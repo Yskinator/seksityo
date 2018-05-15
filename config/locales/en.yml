@@ -48,7 +48,7 @@ en:
   status_page_title: "Informing your Artemis in"
   notification_sent_text: "A message has been sent to your Artemis!"
   ok_confirmation_title: "All clear?"
-  ok_confirmation_button: "Shut down timer!"
+  ok_confirmation_button: "Shut down timer"
   send_alert_title: "Are you in danger?"
   send_alert_button: "Send Alert!"
   change_time_tittle: "Add more time?"
