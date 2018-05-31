@@ -151,6 +151,7 @@ class MeetingsController < ApplicationController
       cookies.delete 'curr_me'
       cookies.delete 'attempted_update'
       redirect_to root_path
+      return
     end
     @meeting.create_impression(request.session_options[:id], "view")
   end

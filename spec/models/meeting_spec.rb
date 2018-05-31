@@ -47,7 +47,7 @@ RSpec.describe Meeting, type: :model do
   it "send_alert correctly updates alert_sent attribute" do
     meeting = Meeting.new nickname:"Pekka", phone_number:"+358401231234", duration:30, confirmed: true
     meeting.save(:validate => false)
-    meeting.send_alert
+    meeting.send_alert("totallyrealsessionhash")
     expect(meeting.alert_sent).to eq(true)
   end
 end
