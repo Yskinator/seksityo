@@ -25,19 +25,35 @@ class Meeting < ActiveRecord::Base
     self.hashkey = Digest::SHA2.new(512).hexdigest(self.nickname + self.phone_number + Time.now.to_s)
   end
 
-  def send_notification(locale)
+  def send_notification(locale, session_hash)
     unless self.alert_sent?
       I18n.locale = locale
       ApplicationMailer.notification_email(self).deliver_now
-      Stat.increment_notifications_sent(self.get_country_code, self.get_country)
+      #Stat.increment_notifications_sent(self.get_country_code, self.get_country)
+      create_impression(session_hash, "notification_sent")
     end
   end
 
-  def send_alert
+  def send_alert(session_hash)
     unless self.message_sent
       self.update(alert_sent: true)
+      create_impression(session_hash, "alert_sent")
       ApplicationMailer.alert_email(self).deliver_now
     end
+  end
+
+  def create_impression(session_hash, type, status="-")
+    #Unique views only. Other impression types are allowed multiple times per session.
+    if type=="view" && Impression.exists?(session:session_hash, impression_type:type)
+      return
+    end
+    impression = Impression.new impression_type:type, session:session_hash, country_code:self.get_country_code, status:status
+    unless self.latitude.nil?
+      #Rounded a little for privacy's sake - that way we don't keep the exact location, only the general area
+      impression.latitude = ((self.latitude.to_f*100.0).round / 100.0).to_s
+      impression.longitude = ((self.longitude.to_f*100.0).round / 100.0).to_s
+    end
+    impression.save
   end
 
   def validate_phone_number

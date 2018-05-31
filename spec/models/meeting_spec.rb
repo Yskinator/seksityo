@@ -47,7 +47,20 @@ RSpec.describe Meeting, type: :model do
   it "send_alert correctly updates alert_sent attribute" do
     meeting = Meeting.new nickname:"Pekka", phone_number:"+358401231234", duration:30, confirmed: true
     meeting.save(:validate => false)
-    meeting.send_alert
+    meeting.send_alert("totallyrealsessionhash")
     expect(meeting.alert_sent).to eq(true)
+  end
+  it "can create an impression with correct values" do
+    meeting = Meeting.new nickname:"Pekka", phone_number:"+358401231234", duration:30, confirmed: true, latitude: 12.123123, longitude: 99.99999
+    meeting.save(:validate => false)
+    expect(Impression.all.length).to eq(0)
+    meeting.create_impression("totallyrealsessionhash", "experimentalType", "-")
+    expect(Impression.all.length).to eq(1)
+    impression = Impression.first
+    expect(impression.session).to eq("totallyrealsessionhash")
+    expect(impression.impression_type).to eq("experimentalType")
+    expect(impression.status).to eq("-")
+    expect(impression.latitude).to eq("12.12")
+    expect(impression.longitude).to eq("100.0")
   end
 end

@@ -17,6 +17,7 @@ class MeetingsController < ApplicationController
     if @meeting.message_sent
       redirect_to :meetings_alert_confirm
     end
+    @meeting.create_impression(request.session_options[:id], "view")
   end
 
   # GET /meetings/new
@@ -39,6 +40,7 @@ class MeetingsController < ApplicationController
       return
     end
     @meeting = Meeting.new
+    @meeting.create_impression(request.session_options[:id], "view")
   end
 
   # POST /meetings
@@ -53,12 +55,13 @@ class MeetingsController < ApplicationController
 
     respond_to do |format|
       if @meeting.save
-        Stat.increment_created(@meeting.get_country_code, @meeting.get_country)
+        #Stat.increment_created(@meeting.get_country_code, @meeting.get_country)
+        @meeting.create_impression(request.session_options[:id], "meeting_created")
         cookies.permanent['curr_me'] = @meeting.hashkey
         # Reserve one credit to for sending a notification
         decrease_credits
         # Runs send_notification once the timer runs out
-        @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification(I18n.locale)
+        @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification(I18n.locale, request.session_options[:id])
         format.html { redirect_to '/meeting', notice: 'Meeting was successfully created.' }
         format.json { render :show, status: :created, location: @meeting }
       else
@@ -97,7 +100,8 @@ class MeetingsController < ApplicationController
   def meeting_ok
     @meeting = Meeting.find_by_hashkey(cookies['curr_me'])
     if @meeting
-      Stat.increment_confirmed(@meeting.get_country_code, @meeting.get_country)
+      #Stat.increment_confirmed(@meeting.get_country_code, @meeting.get_country)
+      @meeting.create_impression(request.session_options[:id], "meeting_ok")
       if @meeting.find_job or @meeting.alert_sent?
         increment_credits
       end
@@ -123,8 +127,8 @@ class MeetingsController < ApplicationController
       redirect_to :meetings_alert_confirm
     end
     decrease_credits
-    @meeting.send_alert
-    Stat.increment_alerts_sent(@meeting.get_country_code, @meeting.get_country)
+    @meeting.send_alert(request.session_options[:id])
+    #Stat.increment_alerts_sent(@meeting.get_country_code, @meeting.get_country)
     redirect_to :meetings_alert_confirm
   end
 
@@ -147,7 +151,9 @@ class MeetingsController < ApplicationController
       cookies.delete 'curr_me'
       cookies.delete 'attempted_update'
       redirect_to root_path
+      return
     end
+    @meeting.create_impression(request.session_options[:id], "view")
   end
 
   # POST /meetings/add_time
@@ -160,6 +166,7 @@ class MeetingsController < ApplicationController
         job.run_at = job.run_at + 10.minutes
         @meeting.save
         job.save
+        @meeting.create_impression(request.session_options[:id], "time_added")
       end
     end
     redirect_to '/meeting'
