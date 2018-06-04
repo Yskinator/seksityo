@@ -5,6 +5,14 @@ class Meeting < ActiveRecord::Base
 
   validate :validate_phone_number
 
+  def self.max_per_user_per_day
+    20
+  end
+
+  def self.max_total_per_day
+    1000
+  end
+
   def time_to_live
     time = Time.new
     minutes = (((self.created_at + (self.duration * 60)) - time)/60)
@@ -99,5 +107,12 @@ class Meeting < ActiveRecord::Base
 
   def message_sent()
     return (self.alert_sent? or self.time_to_live==0)
+  end
+
+  def self.has_exceeded_max_total()
+    alerts = Impression.where(:impression_type => 'alert_sent', :created_at => (Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)).count
+    notifications = Impression.where(:impression_type => 'notification_sent', :created_at => (Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)).count
+    total_messages = alerts + notifications
+    return (total_messages > Meeting.max_total_per_day)
   end
 end

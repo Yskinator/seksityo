@@ -55,6 +55,11 @@ fi:
   out_of_credits_title: "Krediitit ovat lopussa!"
   out_of_credits_text: "Käyttäjätililläsi ei ole krediittejä. Ota yhteyttä ylläpitäjään."
 
+  # Maximum meetings exhausted page
+  max_per_user_per_day_tittle: "Olet ylittänyt päivittäisen tekstiviestirajan."
+  max_per_user_per_day_text: "Jokainen käyttäjä saa lähettää päivittäin vain tietyn määrän viestejä. Raja on tällä hetkellä "
+
+
  # SMS content
   alert_message_text: "on pulassa ja tarvitsee apuasi heti!"
   notification_message_from: "Ajastettu viesti käyttäjältä"
