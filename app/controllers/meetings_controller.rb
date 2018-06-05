@@ -215,7 +215,7 @@ class MeetingsController < ApplicationController
       redirect_to max_total_per_day_path
       return true
     end
-    if cookies['todays_messages'] && cookies['todays_messages'].to_i > Meeting.max_per_user_per_day
+    if cookies['todays_messages'] && cookies['todays_messages'].to_i >= Meeting.max_per_user_per_day
       redirect_to max_per_user_per_day_path
       return true
     end

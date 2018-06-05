@@ -113,7 +113,7 @@ class Meeting < ActiveRecord::Base
     alerts = Impression.where(:impression_type => 'alert_sent', :created_at => (Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)).count
     notifications = Impression.where(:impression_type => 'notification_sent', :created_at => (Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)).count
     total_messages = alerts + notifications
-    return (total_messages > Meeting.max_total_per_day)
+    return (total_messages >= Meeting.max_total_per_day)
   end
 
   def self.clear_obsolete()
