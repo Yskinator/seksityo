@@ -37,6 +37,9 @@ Rails.application.routes.draw do
 
   get 'users' => 'users#phone_form'
 
+  get 'max_per_user_per_day' => 'meetings#max_per_user_per_day'
+  get 'max_total_per_day' => 'meetings#max_total_per_day'
+
   # Language selection link for info website
   get 'lang=:lang' => 'application#set_locale_from_link'
 

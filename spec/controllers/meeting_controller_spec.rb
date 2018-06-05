@@ -265,6 +265,42 @@ RSpec.describe MeetingsController, type: :controller do
       expect(Impression.all.length).to eq(1)
       expect(Impression.first.impression_type).to eq("alert_sent")
     end
+    it "should not exceed maximum daily limit" do
+      Meeting.stub(:max_per_user_per_day) {1}
+      @meeting = Meeting.create(nickname: "One that is sent", phone_number: "0401231234", duration: 1300)
+      @meeting.create_hashkey
+      @request.cookies['curr_me'] = @meeting.hashkey
+      @meeting.save
+      expect(Impression.where(:impression_type => "alert_sent").length).to eq(0)
+      post :send_alert
+      p @request.cookies[""]
+      expect(Impression.where(:impression_type => "alert_sent").length).to eq(1)
+      @meeting = Meeting.create(nickname: "One that is not", phone_number: "0401231234", duration: 1300)
+      @meeting.create_hashkey
+      @request.cookies['curr_me'] = @meeting.hashkey
+      @meeting.save
+      post :send_alert
+      expect(Impression.where(:impression_type => "alert_sent").length).to eq(1)
+      expect(response).to redirect_to(:max_per_user_per_day)
+    end
+    it "should not exceed maximum total limit" do
+      Meeting.stub(:max_total_per_day) {1}
+      @meeting = Meeting.create(nickname: "One that is sent", phone_number: "0401231234", duration: 1300)
+      @meeting.create_hashkey
+      @request.cookies['curr_me'] = @meeting.hashkey
+      @meeting.save
+      expect(Impression.where(:impression_type => "alert_sent").length).to eq(0)
+      post :send_alert
+      p @request.cookies[""]
+      expect(Impression.where(:impression_type => "alert_sent").length).to eq(1)
+      @meeting = Meeting.create(nickname: "One that is not", phone_number: "0401231234", duration: 1300)
+      @meeting.create_hashkey
+      @request.cookies['curr_me'] = @meeting.hashkey
+      @meeting.save
+      post :send_alert
+      expect(Impression.where(:impression_type => "alert_sent").length).to eq(1)
+      expect(response).to redirect_to(:max_total_per_day)
+    end
   end
   describe "POST meeting_ok" do
     it "should remove cookie" do

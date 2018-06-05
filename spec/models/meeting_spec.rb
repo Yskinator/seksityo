@@ -63,4 +63,15 @@ RSpec.describe Meeting, type: :model do
     expect(impression.latitude).to eq("12.12")
     expect(impression.longitude).to eq("100.0")
   end
+  it "can delete obsolete meetings" do
+    meeting = Meeting.new nickname:"Pekka", phone_number:"+9991231234", duration:30, alert_sent:true
+    meeting.save(:validate => false)
+    meeting = Meeting.new nickname:"Pekka", phone_number:"+9991231234", duration:30, alert_sent:false
+    meeting.save(:validate => false)
+    meeting = Meeting.new nickname:"Pekka", phone_number:"+9991231234", duration:30, alert_sent:true
+    meeting.save(:validate => false)
+    expect(Meeting.all.count()).to eq(3)
+    Meeting.clear_obsolete()
+    expect(Meeting.all.count()).to eq(1)
+  end
 end
