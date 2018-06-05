@@ -115,4 +115,13 @@ class Meeting < ActiveRecord::Base
     total_messages = alerts + notifications
     return (total_messages > Meeting.max_total_per_day)
   end
+
+  def self.clear_obsolete()
+    meetings = Meeting.all
+    for meeting in meetings do
+      if meeting.message_sent()
+        meeting.destroy()
+      end
+    end
+  end
 end
