@@ -79,8 +79,10 @@ en:
   out_of_credits_text: "Your account has run out of credits. Please contact an admin to add more."
 
   # Maximum meetings exhausted page
-  max_per_user_per_day_tittle: "You have exceeded the daily message limit."
+  max_per_user_per_day_title: "You have exceeded the daily message limit."
   max_per_user_per_day_text: "Each user is only allowed a limited number of messages per day. The limit is currently "
+  max_total_per_day_title: "The maximum total daily messages limit has been exceeded."
+  max_total_per_day_text: "The application can only send a certain number of messages per day total. The limit is currently "
 
   # SMS content
   alert_message_text: "is in trouble and needs help immediately!"
