@@ -9,6 +9,9 @@ gem 'coveralls', require: false
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
 
+# Where-or for more convenient ActiveRecords
+gem 'where-or'
+
 # gem to set locale based on browser preference
 gem 'http_accept_language'
 

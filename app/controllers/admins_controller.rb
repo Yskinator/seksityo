@@ -3,6 +3,19 @@ class AdminsController < ApplicationController
   before_action :authenticate, :set_locale
 
   def index
+    @month_stats = []
+    @day_stats = []
+    first_date = Date.parse("1st June 2018")
+    last_date = Date.today()
+    date_range = first_date..last_date
+    months = date_range.map {|date| Date.new(date.year, date.month, 1)}.uniq
+    months.each do |month|
+      @month_stats += Impression.generate_stats(month.beginning_of_month, month.end_of_month)
+    end
+    date_range.each do |day|
+      @day_stats += Impression.generate_stats(day.beginning_of_day, day.end_of_day)
+    end
+
     # Fetch column name and direction from the parameters and pass them to order method.
     @statistics = Stat.order(stat_sort_column + " " + stat_sort_direction)
 
@@ -33,6 +46,8 @@ class AdminsController < ApplicationController
       meeting_sort_column
     when 'user'
       user_sort_column
+    when 'impression'
+      impression_sort_column
     end
   end
 
@@ -44,6 +59,8 @@ class AdminsController < ApplicationController
       meeting_sort_direction
     when 'user'
       user_sort_direction
+    when 'impression'
+      impression_sort_direction
     end
   end
 
