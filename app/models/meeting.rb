@@ -13,6 +13,10 @@ class Meeting < ActiveRecord::Base
     1000
   end
 
+  def self.resend_delay
+    5.minutes
+  end
+
   def time_to_live
     time = Time.new
     minutes = (((self.created_at + (self.duration * 60)) - time)/60)
@@ -36,23 +40,54 @@ class Meeting < ActiveRecord::Base
   def send_notification(locale, session_hash)
     unless self.alert_sent?
       I18n.locale = locale
-      ApplicationMailer.notification_email(self).deliver_now
+      #Old way of doing things
+      #ApplicationMailer.notification_email(self).deliver_now
       #Stat.increment_notifications_sent(self.get_country_code, self.get_country)
-      create_impression(session_hash, "notification_sent")
+
+      #Piece together the message
+      message = I18n.t('notification_message_from') + " " + self.nickname.upcase + "! " + I18n.t('notification_message_text') + " "
+      if (self.latitude && self.longitude)
+        message += I18n.t('message_location')+ " http://maps.google.com/maps?z=12&t=m&q=loc:"+self.latitude+"+"+self.longitude
+      else
+        message += I18n.t('message_location_unavailable')
+      end
+      #Keep the impression so that we can update the status later on
+      impression = create_impression(session_hash, "notification_sent")
+      #Send the message via the API
+      id = send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"])
+      #Resend the message if need be, otherwise update the status
+      self.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash)
     end
   end
 
   def send_alert(session_hash)
     unless self.message_sent
       self.update(alert_sent: true)
-      create_impression(session_hash, "alert_sent")
-      ApplicationMailer.alert_email(self).deliver_now
+      #Keep the impression so that we can update the status later on
+      impression = create_impression(session_hash, "alert_sent")
+      #Send via email
+      #ApplicationMailer.alert_email(self).deliver_now
+
+      #Piece together the alert message
+      message = self.nickname.upcase + " " + I18n.t('alert_message_text') + " "
+      if (self.latitude && self.longitude)
+        message += I18n.t('message_location')+ " http://maps.google.com/maps?z=12&t=m&q=loc:"+self.latitude+"+"+self.longitude
+      else
+        message += I18n.t('message_location_unavailable')
+      end
+      #Send via API
+      id = send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"])
+      #Resend if needed, otherwise update impression status
+      self.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash)
     end
   end
 
   def create_impression(session_hash, type, status="-")
-    #Unique views only. Other impression types are allowed multiple times per session.
+    #We only want unique views. If the view already exists, update the country_code instead.
     if type=="view" && Impression.exists?(session:session_hash, impression_type:type)
+      impression = Impression.where(session:session_hash, impression_type:type).first
+      impression.country_code=self.get_country_code
+      impression.save
       return
     end
     impression = Impression.new impression_type:type, session:session_hash, country_code:self.get_country_code, status:status
@@ -62,6 +97,7 @@ class Meeting < ActiveRecord::Base
       impression.longitude = ((self.longitude.to_f*100.0).round / 100.0).to_s
     end
     impression.save
+    return impression
   end
 
   def validate_phone_number
@@ -122,6 +158,31 @@ class Meeting < ActiveRecord::Base
       if meeting.message_sent()
         meeting.destroy()
       end
+    end
+  end
+
+  def send_message(message, username, password)
+    api = TextMagic::API.new(username, password)
+    id = api.send(message, self.phone_number)
+    return id
+  end
+
+  def update_status(id, impression, username, password)
+    api = TextMagic::API.new(username, password)
+    status = api.message_status(id)
+    impression.status = status
+    impression.save
+    return status
+  end
+
+  def resend_if_needed(id, message, impression, username, password, session_hash)
+    status = update_status(id, impression, username, password)
+    unless status == "d"
+      create_impression(session_hash, "message_resent")
+      #The message hasn't been delivered. Attempt to resend it once
+      id = send_message(message,  username, password)
+      #Update status once the message is (hopefully) delivered.
+      self.delay(run_at: Meeting.resend_delay.from_now).update_status(id, impression, username, password)
     end
   end
 end
