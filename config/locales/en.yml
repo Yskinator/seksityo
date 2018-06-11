@@ -94,7 +94,9 @@ en:
 
   # Admin panel
   administration_page_title: "Artemis' Umbrella administration page"
-  usage_statistics_by_country: "Usage statistics by country"
+  usage_statistics_by_country: "Old statistics - please see above for more up to date ones"
+  monthly_usage_statistics: "Monthly usage statistics"
+  daily_usage_statistics: "Päivittäiset käyttötilastot"
   country: "Country"
   date: "Date"
   month: "Month"
@@ -104,6 +106,7 @@ en:
   messages_sent: "Messages sent"
   alerts_sent: "Alerts sent"
   notifications_sent: "Notifications sent"
+  location_percentage: "Location success percentage"
   current_meetings: "Current meetings"
   created_at: "Created at (UTC)"
   duration_remaining: "Duration remaining"

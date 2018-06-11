@@ -1,6 +1,6 @@
 class Impression < ActiveRecord::Base
   def self.country_codes()
-    return Impression.uniq.pluck(:country_code)
+    return Impression.where(:impression_type => "alert_sent").or(Impression.where(:impression_type => "notification_sent")).uniq.pluck(:country_code)
   end
   def self.in_country_during_interval(country_code, interval_start, interval_end)
     return Impression.where(:country_code => country_code, :created_at => (interval_start..interval_end))
@@ -36,7 +36,7 @@ class Impression < ActiveRecord::Base
       if interval_start.to_date == interval_end.to_date
         stat["date"] = interval_start.to_date
       else
-        stat["month"] = interval_start.to_date.strftime("%m/%y")
+        stat["date"] = interval_start.to_date.strftime("%m/%y")
       end
       impressions = in_country_during_interval(country_code, interval_start, interval_end)
       stat["views"] = impressions.where(:impression_type => "view").count

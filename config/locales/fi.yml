@@ -71,9 +71,11 @@ fi:
 
   # Admin panel
   administration_page_title: "Artemiksen sateenvarjon hallintapaneeli"
-  usage_statistics_by_country: "Käyttötilastot maittain"
+  usage_statistics_by_country: "Vanhentuneita tilastoja - uudet tilastot yllä"
+  monthly_usage_statistics: "Kuukausittaiset käyttötilastot"
+  daily_usage_statistics: "Päivittäiset käyttötilastot"
   country: "Maa"
-  date: "Päivä"
+  date: "Päivämäärä"
   month: "Kuukausi"
   views: "Kävijät"
   created: "Luotu"
@@ -81,6 +83,7 @@ fi:
   messages_sent: "Viestejä lähetetty"
   alerts_sent: "Hälytyksiä lähetetty"
   notifications_sent: "Ilmoituksia lähetetty"
+  location_percentage: "Paikallistamisen onnistumisprosentti"
   current_meetings: "Käynnissä olevat tapaamiset"
   created_at: "Luotu (UTC)"
   duration_remaining: "Aikaa ilmoitukseen"
