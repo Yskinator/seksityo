@@ -3,8 +3,27 @@ class AdminsController < ApplicationController
   before_action :authenticate, :set_locale
 
   def index
+    @month_stats = []
+    @day_stats = []
+    @impression_statuses = Impression.statuses
+    first_date = Date.parse("1st June 2018")
+    last_date = Date.today()
+    date_range = first_date..last_date
+    months = date_range.map {|date| Date.new(date.year, date.month, 1)}.uniq
+    months.each do |month|
+      @month_stats += Impression.generate_stats(month.beginning_of_month, month.end_of_month)
+    end
+    date_range.each do |day|
+      @day_stats += Impression.generate_stats(day.beginning_of_day, day.end_of_day)
+    end
+
     # Fetch column name and direction from the parameters and pass them to order method.
     @statistics = Stat.order(stat_sort_column + " " + stat_sort_direction)
+
+    @month_stats.sort_by!{|stat|  stat[impression_sort_column]}
+    (impression_sort_direction == "desc") ? @month_stats : @month_stats.reverse!
+    @day_stats.sort_by!{|stat|  stat[impression_sort_column]}
+    (impression_sort_direction == "desc") ? @day_stats : @day_stats.reverse!
 
     # Either sort manually by time to live return value, or normally via column order.
     if meeting_sort_column == "time_to_live"
@@ -33,6 +52,8 @@ class AdminsController < ApplicationController
       meeting_sort_column
     when 'user'
       user_sort_column
+    when 'impression'
+      impression_sort_column
     end
   end
 
@@ -44,6 +65,8 @@ class AdminsController < ApplicationController
       meeting_sort_direction
     when 'user'
       user_sort_direction
+    when 'impression'
+      impression_sort_direction
     end
   end
 
@@ -74,6 +97,15 @@ class AdminsController < ApplicationController
 
   def user_sort_direction
     %w[asc desc].include?(params[:user_direction]) ? params[:user_direction] : "asc"
+  end
+
+  def impression_sort_column
+    column_names = ["country",  "date", "views", "created", "confirmed", "messages_sent", "alerts_sent", "notifications_sent", "location_percentage"]
+    column_names.include?(params[:impression_sort]) ? params[:impression_sort] : "date"
+  end
+
+  def impression_sort_direction
+    %w[asc desc].include?(params[:impression_direction]) ? params[:impression_direction] : "desc"
   end
   protected
 
