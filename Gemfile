@@ -38,6 +38,8 @@ gem 'phonelib'
 gem 'delayed_job_active_record'
 #Daemons for delayed jobs
 gem 'daemons'
+#Textmagic for more robust message sending
+gem 'textmagic'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
