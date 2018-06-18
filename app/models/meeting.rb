@@ -178,7 +178,7 @@ class Meeting < ActiveRecord::Base
   def resend_if_needed(id, message, impression, username, password, session_hash)
     status = update_status(id, impression, username, password)
     unless status == "d"
-      create_impression(session_hash, "message_resent")
+      impression = create_impression(session_hash, "message_resent")
       #The message hasn't been delivered. Attempt to resend it once
       id = send_message(message,  username, password)
       #Update status once the message is (hopefully) delivered.
