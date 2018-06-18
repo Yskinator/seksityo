@@ -161,10 +161,15 @@ class Meeting < ActiveRecord::Base
   end
 
   def self.clear_obsolete()
+    if Impression.where(:created_at => Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, :impression_type =>"cleared_obsolete_meetings")
+      return
+    end
+    impression = Impression.new impression_type:"cleared_obsolete_meetings"
+    impression.save
     meetings = Meeting.all
     for meeting in meetings do
-      if meeting.message_sent()
-        meeting.destroy()
+      if meeting.time_to_live == 0
+        meeting.delay(run_at: 60.minutes.from_now).destroy()
       end
     end
   end

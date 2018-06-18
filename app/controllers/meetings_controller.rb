@@ -63,6 +63,9 @@ class MeetingsController < ApplicationController
     if exceeded_max
       return
     end
+    #Clear out any obsolete meetings that might be hanging around doing nothing
+    Meeting.clear_obsolete
+
     @meeting = Meeting.new(meeting_params)
     @meeting.parse_phone_number
     @meeting.create_hashkey
