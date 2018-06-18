@@ -7,7 +7,7 @@ RSpec.describe MeetingsController, type: :controller do
     u.credits = 100
     u.save
     @request.cookies['ucd'] = u.code
-    allow_any_instance_of(Meeting).to receive(:send_message).and_return(1)
+    allow(Meeting).to receive(:send_message).and_return(1)
     allow_any_instance_of(Meeting).to receive(:update_status).and_return("-")
   end
   describe "GET show" do
@@ -184,7 +184,7 @@ RSpec.describe MeetingsController, type: :controller do
     end
     it "should create a delayed job" do
       meeting_params = {:nickname => "DelayedForEver", :phone_number => "0401231234", :duration => "1"}
-      expect {post :create, :meeting => meeting_params}.to change {Delayed::Job.count}.by(1)
+      expect {post :create, :meeting => meeting_params}.to change {Delayed::Job.count}.by(2)
     end
     it "should run the delayed job" do
       meeting_params = {:nickname => "BackgroundProcessed", :phone_number => "0401231234", :duration => "1"}
@@ -327,9 +327,9 @@ RSpec.describe MeetingsController, type: :controller do
       meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
       post :create, :meeting => meeting_params
       @meeting = Meeting.find_by_nickname("Pekka")
-      expect(Delayed::Job.all.length).to eq(1)
+      expect(Delayed::Job.all.length).to eq(2)
       post :meeting_ok
-      expect(Delayed::Job.all.length).to eq(0)
+      expect(Delayed::Job.all.length).to eq(1)
     end
     it "should redirect to root" do
       @meeting = Meeting.create(nickname: "Test", phone_number: "testi@testi.test", duration: 10)

@@ -54,7 +54,7 @@ class Meeting < ActiveRecord::Base
       #Keep the impression so that we can update the status later on
       impression = create_impression(session_hash, "notification_sent")
       #Send the message via the API
-      id = send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"])
+      id = Meeting.send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], self.phone_number)
       #Resend the message if need be, otherwise update the status
       self.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash)
     end
@@ -76,7 +76,7 @@ class Meeting < ActiveRecord::Base
         message += I18n.t('message_location_unavailable')
       end
       #Send via API
-      id = send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"])
+      id = Meeting.send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], self.phone_number)
       #Resend if needed, otherwise update impression status
       self.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash)
     end
@@ -149,7 +149,14 @@ class Meeting < ActiveRecord::Base
     alerts = Impression.where(:impression_type => 'alert_sent', :created_at => (Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)).count
     notifications = Impression.where(:impression_type => 'notification_sent', :created_at => (Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)).count
     total_messages = alerts + notifications
-    return (total_messages >= Meeting.max_total_per_day)
+    exceeded_today = (total_messages >= Meeting.max_total_per_day)
+    exceeded_before = Impression.where(:created_at => Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, :impression_type => "max_total_exceeded").exists?
+    if exceeded_today && !exceeded_before
+      impression = Impression.new impression_type:"max_total_exceeded"
+      impression.save()
+      Meeting.send_message("Max limit exceeded!", ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], ENV["EMERGENCY_CONTACT_NUMBER"])
+    end
+    return exceeded_today
   end
 
   def self.clear_obsolete()
@@ -161,9 +168,9 @@ class Meeting < ActiveRecord::Base
     end
   end
 
-  def send_message(message, username, password)
+  def self.send_message(message, username, password, phone_number)
     api = TextMagic::API.new(username, password)
-    id = api.send(message, self.phone_number)
+    id = api.send(message, phone_number)
     return id
   end
 
@@ -180,7 +187,7 @@ class Meeting < ActiveRecord::Base
     unless status == "d"
       impression = create_impression(session_hash, "message_resent")
       #The message hasn't been delivered. Attempt to resend it once
-      id = send_message(message,  username, password)
+      id = Meeting.send_message(message,  username, password, self.phone_number)
       #Update status once the message is (hopefully) delivered.
       self.delay(run_at: Meeting.resend_delay.from_now).update_status(id, impression, username, password)
     end
