@@ -12,8 +12,6 @@
       <th><%= sort_link("impression", "date", t('month')) %></th>
       <th><%= sort_link("impression", "views", t('views')) %></th>
       <th><%= sort_link("impression", "created", t('created')) %></th>
-      <th><%= sort_link("impression", "confirmed", t('confirmed')) %></th>
-      <th><%= sort_link("impression", "messages_sent", t('messages_sent')) %></th>
       <th><%= sort_link("impression", "alerts_sent", t('alerts_sent')) %></th>
       <th><%= sort_link("impression", "notifications_sent", t('notifications_sent')) %></th>
       <th><%= sort_link("impression", "location_percentage", t('location_percentage')) %></th>
@@ -30,8 +28,6 @@
           <td><%= stat["date"] %></td>
           <td><%= stat["views"] %></td>
           <td><%= stat["created"] %></td>
-          <td><%= stat["confirmed"] %></td>
-          <td><%= stat["messages_sent"] %></td>
           <td><%= stat["alerts_sent"] %></td>
           <td><%= stat["notifications_sent"] %></td>
           <td><%= stat["location_percentage"] %></td>
@@ -115,6 +111,7 @@
 
 <br>
 
+<!--
 <div class="field-section">
   <h2><%= t('current_meetings') %></h2>
   <table class="admin-table">
@@ -165,3 +162,4 @@
     </tbody>
   </table>
 </div>
+-->
