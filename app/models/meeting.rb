@@ -87,10 +87,11 @@ class Meeting < ActiveRecord::Base
     if type=="view" && Impression.exists?(session:session_hash, impression_type:type)
       impression = Impression.where(session:session_hash, impression_type:type).first
       impression.country_code=self.get_country_code
+      impression.country = self.get_country
       impression.save
       return
     end
-    impression = Impression.new impression_type:type, session:session_hash, country_code:self.get_country_code, status:status
+    impression = Impression.new impression_type:type, session:session_hash, country_code:self.get_country_code, country:self.get_country, status:status
     unless self.latitude.nil?
       #Rounded a little for privacy's sake - that way we don't keep the exact location, only the general area
       impression.latitude = ((self.latitude.to_f*100.0).round / 100.0).to_s
