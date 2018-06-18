@@ -4,7 +4,7 @@ class Impression < ActiveRecord::Base
   end
   def self.round(number)
     if number.to_f.nan?
-      return number
+      return -1
     end
     return (number * 100.0).round / 100.0
   end
@@ -42,7 +42,7 @@ class Impression < ActiveRecord::Base
       if interval_start.to_date == interval_end.to_date
         stat["date"] = interval_start.to_date
       else
-        stat["date"] = interval_start.to_date.strftime("%m/%y")
+        stat["date"] = interval_start.to_date.strftime("%Y-%m")
       end
       impressions = in_country_during_interval(country[1], interval_start, interval_end)
       stat["views"] = impressions.where(:impression_type => "view").count

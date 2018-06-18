@@ -97,6 +97,7 @@ en:
   usage_statistics_by_country: "Old statistics - please see above for more up to date ones"
   monthly_usage_statistics: "Monthly usage statistics"
   daily_usage_statistics: "Päivittäiset käyttötilastot"
+  link_to_monthly_stats: "Back to monthly stats"
   country: "Country"
   date: "Date"
   month: "Month"

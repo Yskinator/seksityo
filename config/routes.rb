@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   get 'admin' => 'admins#index', as: 'admin'
 
+  get 'admin/:month' => 'admins#month_stat', as: 'month_stat'
+
   delete 'admin/delete/:id' => 'meetings#destroy'
 
 

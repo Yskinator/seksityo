@@ -74,6 +74,7 @@ fi:
   usage_statistics_by_country: "Vanhentuneita tilastoja - uudet tilastot yllä"
   monthly_usage_statistics: "Kuukausittaiset käyttötilastot"
   daily_usage_statistics: "Päivittäiset käyttötilastot"
+  link_to_monthly_stats: "Takaisin kuukausittaisiin tilastoihin"
   country: "Maa"
   date: "Päivämäärä"
   month: "Kuukausi"
