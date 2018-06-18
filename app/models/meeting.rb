@@ -161,7 +161,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def self.clear_obsolete()
-    if Impression.where(:created_at => Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, :impression_type =>"cleared_obsolete_meetings")
+    if Impression.where(:created_at => Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, :impression_type =>"cleared_obsolete_meetings").exists?
       return
     end
     impression = Impression.new impression_type:"cleared_obsolete_meetings"

@@ -194,8 +194,8 @@ RSpec.describe MeetingsController, type: :controller do
     end
     it "should create a meeting_created impression" do
       meeting_params = {:nickname => "Pekka", :phone_number => "0401231234", :duration => 30}
-      expect { post :create, :meeting => meeting_params }.to change(Impression, :count).by(1)
-      expect(Impression.first.impression_type).to eq("meeting_created")
+      expect { post :create, :meeting => meeting_params }.to change(Impression, :count).by(2)
+      expect(Impression.last.impression_type).to eq("meeting_created")
     end
   end
   describe "PUT update" do

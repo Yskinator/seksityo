@@ -68,14 +68,17 @@ RSpec.describe Meeting, type: :model do
     expect(impression.longitude).to eq("100.0")
   end
   it "can delete obsolete meetings" do
+    allow_any_instance_of(Meeting).to receive(:time_to_live).and_return(0)
     meeting = Meeting.new nickname:"Pekka", phone_number:"+9991231234", duration:30, alert_sent:true
     meeting.save(:validate => false)
     meeting = Meeting.new nickname:"Pekka", phone_number:"+9991231234", duration:30, alert_sent:false
     meeting.save(:validate => false)
     meeting = Meeting.new nickname:"Pekka", phone_number:"+9991231234", duration:30, alert_sent:true
     meeting.save(:validate => false)
+    Delayed::Worker.delay_jobs = false
     expect(Meeting.all.count()).to eq(3)
     Meeting.clear_obsolete()
-    expect(Meeting.all.count()).to eq(1)
+    expect(Meeting.all.count()).to eq(0)
+    Delayed::Worker.delay_jobs = true
   end
 end
