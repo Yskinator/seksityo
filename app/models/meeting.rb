@@ -4,6 +4,7 @@ class Meeting < ActiveRecord::Base
                                        less_than: 1440 }, allow_blank: false
 
   validate :validate_phone_number
+  require 'delayed_job'
 
   def self.max_per_user_per_day
     20
@@ -56,7 +57,7 @@ class Meeting < ActiveRecord::Base
       #Send the message via the API
       id = Meeting.send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], self.phone_number)
       #Resend the message if need be, otherwise update the status
-      self.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash)
+      Meeting.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash, self.phone_number)
     end
   end
 
@@ -78,7 +79,7 @@ class Meeting < ActiveRecord::Base
       #Send via API
       id = Meeting.send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], self.phone_number)
       #Resend if needed, otherwise update impression status
-      self.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash)
+      Meeting.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash, self.phone_number)
     end
   end
 
@@ -125,7 +126,7 @@ class Meeting < ActiveRecord::Base
     found_job = nil
     jobs.each do |job|
       meeting = YAML::load(job.handler)
-      if meeting.hashkey.match(hashkey)
+      if meeting.method_name == :send_notification && meeting.hashkey.match(hashkey)
         found_job = job
       end
     end
@@ -180,7 +181,7 @@ class Meeting < ActiveRecord::Base
     return id
   end
 
-  def update_status(id, impression, username, password)
+  def self.update_status(id, impression, username, password)
     api = TextMagic::API.new(username, password)
     status = api.message_status(id)
     impression.status = status
@@ -188,14 +189,16 @@ class Meeting < ActiveRecord::Base
     return status
   end
 
-  def resend_if_needed(id, message, impression, username, password, session_hash)
-    status = update_status(id, impression, username, password)
+  def self.resend_if_needed(id, message, impression, username, password, session_hash, phone_number)
+    status = Meeting.update_status(id, impression, username, password)
     unless status == "d"
-      impression = create_impression(session_hash, "message_resent")
+      impression = Impression.new impression_type:"message_resent", session:session_hash
+      #create_impression(session_hash, "message_resent")
+      impression.save
       #The message hasn't been delivered. Attempt to resend it once
-      id = Meeting.send_message(message,  username, password, self.phone_number)
+      id = Meeting.send_message(message,  username, password, phone_number)
       #Update status once the message is (hopefully) delivered.
-      self.delay(run_at: Meeting.resend_delay.from_now).update_status(id, impression, username, password)
+      Meeting.delay(run_at: Meeting.resend_delay.from_now).update_status(id, impression, username, password)
     end
   end
 end

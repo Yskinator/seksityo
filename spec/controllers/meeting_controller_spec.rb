@@ -8,7 +8,7 @@ RSpec.describe MeetingsController, type: :controller do
     u.save
     @request.cookies['ucd'] = u.code
     allow(Meeting).to receive(:send_message).and_return(1)
-    allow_any_instance_of(Meeting).to receive(:update_status).and_return("-")
+    allow(Meeting).to receive(:update_status).and_return("-")
   end
   describe "GET show" do
     it "renders the show template" do

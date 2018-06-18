@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Meeting, type: :model do
   before :each do
     allow(Meeting).to receive(:send_message).and_return(1)
-    allow_any_instance_of(Meeting).to receive(:update_status).and_return("-")
+    allow(Meeting).to receive(:update_status).and_return("-")
   end
   it "has attributes set correctly" do
     meeting = Meeting.new nickname:"Pekka", phone_number:"0401231234", duration:30, confirmed: true

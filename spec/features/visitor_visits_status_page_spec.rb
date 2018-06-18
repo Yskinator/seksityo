@@ -8,7 +8,7 @@ feature 'When on the status page' do
     create_cookie('ucd', u.code)
 
     allow(Meeting).to receive(:send_message).and_return(1)
-    allow_any_instance_of(Meeting).to receive(:update_status).and_return("-")
+    allow(Meeting).to receive(:update_status).and_return("-")
     allow(Meeting).to receive(:has_exceeded_max_total).and_return(false)
 
     visit '/meetings/new'
