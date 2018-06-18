@@ -63,6 +63,9 @@ class MeetingsController < ApplicationController
     if exceeded_max
       return
     end
+    #Clear out any obsolete meetings that might be hanging around doing nothing
+    Meeting.clear_obsolete
+
     @meeting = Meeting.new(meeting_params)
     @meeting.parse_phone_number
     @meeting.create_hashkey
@@ -83,6 +86,7 @@ class MeetingsController < ApplicationController
         end
         # Runs send_notification once the timer runs out
         @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification(I18n.locale, request.session_options[:id])
+        @meeting.delay(run_at: (@meeting.time_to_live+60).minutes.from_now).delete_job()
         format.html { redirect_to '/meeting', notice: 'Meeting was successfully created.' }
         format.json { render :show, status: :created, location: @meeting }
       else

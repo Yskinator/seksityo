@@ -54,7 +54,7 @@ class Meeting < ActiveRecord::Base
       #Keep the impression so that we can update the status later on
       impression = create_impression(session_hash, "notification_sent")
       #Send the message via the API
-      id = send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"])
+      id = Meeting.send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], self.phone_number)
       #Resend the message if need be, otherwise update the status
       self.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash)
     end
@@ -76,7 +76,7 @@ class Meeting < ActiveRecord::Base
         message += I18n.t('message_location_unavailable')
       end
       #Send via API
-      id = send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"])
+      id = Meeting.send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], self.phone_number)
       #Resend if needed, otherwise update impression status
       self.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash)
     end
@@ -87,10 +87,11 @@ class Meeting < ActiveRecord::Base
     if type=="view" && Impression.exists?(session:session_hash, impression_type:type)
       impression = Impression.where(session:session_hash, impression_type:type).first
       impression.country_code=self.get_country_code
+      impression.country = self.get_country
       impression.save
       return
     end
-    impression = Impression.new impression_type:type, session:session_hash, country_code:self.get_country_code, status:status
+    impression = Impression.new impression_type:type, session:session_hash, country_code:self.get_country_code, country:self.get_country, status:status
     unless self.latitude.nil?
       #Rounded a little for privacy's sake - that way we don't keep the exact location, only the general area
       impression.latitude = ((self.latitude.to_f*100.0).round / 100.0).to_s
@@ -149,21 +150,33 @@ class Meeting < ActiveRecord::Base
     alerts = Impression.where(:impression_type => 'alert_sent', :created_at => (Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)).count
     notifications = Impression.where(:impression_type => 'notification_sent', :created_at => (Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)).count
     total_messages = alerts + notifications
-    return (total_messages >= Meeting.max_total_per_day)
+    exceeded_today = (total_messages >= Meeting.max_total_per_day)
+    exceeded_before = Impression.where(:created_at => Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, :impression_type => "max_total_exceeded").exists?
+    if exceeded_today && !exceeded_before
+      Meeting.send_message("Max limit exceeded!", ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], Phonelib.parse(ENV["EMERGENCY_CONTACT_NUMBER"]).sanitized)
+      impression = Impression.new impression_type:"max_total_exceeded"
+      impression.save()
+    end
+    return exceeded_today
   end
 
   def self.clear_obsolete()
+    if Impression.where(:created_at => Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, :impression_type =>"cleared_obsolete_meetings").exists?
+      return
+    end
+    impression = Impression.new impression_type:"cleared_obsolete_meetings"
+    impression.save
     meetings = Meeting.all
     for meeting in meetings do
-      if meeting.message_sent()
-        meeting.destroy()
+      if meeting.time_to_live == 0
+        meeting.delay(run_at: 60.minutes.from_now).destroy()
       end
     end
   end
 
-  def send_message(message, username, password)
+  def self.send_message(message, username, password, phone_number)
     api = TextMagic::API.new(username, password)
-    id = api.send(message, self.phone_number)
+    id = api.send(message, phone_number)
     return id
   end
 
@@ -178,9 +191,9 @@ class Meeting < ActiveRecord::Base
   def resend_if_needed(id, message, impression, username, password, session_hash)
     status = update_status(id, impression, username, password)
     unless status == "d"
-      create_impression(session_hash, "message_resent")
+      impression = create_impression(session_hash, "message_resent")
       #The message hasn't been delivered. Attempt to resend it once
-      id = send_message(message,  username, password)
+      id = Meeting.send_message(message,  username, password, self.phone_number)
       #Update status once the message is (hopefully) delivered.
       self.delay(run_at: Meeting.resend_delay.from_now).update_status(id, impression, username, password)
     end
