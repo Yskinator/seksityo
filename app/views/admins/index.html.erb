@@ -19,7 +19,7 @@
       <th><%= sort_link("impression", "resent_messages_delivered", t('resent_messages_delivered')) %> </th>
       <th><%= sort_link("impression", "location_percentage", t('location_percentage')) %></th>
       <% @impression_statuses.each do |status| %>
-        <th><%= sort_link("impression", status, status)%></th>
+        <th><%= sort_link("impression", status, t(status))%></th>
       <% end %>
     </tr>
     </thead>
