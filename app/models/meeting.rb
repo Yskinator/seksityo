@@ -85,7 +85,7 @@ class Meeting < ActiveRecord::Base
 
   def create_impression(session_hash, type, status="-")
     #We only want unique views. If the view already exists, update the country_code instead.
-    if type=="view" && Impression.exists?(session:session_hash, impression_type:type)
+    if type=="view" && Impression.exists?(session:session_hash, impression_type:type) && !self.get_country_code.blank?
       impression = Impression.where(session:session_hash, impression_type:type).first
       impression.country_code=self.get_country_code
       impression.country = self.get_country
