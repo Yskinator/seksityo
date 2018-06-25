@@ -4,13 +4,18 @@ class AdminsController < ApplicationController
 
   def index
     @month_stats = []
+    @year_stats = []
     @impression_statuses = Impression.statuses
     first_date = Date.parse("1st June 2018")
     last_date = Date.today()
     date_range = first_date..last_date
     months = date_range.map {|date| Date.new(date.year, date.month, 1)}.uniq
+    years = date_range.map {|year| Date.new(year.year, 1, 1)}.uniq
     months.each do |month|
       @month_stats += Impression.generate_stats(month.beginning_of_month, month.end_of_month)
+    end
+    years.each do |year|
+      @year_stats += Impression.generate_stats(year.beginning_of_year, year.end_of_year)
     end
 
     # Fetch column name and direction from the parameters and pass them to order method.
@@ -18,6 +23,9 @@ class AdminsController < ApplicationController
 
     @month_stats.sort_by!{|stat|  stat[impression_sort_column]}
     (impression_sort_direction == "desc") ? @month_stats : @month_stats.reverse!
+
+    @year_stats.sort_by!{|stat|  stat[impression_sort_column]}
+    (impression_sort_direction == "desc") ? @year_stats : @year_stats.reverse!
 
     # Either sort manually by time to live return value, or normally via column order.
     if meeting_sort_column == "time_to_live"
