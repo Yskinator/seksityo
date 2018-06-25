@@ -108,6 +108,8 @@ en:
   messages_sent: "Messages sent"
   alerts_sent: "Direct alerts sent"
   notifications_sent: "Timed alerts sent"
+  messages_resent: "Messages resent"
+  resent_messages_delivered: "Resent messages delivered"
   location_percentage: "Location success percentage"
   current_meetings: "Current meetings"
   created_at: "Created at (UTC)"

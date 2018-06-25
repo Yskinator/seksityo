@@ -57,7 +57,7 @@ class Meeting < ActiveRecord::Base
       #Send the message via the API
       id = Meeting.send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], self.phone_number)
       #Resend the message if need be, otherwise update the status
-      Meeting.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash, self.phone_number)
+      Meeting.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash, self.phone_number, self.get_country_code)
     end
   end
 
@@ -79,7 +79,7 @@ class Meeting < ActiveRecord::Base
       #Send via API
       id = Meeting.send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], self.phone_number)
       #Resend if needed, otherwise update impression status
-      Meeting.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash, self.phone_number)
+      Meeting.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash, self.phone_number, self.get_country_code)
     end
   end
 
@@ -190,10 +190,10 @@ class Meeting < ActiveRecord::Base
     return status
   end
 
-  def self.resend_if_needed(id, message, impression, username, password, session_hash, phone_number)
+  def self.resend_if_needed(id, message, impression, username, password, session_hash, phone_number, country_code)
     status = Meeting.update_status(id, impression, username, password)
     unless status == "d"
-      impression = Impression.new impression_type:"message_resent", session:session_hash
+      impression = Impression.new impression_type:"message_resent", session:session_hash, country_code:country_code
       #create_impression(session_hash, "message_resent")
       impression.save
       #The message hasn't been delivered. Attempt to resend it once

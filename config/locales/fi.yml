@@ -85,6 +85,8 @@ fi:
   messages_sent: "Viestejä lähetetty"
   alerts_sent: "Suoria hälytysviestejä lähetetty"
   notifications_sent: "Ajastettuja hälytysviestejä lähetetty"
+  messages_resent: "Viestejä uudelleenlähetetty"
+  resent_messages_delivered: "Uudelleenlähetettyjä viestejä saapunut perille"
   location_percentage: "Paikallistamisen onnistumisprosentti"
   current_meetings: "Käynnissä olevat tapaamiset"
   created_at: "Luotu (UTC)"

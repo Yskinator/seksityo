@@ -108,7 +108,7 @@ class AdminsController < ApplicationController
   end
 
   def impression_sort_column
-    column_names = ["country",  "date", "views", "created", "confirmed", "messages_sent", "alerts_sent", "notifications_sent", "location_percentage"] + Impression.statuses
+    column_names = ["country",  "date", "views", "created", "messages_sent", "alerts_sent", "notifications_sent", "messages_resent", "resent_messages_delivered", "location_percentage"] + Impression.statuses
     column_names.include?(params[:impression_sort]) ? params[:impression_sort] : "date"
   end
 

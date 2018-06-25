@@ -50,6 +50,8 @@ class Impression < ActiveRecord::Base
       stat["confirmed"] = impressions.where(:impression_type => "meeting_ok").count
       stat["messages_sent"] = messages_sent_in_country_during_interval(country[1], interval_start, interval_end).count
       stat["alerts_sent"] = impressions.where(:impression_type => "alert_sent").count
+      stat["messages_resent"] = impressions.where(:impression_type => "message_resent").count
+      stat["resent_messages_delivered"] = impressions.where(:impression_type => "message_resent", :status => "d").count
       stat["notifications_sent"] = impressions.where(:impression_type => "notification_sent").count
       stat["location_percentage"] = location_percentage(country[1], interval_start, interval_end)
       stat= stat.merge(status_percentages(country[1], interval_start, interval_end))
