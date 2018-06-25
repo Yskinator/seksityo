@@ -193,6 +193,10 @@ class Meeting < ActiveRecord::Base
   def self.resend_if_needed(id, message, impression, username, password, session_hash, phone_number, country_code)
     status = Meeting.update_status(id, impression, username, password)
     unless status == "d"
+      #Do not bother resending test messages
+      if country_code == "999"
+        return
+      end
       impression = Impression.new impression_type:"message_resent", session:session_hash, country_code:country_code
       #create_impression(session_hash, "message_resent")
       impression.save
