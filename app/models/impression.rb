@@ -49,6 +49,7 @@ class Impression < ActiveRecord::Base
       stat["created"] = impressions.where(:impression_type => "meeting_created").count
       stat["confirmed"] = impressions.where(:impression_type => "meeting_ok").count
       stat["messages_sent"] = messages_sent_in_country_during_interval(country[1], interval_start, interval_end).count
+      stat["timers_stopped"] = stat["created"] - stat["messages_sent"]
       stat["alerts_sent"] = impressions.where(:impression_type => "alert_sent").count
       stat["messages_resent"] = impressions.where(:impression_type => "message_resent").count
       stat["resent_messages_delivered"] = impressions.where(:impression_type => "message_resent", :status => "d").count

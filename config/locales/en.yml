@@ -106,6 +106,7 @@ en:
   created: "Created"
   confirmed: "Confirmed OK"
   messages_sent: "Messages sent"
+  timers_stopped: "Timers stopped"
   alerts_sent: "Direct alerts sent"
   notifications_sent: "Timed alerts sent"
   messages_resent: "Messages resent"

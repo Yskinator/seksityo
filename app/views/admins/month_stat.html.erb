@@ -13,6 +13,7 @@
       <th><%= sort_link("impression", "date", t('month')) %></th>
       <th><%= sort_link("impression", "views", t('views')) %></th>
       <th><%= sort_link("impression", "created", t('created')) %></th>
+      <th><%= sort_link("impression", "timers_stopped", t('timers_stopped')) %></th>
       <th><%= sort_link("impression", "alerts_sent", t('alerts_sent')) %></th>
       <th><%= sort_link("impression", "notifications_sent", t('notifications_sent')) %></th>
       <th><%= sort_link("impression", "messages_resent", t('messages_resent')) %> </th>
@@ -31,6 +32,7 @@
           <td><%= stat["date"] %></td>
           <td><%= stat["views"] %></td>
           <td><%= stat["created"] %></td>
+          <td><%= stat["timers_stopped"] %></td>
           <td><%= stat["alerts_sent"] %></td>
           <td><%= stat["notifications_sent"] %></td>
           <td><%= stat["messages_resent"] %></td>
