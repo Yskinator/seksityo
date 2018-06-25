@@ -38,7 +38,7 @@ class Meeting < ActiveRecord::Base
     self.hashkey = Digest::SHA2.new(512).hexdigest(self.nickname + self.phone_number + Time.now.to_s)
   end
 
-  def send_notification(locale, session_hash)
+  def send_notification(locale, session_hash, textmagic_username, textmagic_password)
     unless self.alert_sent?
       I18n.locale = locale
       #Old way of doing things
@@ -55,9 +55,9 @@ class Meeting < ActiveRecord::Base
       #Keep the impression so that we can update the status later on
       impression = create_impression(session_hash, "notification_sent")
       #Send the message via the API
-      id = Meeting.send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], self.phone_number)
+      id = Meeting.send_message(message, textmagic_username, textmagic_password, self.phone_number)
       #Resend the message if need be, otherwise update the status
-      Meeting.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash, self.phone_number, self.get_country_code)
+      Meeting.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, textmagic_username, textmagic_password, session_hash, self.phone_number, self.get_country_code)
     end
   end
 
