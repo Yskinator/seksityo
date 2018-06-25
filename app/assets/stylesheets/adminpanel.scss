@@ -48,6 +48,13 @@
   text-align: center;
   color: green;
 }
+@media screen and (min-width: 1079px){
+  #main {
+  width: 90%;
+  }
+}
+
+
 
 
 // Classes for the column header that is being used to sort currently.

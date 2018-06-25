@@ -4,13 +4,18 @@ class AdminsController < ApplicationController
 
   def index
     @month_stats = []
+    @year_stats = []
     @impression_statuses = Impression.statuses
     first_date = Date.parse("1st June 2018")
     last_date = Date.today()
     date_range = first_date..last_date
     months = date_range.map {|date| Date.new(date.year, date.month, 1)}.uniq
+    years = date_range.map {|year| Date.new(year.year, 1, 1)}.uniq
     months.each do |month|
       @month_stats += Impression.generate_stats(month.beginning_of_month, month.end_of_month)
+    end
+    years.each do |year|
+      @year_stats += Impression.generate_stats(year.beginning_of_year, year.end_of_year)
     end
 
     # Fetch column name and direction from the parameters and pass them to order method.
@@ -18,6 +23,9 @@ class AdminsController < ApplicationController
 
     @month_stats.sort_by!{|stat|  stat[impression_sort_column]}
     (impression_sort_direction == "desc") ? @month_stats : @month_stats.reverse!
+
+    @year_stats.sort_by!{|stat|  stat[impression_sort_column]}
+    (impression_sort_direction == "desc") ? @year_stats : @year_stats.reverse!
 
     # Either sort manually by time to live return value, or normally via column order.
     if meeting_sort_column == "time_to_live"
@@ -47,6 +55,17 @@ class AdminsController < ApplicationController
     @day_stats.sort_by!{|stat|  stat[impression_sort_column]}
     (impression_sort_direction == "desc") ? @day_stats : @day_stats.reverse!
     render 'admins/month_stat'
+  end
+
+  def custom_stat
+    @interval_start = params[:start]
+    @interval_end = params[:end]
+    @impression_statuses = Impression.statuses
+    @custom_stats = Impression.generate_stats(@interval_start, @interval_end)
+    @custom_stats.sort_by!{|stat|  stat[impression_sort_column]}
+    (impression_sort_direction == "desc") ? @custom_stats : @custom_stats.reverse!
+    render 'admins/custom_stat'
+
   end
 
   private
@@ -108,7 +127,7 @@ class AdminsController < ApplicationController
   end
 
   def impression_sort_column
-    column_names = ["country",  "date", "views", "created", "confirmed", "messages_sent", "alerts_sent", "notifications_sent", "location_percentage"] + Impression.statuses
+    column_names = ["country",  "date", "views", "created", "timers_stopped", "messages_sent", "alerts_sent", "notifications_sent", "messages_resent", "resent_messages_delivered", "location_percentage"] + Impression.statuses
     column_names.include?(params[:impression_sort]) ? params[:impression_sort] : "date"
   end
 

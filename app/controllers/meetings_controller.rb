@@ -85,7 +85,7 @@ class MeetingsController < ApplicationController
           cookies[:todays_messages] = { :value => 1, :expires => 1.day.from_now }
         end
         # Runs send_notification once the timer runs out
-        @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification(I18n.locale, request.session_options[:id])
+        @meeting.delay(run_at: @meeting.time_to_live.minutes.from_now).send_notification(I18n.locale, request.session_options[:id], ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"])
         @meeting.delay(run_at: (@meeting.time_to_live+60).minutes.from_now).delete_job()
         format.html { redirect_to '/meeting', notice: 'Meeting was successfully created.' }
         format.json { render :show, status: :created, location: @meeting }

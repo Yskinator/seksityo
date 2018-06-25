@@ -30,6 +30,8 @@ Rails.application.routes.draw do
 
   get 'admin/:month' => 'admins#month_stat', as: 'month_stat'
 
+  get 'admin/custom/interval' => 'admins#custom_stat', as: 'custom_stat'
+
   delete 'admin/delete/:id' => 'meetings#destroy'
 
 

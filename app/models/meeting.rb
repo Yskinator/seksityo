@@ -38,7 +38,7 @@ class Meeting < ActiveRecord::Base
     self.hashkey = Digest::SHA2.new(512).hexdigest(self.nickname + self.phone_number + Time.now.to_s)
   end
 
-  def send_notification(locale, session_hash)
+  def send_notification(locale, session_hash, textmagic_username, textmagic_password)
     unless self.alert_sent?
       I18n.locale = locale
       #Old way of doing things
@@ -55,9 +55,9 @@ class Meeting < ActiveRecord::Base
       #Keep the impression so that we can update the status later on
       impression = create_impression(session_hash, "notification_sent")
       #Send the message via the API
-      id = Meeting.send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], self.phone_number)
+      id = Meeting.send_message(message, textmagic_username, textmagic_password, self.phone_number)
       #Resend the message if need be, otherwise update the status
-      Meeting.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash, self.phone_number)
+      Meeting.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, textmagic_username, textmagic_password, session_hash, self.phone_number, self.get_country_code)
     end
   end
 
@@ -79,13 +79,13 @@ class Meeting < ActiveRecord::Base
       #Send via API
       id = Meeting.send_message(message, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], self.phone_number)
       #Resend if needed, otherwise update impression status
-      Meeting.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash, self.phone_number)
+      Meeting.delay(run_at: Meeting.resend_delay.from_now).resend_if_needed(id, message, impression, ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], session_hash, self.phone_number, self.get_country_code)
     end
   end
 
   def create_impression(session_hash, type, status="-")
     #We only want unique views. If the view already exists, update the country_code instead.
-    if type=="view" && Impression.exists?(session:session_hash, impression_type:type)
+    if type=="view" && Impression.exists?(session:session_hash, impression_type:type) && !self.get_country_code.blank?
       impression = Impression.where(session:session_hash, impression_type:type).first
       impression.country_code=self.get_country_code
       impression.country = self.get_country
@@ -155,6 +155,7 @@ class Meeting < ActiveRecord::Base
     exceeded_before = Impression.where(:created_at => Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, :impression_type => "max_total_exceeded").exists?
     if exceeded_today && !exceeded_before
       Meeting.send_message("Max limit exceeded!", ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], Phonelib.parse(ENV["EMERGENCY_CONTACT_NUMBER"]).sanitized)
+      ApplicationMailer.daily_total_message_limit_exceeded_email().deliver_now()
       impression = Impression.new impression_type:"max_total_exceeded"
       impression.save()
     end
@@ -189,10 +190,14 @@ class Meeting < ActiveRecord::Base
     return status
   end
 
-  def self.resend_if_needed(id, message, impression, username, password, session_hash, phone_number)
+  def self.resend_if_needed(id, message, impression, username, password, session_hash, phone_number, country_code)
     status = Meeting.update_status(id, impression, username, password)
     unless status == "d"
-      impression = Impression.new impression_type:"message_resent", session:session_hash
+      #Do not bother resending test messages
+      if country_code == "999"
+        return
+      end
+      impression = Impression.new impression_type:"message_resent", session:session_hash, country_code:country_code
       #create_impression(session_hash, "message_resent")
       impression.save
       #The message hasn't been delivered. Attempt to resend it once

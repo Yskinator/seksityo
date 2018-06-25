@@ -10,11 +10,14 @@
     <thead>
     <tr>
       <th><%= sort_link("impression", "country", t('country')) %></th>
-      <th><%= sort_link("impression", "date", t('month')) %></th>
+      <th><%= sort_link("impression", "date", t('date')) %></th>
       <th><%= sort_link("impression", "views", t('views')) %></th>
       <th><%= sort_link("impression", "created", t('created')) %></th>
+      <th><%= sort_link("impression", "timers_stopped", t('timers_stopped')) %></th>
       <th><%= sort_link("impression", "alerts_sent", t('alerts_sent')) %></th>
       <th><%= sort_link("impression", "notifications_sent", t('notifications_sent')) %></th>
+      <th><%= sort_link("impression", "messages_resent", t('messages_resent')) %> </th>
+      <th><%= sort_link("impression", "resent_messages_delivered", t('resent_messages_delivered')) %> </th>
       <th><%= sort_link("impression", "location_percentage", t('location_percentage')) %></th>
       <% @impression_statuses.each do |status| %>
         <th><%= sort_link("impression", status, status)%></th>
@@ -29,8 +32,11 @@
           <td><%= stat["date"] %></td>
           <td><%= stat["views"] %></td>
           <td><%= stat["created"] %></td>
+          <td><%= stat["timers_stopped"] %></td>
           <td><%= stat["alerts_sent"] %></td>
           <td><%= stat["notifications_sent"] %></td>
+          <td><%= stat["messages_resent"] %></td>
+          <td><%= stat["resent_messages_delivered"] %></td>
           <td><%= stat["location_percentage"] %></td>
           <% @impression_statuses.each do |status_code| %>
               <th><%= stat[status_code] %></th>

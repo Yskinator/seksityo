@@ -32,4 +32,23 @@ describe 'Mailer' do
     expect(current_email).to be(nil)
   end
 =end
+
+  it 'should send message when daily total message limit is exceeded', js:true do
+    Meeting.stub(:max_total_per_day) {0}
+    allow(Meeting).to receive(:send_message).and_return(1)
+    allow(Meeting).to receive(:update_status).and_return("-")
+    clear_emails
+    Delayed::Worker.delay_jobs = false
+
+    u = User.create(phone_number: "9991231234")
+    u.credits = 100
+    u.save
+    create_cookie('ucd', u.code)
+    visit '/meetings/new'
+    sleep(0.3)
+
+    open_email('artemisumbrella@gmail.com')
+    expect(current_email).to have_content "Daily total messages limit exceeded."
+    Delayed::Worker.delay_jobs = true
+  end
 end
