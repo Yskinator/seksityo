@@ -57,6 +57,17 @@ class AdminsController < ApplicationController
     render 'admins/month_stat'
   end
 
+  def custom_stat
+    @interval_start = params[:start]
+    @interval_end = params[:end]
+    @impression_statuses = Impression.statuses
+    @custom_stats = Impression.generate_stats(@interval_start, @interval_end)
+    @custom_stats.sort_by!{|stat|  stat[impression_sort_column]}
+    (impression_sort_direction == "desc") ? @custom_stats : @custom_stats.reverse!
+    render 'admins/custom_stat'
+
+  end
+
   private
 
   # Methods for fetching sort-related parameters

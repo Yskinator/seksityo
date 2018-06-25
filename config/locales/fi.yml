@@ -73,6 +73,11 @@ fi:
   # Admin panel
   administration_page_title: "Artemiksen sateenvarjon hallintapaneeli"
   usage_statistics_by_country: "Vanhentuneita tilastoja - uudet tilastot yllä"
+  search_custom_time_stats: "Hae tilastoja tietyltä aikaväliltä"
+  interval start: "Aikavälin alku:"
+  interval end: "Aikavälin loppu:"
+  search: "Hae"
+  custom_usage_statistics: "Mukautetun aikavälin tilastot aikavälille"
   yearly_usage_statistics: "Vuosittaiset käyttötilastot"
   monthly_usage_statistics: "Kuukausittaiset käyttötilastot"
   daily_usage_statistics: "Päivittäiset käyttötilastot"

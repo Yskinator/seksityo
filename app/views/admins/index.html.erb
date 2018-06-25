@@ -3,7 +3,16 @@
 <% if flash[:notify] %>
     <div class="notify" id="notify"><%= flash[:notify] %></div>
 <% end %>
-
+<div class="field-section">
+  <h2><%= t('search_custom_time_stats') %></h2>
+  <%= form_tag(custom_stat_path, method: "get") do %>
+      <%= label_tag(:start, t('interval start')) %>
+      <%= datetime_local_field_tag(:start) %>
+      <%= label_tag(:end, t('interval end')) %>
+      <%= datetime_local_field_tag(:end) %>
+      <%= submit_tag(t('search')) %>
+  <% end %>
+</div>
 <div class="field-section">
   <h2><%= t('yearly_usage_statistics') %></h2>
   <table class="admin-table">

@@ -96,6 +96,11 @@ en:
   # Admin panel
   administration_page_title: "Artemis' Umbrella administration page"
   usage_statistics_by_country: "Old statistics - please see above for more up to date ones"
+  search_custom_time_stats: "Search stats for a custom interval"
+  interval start: "Interval start:"
+  interval end: "Interval end:"
+  search: "Search"
+  custom_usage_statistics: "Custom time usage statistics for interval"
   yearly_usage_statistics: "Yearly usage statistics"
   monthly_usage_statistics: "Monthly usage statistics"
   daily_usage_statistics: "Päivittäiset käyttötilastot"
