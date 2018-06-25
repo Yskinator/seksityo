@@ -44,8 +44,12 @@ class Impression < ActiveRecord::Base
       end
       if interval_start.to_date == interval_end.to_date
         stat["date"] = interval_start.to_date
-      else
+      elsif interval_start.to_date.year == interval_end.to_date.year && interval_start.to_date.month == interval_end.to_date.month
         stat["date"] = interval_start.to_date.strftime("%Y-%m")
+      elsif interval_start.to_date.year == interval_end.to_date.year
+        stat["date"] = interval_start.to_date.strftime("%Y")
+      else
+        stat["date"] = interval_start.to_date.to_s + " - " + interval_end.to_date.to_s
       end
       impressions = in_country_during_interval(country[1], interval_start, interval_end)
       stat["views"] = impressions.where(:impression_type => "view").uniq.pluck(:session).count
