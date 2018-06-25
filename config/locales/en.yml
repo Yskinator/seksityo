@@ -145,6 +145,7 @@ en:
   j: "The mobile operator has rejected the message."
   u: "The status is unknown."
   s: "This message is scheduled to be sent later."
+  no_meetings_created: "No meetings created."
 
   info_page: "Artemis' Umbrella"
   service_link: "https://www.artemisumbrella.com/?page_id=15&lang=en"
