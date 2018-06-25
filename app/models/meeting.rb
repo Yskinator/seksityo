@@ -155,6 +155,7 @@ class Meeting < ActiveRecord::Base
     exceeded_before = Impression.where(:created_at => Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, :impression_type => "max_total_exceeded").exists?
     if exceeded_today && !exceeded_before
       Meeting.send_message("Max limit exceeded!", ENV["TEXTMAGIC_USERNAME"], ENV["TEXTMAGIC_PASSWORD"], Phonelib.parse(ENV["EMERGENCY_CONTACT_NUMBER"]).sanitized)
+      ApplicationMailer.daily_total_message_limit_exceeded_email().deliver_now()
       impression = Impression.new impression_type:"max_total_exceeded"
       impression.save()
     end

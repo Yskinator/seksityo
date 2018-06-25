@@ -91,6 +91,7 @@ en:
   recovery_message_text: "Click here to use Artemis' Umbrella:"
   message_location: "Last updated location:"
   message_location_unavailable: "Location unavailable."
+  daily_total_message_limit_exceeded: "Daily total messages limit exceeded."
 
   # Admin panel
   administration_page_title: "Artemis' Umbrella administration page"

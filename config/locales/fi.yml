@@ -68,6 +68,7 @@ fi:
   recovery_message_text: "Klikkaa linkkiä käyttääksesi Artemiksen Sateenvarjoa:"
   message_location: "Viimeisin sijainti:"
   message_location_unavailable: "Sijantitietoja ei saatavilla."
+  daily_total_message_limit_exceeded: "Päivittäinen viestien kokonaismäärän raja ylitetty."
 
   # Admin panel
   administration_page_title: "Artemiksen sateenvarjon hallintapaneeli"

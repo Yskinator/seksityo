@@ -276,7 +276,6 @@ RSpec.describe MeetingsController, type: :controller do
       @meeting.save
       expect(Impression.where(:impression_type => "alert_sent").length).to eq(0)
       post :send_alert
-      p @request.cookies[""]
       expect(Impression.where(:impression_type => "alert_sent").length).to eq(1)
       @meeting = Meeting.create(nickname: "One that is not", phone_number: "0401231234", duration: 1300)
       @meeting.create_hashkey
@@ -294,7 +293,6 @@ RSpec.describe MeetingsController, type: :controller do
       @meeting.save
       expect(Impression.where(:impression_type => "alert_sent").length).to eq(0)
       post :send_alert
-      p @request.cookies[""]
       expect(Impression.where(:impression_type => "alert_sent").length).to eq(1)
       @meeting = Meeting.create(nickname: "One that is not", phone_number: "0401231234", duration: 1300)
       @meeting.create_hashkey
