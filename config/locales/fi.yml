@@ -122,6 +122,7 @@ fi:
   j: "Puhelinoperaattori on hylännyt viestin."
   u: "Viestin status ei ole tiedossa."
   s: "Viesti on ajastettu lähtemään myöhemmin."
+  no_meetings_created: "Ei luotuja tapahtumia."
 
   info_page: "Artemiksen sateenvarjo"
   service_link: "https://www.artemisumbrella.com/?page_id=51&lang=fi"

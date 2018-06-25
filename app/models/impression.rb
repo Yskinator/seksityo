@@ -1,6 +1,6 @@
 class Impression < ActiveRecord::Base
   def self.countries()
-    return Impression.where(:impression_type => "alert_sent").or(Impression.where(:impression_type => "notification_sent")).uniq.pluck(:country, :country_code)
+    return Impression.where.not(:impression_type => "cleared_obsolete_meetings").uniq.pluck(:country, :country_code)
   end
   def self.round(number)
     if number.to_f.nan?
@@ -39,13 +39,20 @@ class Impression < ActiveRecord::Base
     for country in countries do
       stat = {}
       stat["country"] = country[0].to_s + " (" + country[1].to_s + ")"
+      if country[0].nil?
+        stat["country"] = I18n.t('no_meetings_created')
+      end
       if interval_start.to_date == interval_end.to_date
         stat["date"] = interval_start.to_date
-      else
+      elsif interval_start.to_date.year == interval_end.to_date.year && interval_start.to_date.month == interval_end.to_date.month
         stat["date"] = interval_start.to_date.strftime("%Y-%m")
+      elsif interval_start.to_date.year == interval_end.to_date.year
+        stat["date"] = interval_start.to_date.strftime("%Y")
+      else
+        stat["date"] = interval_start.to_date.to_s + " - " + interval_end.to_date.to_s
       end
       impressions = in_country_during_interval(country[1], interval_start, interval_end)
-      stat["views"] = impressions.where(:impression_type => "view").count
+      stat["views"] = impressions.where(:impression_type => "view").uniq.pluck(:session).count
       stat["created"] = impressions.where(:impression_type => "meeting_created").count
       stat["confirmed"] = impressions.where(:impression_type => "meeting_ok").count
       stat["messages_sent"] = messages_sent_in_country_during_interval(country[1], interval_start, interval_end).count

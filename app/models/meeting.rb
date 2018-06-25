@@ -84,19 +84,26 @@ class Meeting < ActiveRecord::Base
   end
 
   def create_impression(session_hash, type, status="u")
-    #We only want unique views. If the view already exists, update the country_code instead.
+    #Update view country codes
     if type=="view" && Impression.exists?(session:session_hash, impression_type:type) && !self.get_country_code.blank?
-      impression = Impression.where(session:session_hash, impression_type:type).first
-      impression.country_code=self.get_country_code
-      impression.country = self.get_country
-      impression.save
-      return
+      for impression in Impression.where(:session => session_hash, :impression_type => type, :country_code => nil) do
+        impression.country_code = self.get_country_code
+        impression.country = self.get_country
+        impression.save
+      end
     end
+
     impression = Impression.new impression_type:type, session:session_hash, country_code:self.get_country_code, country:self.get_country, status:status
     unless self.latitude.nil?
       #Rounded a little for privacy's sake - that way we don't keep the exact location, only the general area
       impression.latitude = ((self.latitude.to_f*100.0).round / 100.0).to_s
       impression.longitude = ((self.longitude.to_f*100.0).round / 100.0).to_s
+    end
+    #Update country code based on previous ones if not available otherwise
+    country = Impression.where(:session => session_hash).where.not(:country_code => nil).uniq.pluck(:country_code, :country).last
+    if self.get_country_code.nil? && !country.nil?
+      impression.country_code = country[0]
+      impression.country = country[1]
     end
     impression.save
     return impression
