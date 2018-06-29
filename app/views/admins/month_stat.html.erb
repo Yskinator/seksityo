@@ -37,9 +37,9 @@
           <td><%= stat["notifications_sent"] %></td>
           <td><%= stat["messages_resent"] %></td>
           <td><%= stat["resent_messages_delivered"] %></td>
-          <td><%= stat["location_percentage"] %></td>
+          <td><%= stat["location_percentage"] %>%</td>
           <% @impression_statuses.each do |status_code| %>
-              <th><%= stat[status_code] %></th>
+              <th><%= stat[status_code] %>%</th>
           <% end %>
         </tr>
     <% end %>
