@@ -85,6 +85,8 @@ group :test do
   gem 'database_cleaner'
 
   gem "show_me_the_cookies"
+
+  gem 'rails-controller-testing'
 end
 
 # Database gems
