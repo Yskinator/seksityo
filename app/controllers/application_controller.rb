@@ -48,4 +48,9 @@ class ApplicationController < ActionController::Base
 
   end
 
+  def set_locale_from_link
+    cookies['lang'] = params[:lang]
+    redirect_to root_path;
+  end
+
 end

@@ -1,13 +1,16 @@
 source 'https://rubygems.org'
 
 #Ruby version
-ruby '2.2.0'
+ruby '2.4.0'
 
 # Coveralls to show off.
 gem 'coveralls', require: false
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.2'
+gem 'rails', '5.0.2'
+
+# Where-or for more convenient ActiveRecords
+#gem 'where-or'
 
 # gem to set locale based on browser preference
 gem 'http_accept_language'
@@ -35,6 +38,8 @@ gem 'phonelib'
 gem 'delayed_job_active_record'
 #Daemons for delayed jobs
 gem 'daemons'
+#Textmagic for more robust message sending
+gem 'textmagic'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
@@ -80,8 +85,10 @@ group :test do
   gem 'database_cleaner'
 
   gem "show_me_the_cookies"
+
+  gem 'rails-controller-testing'
 end
 
 # Database gems
-gem 'pg'
+gem 'pg', '0.21'
 gem 'rails_12factor'
