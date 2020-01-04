@@ -15,7 +15,7 @@ script:
   - bundle exec rake db:test:prepare
   - xvfb-run bundle exec rspec -fd spec/
 rvm:
-  - 2.2.0
+  - 2.4.0
 after_success:
 - coveralls
 cache: bundler
