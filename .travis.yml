@@ -1,4 +1,6 @@
 language: ruby
+before_install:
+  - gem install -v 1.17.1 bundler --no-rdoc --no-ri
 branches:
   only: 
     - master
@@ -7,8 +9,6 @@ branches:
 services:
   - postgresql
 before_script:
-  - gem uninstall bundler
-  - gem install bundler --version '1.7.1'
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database travis_ci_test;' -U postgres
 script:
