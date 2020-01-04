@@ -1,6 +1,6 @@
 language: ruby
 before_install:
-  - gem install -v 1.17.1 bundler --no-rdoc --no-ri
+  - gem install bundler --version '1.7.1'
 branches:
   only: 
     - master
